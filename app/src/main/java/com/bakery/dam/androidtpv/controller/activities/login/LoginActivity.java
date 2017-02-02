@@ -26,9 +26,7 @@ import com.bakery.dam.androidtpv.controller.managers.LoginCallback;
 import com.bakery.dam.androidtpv.controller.managers.UserLoginManager;
 import com.bakery.dam.androidtpv.model.UserToken;
 
-/**
- * A login screen that offers login via email/password.
- */
+
 public class LoginActivity extends AppCompatActivity implements LoginCallback {
 
     // Elementos de la UI
