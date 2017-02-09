@@ -6,8 +6,6 @@ package com.bakery.dam.androidtpv.model;
 
 import com.google.gson.annotations.SerializedName;
 
-//prueba de sourcetree
-
 public class UserToken {
     @SerializedName("access_token")
     private String accessToken;
