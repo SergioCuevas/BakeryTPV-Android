@@ -22,13 +22,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-
+    private TextView tv;
     private static Retrofit retrofit;
     private TipoService tipoService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tv= (TextView) findViewById(R.id.CrearTicket);
         retrofit = new Retrofit.Builder()
                 .baseUrl(CustomProperties.baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -38,18 +39,20 @@ public class MainActivity extends AppCompatActivity {
         Tipo t = new Tipo();
         t.setNombre("Pasteles");
         t.setDescripcion("Pasteles");
-        tipoService.createTipo(t).enqueue(new Callback<Tipo>() {
+            tipoService.createTipo(UserLoginManager.getInstance().getBearerToken(),t).enqueue(new Callback<Tipo>() {
             @Override
             public void onResponse(Call<Tipo> call, Response<Tipo> response) {
                 if (response.isSuccessful()) {
-                    System.out.println("tipo creado");
+                    tv.setText("creado");
 
+                }else{
+                    tv.setText("no creado");
                 }
             }
 
             @Override
             public void onFailure(Call<Tipo> call, Throwable t) {
-                System.out.println("tipo no creado" + t);
+                tv.setText("no creado 2");
             }
         });
 
