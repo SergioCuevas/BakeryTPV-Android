@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         Tipo t = new Tipo();
         t.setNombre("Pasteles");
         t.setDescripcion("Pasteles");
-        tipoService.createTipo(t).enqueue(new Callback<Tipo>() {
+        tipoService.createTipo(UserLoginManager.getInstance().getBearerToken(), t).enqueue(new Callback<Tipo>() {
             @Override
             public void onResponse(Call<Tipo> call, Response<Tipo> response) {
                 if (response.isSuccessful()) {
@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
-
             @Override
             public void onFailure(Call<Tipo> call, Throwable t) {
                 System.out.println("tipo no creado" + t);
