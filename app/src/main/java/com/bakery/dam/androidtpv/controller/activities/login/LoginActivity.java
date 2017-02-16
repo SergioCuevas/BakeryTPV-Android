@@ -26,11 +26,13 @@ import com.bakery.dam.androidtpv.controller.managers.LoginCallback;
 import com.bakery.dam.androidtpv.controller.managers.UserLoginManager;
 import com.bakery.dam.androidtpv.model.UserToken;
 
-
+/**
+ * A login screen that offers login via email/password.
+ */
 public class LoginActivity extends AppCompatActivity implements LoginCallback {
 
     // Elementos de la UI
-    private AutoCompleteTextView Username;
+    private EditText Username;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -40,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        Username = (AutoCompleteTextView) findViewById(R.id.username);
+        Username = (EditText) findViewById(R.id.username);
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -62,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
         });
         //TODO REGISTRO
 
-        Button mRegisterButton = (Button) findViewById(R.id.register_button);
+        TextView mRegisterButton = (TextView) findViewById(R.id.registrer_button);
         mRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +76,14 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
+
+
+    @Override
+    public void onBackPressed() {
+        // disable going back to the MainActivity
+        moveTaskToBack(true);
+    }
+
 
     /**
      * Attempts to log in the account specified by the login form.
