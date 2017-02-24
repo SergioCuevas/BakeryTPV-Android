@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical">
+
+        <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mesa"
+        android:layout_weight="1"
+        android:textSize="18sp"
+        android:layout_gravity="center_vertical"
+        android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fecha"
+            android:layout_weight="1"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:text="0€"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/precio"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:textColor="?android:attr/colorBackground"
+        android:fontFamily="sans-serif-smallcaps"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.80"
+        android:textAlignment="center" />
+</LinearLayout>

@@ -4,7 +4,7 @@ package com.bakery.dam.androidtpv.controller.services;
  * Created by DAM on 2/2/17.
  */
 
-import com.bakery.dam.androidtpv.model.Product;
+import com.bakery.dam.androidtpv.model.Producto;
 
 import java.util.List;
 
@@ -18,19 +18,19 @@ import retrofit2.http.PUT;
 public interface ProductService {
 
     @GET("api/productos")
-    Call<List<Product>> getAllProductos(
+    Call<List<Producto>> getAllProductos(
             @Header("Authorization") String Authorization
     );
 
     @POST("api/productos")
-    Call<Product> createProduct(
+    Call<Producto> createProduct(
             @Header("Authorization") String Authorization,
-            @Body Product product
+            @Body Producto product
 
     );
 
     @PUT("api/productos")
-    Call<Product> updateProduct(
+    Call<Producto> updateProduct(
 
     );
 

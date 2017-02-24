@@ -1,21 +1,26 @@
 package com.bakery.dam.androidtpv.model;
 
+import java.util.List;
+
 /**
- * Created by DAM on 2/2/17.
+ * Created by DAM on 24/2/17.
  */
 
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class Product {
+public class Producto {
 
     private String descripcion;
+
     private Integer id;
+
+    private List<String> imagen = null;
+
+    private String imagenContentType;
+
     private String nombre;
+
     private Integer precio;
+
     private Tipo tipo;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public String getDescripcion() {
         return descripcion;
@@ -31,6 +36,22 @@ public class Product {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public List<String> getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(List<String> imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getImagenContentType() {
+        return imagenContentType;
+    }
+
+    public void setImagenContentType(String imagenContentType) {
+        this.imagenContentType = imagenContentType;
     }
 
     public String getNombre() {
@@ -56,13 +77,4 @@ public class Product {
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
     }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
 }

@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.activities.main.MainActivity" />
+        <activity android:name=".controller.activities.main.MainActivity" android:theme="@style/AppTheme.Dark"/>
         <activity android:name=".controller.activities.signup.SignUp" />
         <activity android:name=".controller.activities.Crear.CrearTipo"></activity>
     </application>
