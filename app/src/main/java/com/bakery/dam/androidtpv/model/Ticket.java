@@ -98,4 +98,19 @@ public class Ticket {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "cantidad=" + cantidad +
+                ", cerrado=" + cerrado +
+                ", fecha='" + fecha + '\'' +
+                ", id=" + id +
+                ", mesa=" + mesa +
+                ", ofertas=" + ofertas +
+                ", productos=" + productos +
+                ", user=" + user +
+                ", metodoPago=" + metodoPago +
+                '}';
+    }
 }
