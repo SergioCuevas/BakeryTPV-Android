@@ -87,8 +87,9 @@ public class MainActivity extends AppCompatActivity implements TicketCallback{
         public void onBindViewHolder(final ViewHolder holder, final int position) {
             holder.mItem = ticketsView.get(position);
             holder.mMesaView.setText(ticketsView.get(position).getMesa().toString());
-            holder.mPrecioView.setText(ticketsView.get(position).getCantidad().toString()+"€");
+            holder.mPrecioView.setText(ticketsView.get(position).getCantidad()+"€");
             holder.mDateView.setText(ticketsView.get(position).getFecha().toString());
+            holder.mTableView.setImageResource(R.drawable.table);
         }
 
         @Override
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements TicketCallback{
             public final TextView mMesaView;
             public final TextView mPrecioView;
             public final TextView mDateView;
+            public final ImageView mTableView;
             public Ticket mItem;
 
             public ViewHolder(View view) {
@@ -109,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements TicketCallback{
                 mMesaView = (TextView) view.findViewById(R.id.mesa);
                 mPrecioView = (TextView) view.findViewById(R.id.precio);
                 mDateView = (TextView) view.findViewById(R.id.fecha);
+                mTableView= (ImageView) view.findViewById(R.id.table);
             }
 
 

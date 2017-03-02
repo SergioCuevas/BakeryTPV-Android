@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Ticket {
 
-    private Integer cantidad;
+    private double cantidad;
 
     private Boolean cerrado;
 
@@ -27,11 +27,11 @@ public class Ticket {
 
     private MetodoPago metodoPago;
 
-    public Integer getCantidad() {
+    public double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 

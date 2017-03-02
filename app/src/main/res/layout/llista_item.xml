@@ -14,16 +14,28 @@
         android:layout_weight="4.79"
         android:padding="5dp">
 
-        <TextView
-        android:text="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/mesa"
-            android:textSize="27sp"
-        android:layout_gravity="center_vertical"
-        android:textColor="?attr/actionMenuTextColor"
-            android:textAlignment="center"
-            android:padding="8dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="105dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/table"
+                android:id="@+id/table" />
+
+            <TextView
+            android:text="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/mesa"
+                android:textSize="27sp"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textAlignment="textStart"
+                android:padding="8dp"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
 
         <TextView
             android:text="TextView"
@@ -44,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/precio"
-        android:textSize="27sp"
+        android:textSize="20sp"
         android:textStyle="normal|bold"
         android:textColor="?android:attr/textColorPrimary"
         android:fontFamily="sans-serif-smallcaps"
