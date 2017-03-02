@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements TicketCallback{
             holder.mDateView.setText(ticketsView.get(position).getFecha().toString());
             Typeface face= Typeface.createFromAsset(getAssets(),"fonts/montserrat.ttf");
             holder.mMesaView.setTypeface(face);
-            Typeface faceb= Typeface.createFromAsset(getAssets(), "fonts/montserratb.ttf");
+            Typeface faceb= Typeface.createFromAsset(getAssets(), "fonts/montserratr.ttf");
             holder.mPrecioView.setTypeface(faceb);
             holder.mTableView.setImageResource(R.drawable.table);
         }

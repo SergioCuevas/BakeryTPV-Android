@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/mesa"
-                android:textSize="27sp"
+                android:textSize="22sp"
                 android:textColor="?attr/actionMenuTextColor"
                 android:textAlignment="textStart"
                 android:padding="8dp"
@@ -56,13 +56,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/precio"
-        android:textSize="20sp"
-        android:textStyle="normal|bold"
-        android:textColor="?android:attr/textColorPrimary"
-        android:fontFamily="sans-serif-smallcaps"
         android:layout_gravity="center_vertical"
         android:layout_weight="7.98"
-        android:textAlignment="center"
         android:paddingRight="25dp"
-        android:padding="5dp" />
+        android:padding="5dp"
+        android:fontFamily="sans-serif"
+        android:textColor="#333"
+        android:textAlignment="center"
+        android:textSize="22sp" />
 </LinearLayout>
