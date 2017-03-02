@@ -32,7 +32,7 @@
             android:id="@+id/fecha"
             android:layout_weight="1"
             android:textSize="11sp"
-            android:textColor="?attr/colorControlNormal"
+            android:textColor="?android:attr/textColorTertiaryInverse"
             android:textAlignment="center"
             android:padding="5dp" />
 
@@ -46,7 +46,7 @@
         android:id="@+id/precio"
         android:textSize="27sp"
         android:textStyle="normal|bold"
-        android:textColor="?android:attr/colorForeground"
+        android:textColor="?android:attr/textColorPrimary"
         android:fontFamily="sans-serif-smallcaps"
         android:layout_gravity="center_vertical"
         android:layout_weight="7.98"
