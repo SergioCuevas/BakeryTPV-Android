@@ -13,7 +13,6 @@
     android:background="#FFF7E5">
 
 
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add"
         android:layout_width="54dp"
@@ -27,16 +26,23 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="110dp">
 
         <include
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             layout="@layout/list_tickets"
             android:id="@+id/llista" />
 
     </FrameLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="101dp"
+        app:srcCompat="@drawable/bakerylogoticket"
+        android:id="@+id/imageView" />
 
 </android.support.design.widget.CoordinatorLayout>
