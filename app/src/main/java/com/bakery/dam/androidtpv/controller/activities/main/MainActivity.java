@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements TicketCallback{
         public void onBindViewHolder(final ViewHolder holder, final int position) {
             holder.mItem = ticketsView.get(position);
             holder.mMesaView.setText(ticketsView.get(position).getMesa().toString());
-            holder.mPrecioView.setText(ticketsView.get(position).getCantidad().toString());
+            holder.mPrecioView.setText(ticketsView.get(position).getCantidad().toString()+"€");
             holder.mDateView.setText(ticketsView.get(position).getFecha().toString());
         }
 
