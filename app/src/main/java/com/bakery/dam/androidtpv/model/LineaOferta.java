@@ -14,6 +14,7 @@ public class LineaOferta {
 
     private String nombre;
 
+
     private Oferta oferta;
 
     private Producto producto;

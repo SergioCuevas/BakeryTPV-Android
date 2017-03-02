@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,17 +38,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements TicketCallback{
 
+    private RecyclerView recyclerView;
+
     private static Retrofit retrofit;
     private TicketService ticketService;
     private List<Ticket> tickets;
-    private ListView llista;
+    private RecyclerView llista;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        llista= (ListView) findViewById(R.id.ticketList);
+        llista= (RecyclerView) findViewById(R.id.llista);
         TicketManager.getInstance().getAllTickets(MainActivity.this);
-
 
 
     }
@@ -55,8 +57,7 @@ public class MainActivity extends AppCompatActivity implements TicketCallback{
     @Override
     public void onSuccess(List<Ticket> ticket) {
         tickets = ticket;
-        PartsAdapter adapter = new PartsAdapter(this, tickets);
-        llista.setAdapter(adapter);
+        llista.setAdapter(new SimpleItemRecyclerViewAdapter(tickets));
     }
 
     @Override
@@ -66,61 +67,51 @@ public class MainActivity extends AppCompatActivity implements TicketCallback{
         finish();
     }
 
-    public class PartsAdapter extends BaseAdapter {
-        private Context context;
-        private List<Ticket> tickets;
-        public PartsAdapter(Context context, List<Ticket> tickets){
-            this.context=context;
-            this.tickets=tickets;
-        }
-        @Override
-        public int getCount() {
-            return tickets.size();
+    public class SimpleItemRecyclerViewAdapter
+            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+
+        private final List<Ticket> ticketsView;
+
+        public SimpleItemRecyclerViewAdapter(List<Ticket> items) {
+            ticketsView = items;
         }
 
         @Override
-        public Object getItem(int position) {
-            return tickets.get(position);
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.llista_item, parent, false);
+            return new ViewHolder(view);
         }
 
         @Override
-        public long getItemId(int position) {
-            int id= tickets.get(position).getCantidad();
-            return id;
-        }
-
-        public class ViewHolder{
-            public TextView tvMesa;
-            public TextView tvFecha;
-            public TextView tvPrecio;
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
+            holder.mItem = ticketsView.get(position);
+            holder.mMesaView.setText(ticketsView.get(position).getMesa().toString());
+            holder.mPrecioView.setText(ticketsView.get(position).getCantidad().toString());
+            holder.mDateView.setText(ticketsView.get(position).getFecha().toString());
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View myView =convertView;
-            if(myView ==null) {
-                //Inflo la lista con el layout que he creado (llista_item)
-                LayoutInflater inflater=(LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-                myView = inflater.inflate(R.layout.llista_item, parent, false);
-                ViewHolder holder= new ViewHolder();
-                holder.tvMesa=(TextView) myView.findViewById(R.id.mesa);
-                holder.tvFecha=(TextView) myView.findViewById(R.id.fecha);
-                holder.tvPrecio=(TextView) myView.findViewById(R.id.precio);
-                myView.setTag(holder);
+        public int getItemCount() {
+            return ticketsView.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public final View mView;
+            public final TextView mMesaView;
+            public final TextView mPrecioView;
+            public final TextView mDateView;
+            public Ticket mItem;
+
+            public ViewHolder(View view) {
+                super(view);
+                mView = view;
+                mMesaView = (TextView) view.findViewById(R.id.mesa);
+                mPrecioView = (TextView) view.findViewById(R.id.precio);
+                mDateView = (TextView) view.findViewById(R.id.fecha);
             }
-            ViewHolder holder= (ViewHolder) myView.getTag();
 
-            //Voy asignando los datos
-            Ticket ticket = tickets.get(position);
-            String mesa=ticket.getMesa()+"";
-            String precio = ticket.getCantidad()+"€";
-            String fecha = ticket.getFecha()+"";
 
-            holder.tvMesa.setText(mesa);
-            holder.tvFecha.setText(fecha);
-            holder.tvPrecio.setText(precio);
-
-            return myView;
         }
     }
 
