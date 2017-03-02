@@ -3,6 +3,7 @@ package com.bakery.dam.androidtpv.controller.activities.main;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -89,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements TicketCallback{
             holder.mMesaView.setText(ticketsView.get(position).getMesa().toString());
             holder.mPrecioView.setText(ticketsView.get(position).getCantidad()+"€");
             holder.mDateView.setText(ticketsView.get(position).getFecha().toString());
+            Typeface face= Typeface.createFromAsset(getAssets(),"fonts/montserrat.ttf");
+            holder.mMesaView.setTypeface(face);
             holder.mTableView.setImageResource(R.drawable.table);
         }
 
