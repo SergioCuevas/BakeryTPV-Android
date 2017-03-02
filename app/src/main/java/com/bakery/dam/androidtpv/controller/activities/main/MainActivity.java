@@ -1,41 +1,26 @@
 package com.bakery.dam.androidtpv.controller.activities.main;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.activities.login.LoginActivity;
 import com.bakery.dam.androidtpv.controller.managers.TicketCallback;
 import com.bakery.dam.androidtpv.controller.managers.TicketManager;
-import com.bakery.dam.androidtpv.controller.managers.UserLoginManager;
 import com.bakery.dam.androidtpv.controller.services.TicketService;
-import com.bakery.dam.androidtpv.controller.services.TipoService;
 import com.bakery.dam.androidtpv.model.Ticket;
-import com.bakery.dam.androidtpv.model.Tipo;
-import com.bakery.dam.androidtpv.model.UserToken;
-import com.bakery.dam.androidtpv.util.CustomProperties;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements TicketCallback{
 
@@ -92,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements TicketCallback{
             holder.mDateView.setText(ticketsView.get(position).getFecha().toString());
             Typeface face= Typeface.createFromAsset(getAssets(),"fonts/montserrat.ttf");
             holder.mMesaView.setTypeface(face);
+            Typeface faceb= Typeface.createFromAsset(getAssets(), "fonts/montserratb.ttf");
+            holder.mPrecioView.setTypeface(faceb);
             holder.mTableView.setImageResource(R.drawable.table);
         }
 
