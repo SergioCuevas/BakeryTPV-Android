@@ -9,17 +9,20 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.bakery.dam.androidtpv.controller.activities.main.MainActivity">
+    tools:context="com.bakery.dam.androidtpv.controller.activities.main.MainActivity"
+    android:background="#FFF2D5">
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add"
-        android:layout_width="66dp"
-        android:layout_height="66dp"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
         android:layout_gravity="bottom"
         android:layout_marginLeft="250dp"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        app:backgroundTint="@android:color/holo_green_dark" />
+        app:srcCompat="@drawable/add"
+        android:padding="@dimen/activity_horizontal_margin"
+        app:backgroundTint="#62594B" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
