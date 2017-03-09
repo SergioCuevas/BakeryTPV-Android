@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements TicketCallback{
             holder.mMesaView.setTypeface(face);
             Typeface faceb= Typeface.createFromAsset(getAssets(), "fonts/montserratr.ttf");
             holder.mPrecioView.setTypeface(faceb);
-            holder.mTableView.setImageResource(R.drawable.table);
+            holder.mTableView.setImageResource(R.drawable.tablelogo);
         }
 
         @Override

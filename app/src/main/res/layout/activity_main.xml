@@ -14,13 +14,23 @@
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add"
+    android:id="@+id/add"
+    android:layout_width="54dp"
+    android:layout_height="54dp"
+    android:layout_gravity="bottom"
+    android:layout_marginLeft="250dp"
+    android:layout_marginBottom="10dp"
+    app:srcCompat="@drawable/add"
+    android:padding="@dimen/activity_horizontal_margin"
+    app:backgroundTint="#62594B" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/upload"
         android:layout_width="54dp"
         android:layout_height="54dp"
         android:layout_gravity="bottom"
-        android:layout_marginLeft="250dp"
+        android:layout_marginRight="250dp"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/add"
+        app:srcCompat="@drawable/refresh"
         android:padding="@dimen/activity_horizontal_margin"
         app:backgroundTint="#62594B" />
     <FrameLayout
@@ -41,8 +51,9 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="76dp"
+        android:layout_height="64dp"
         app:srcCompat="@drawable/ticketlogo"
-        android:id="@+id/imageView" />
+        android:id="@+id/imageView"
+        android:layout_marginTop="12dp" />
 
 </android.support.design.widget.CoordinatorLayout>
