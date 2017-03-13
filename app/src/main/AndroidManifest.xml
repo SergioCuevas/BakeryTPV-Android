@@ -14,16 +14,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.activities.login.LoginActivity" android:theme="@style/AppTheme.Dark">
+        <activity
+            android:name=".controller.activities.login.LoginActivity"
+            android:theme="@style/AppTheme.Dark">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.activities.main.MainActivity"/>
+        <activity android:name=".controller.activities.main.MainActivity" />
         <activity android:name=".controller.activities.signup.SignUp" />
-        <activity android:name=".controller.activities.Crear.CrearTipo"></activity>
+        <activity android:name=".controller.activities.Crear.CrearTipo" />
+        <activity
+            android:name=".controller.activities.Crear.CrearTicket"
+            android:label="@string/title_activity_crear_ticket"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

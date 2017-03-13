@@ -3,6 +3,8 @@ package com.bakery.dam.androidtpv.controller.activities.main;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bakery.dam.androidtpv.R;
+import com.bakery.dam.androidtpv.controller.activities.Crear.CrearTicket;
+import com.bakery.dam.androidtpv.controller.activities.Dialogs.TicketDialog;
 import com.bakery.dam.androidtpv.controller.activities.login.LoginActivity;
 import com.bakery.dam.androidtpv.controller.managers.TicketCallback;
 import com.bakery.dam.androidtpv.controller.managers.TicketManager;
@@ -22,7 +26,7 @@ import java.util.List;
 
 import retrofit2.Retrofit;
 
-public class MainActivity extends AppCompatActivity implements TicketCallback{
+public class MainActivity extends AppCompatActivity implements TicketCallback , TicketDialog.TicketDialogListener {
 
     private RecyclerView recyclerView;
 
@@ -30,15 +34,24 @@ public class MainActivity extends AppCompatActivity implements TicketCallback{
     private TicketService ticketService;
     private List<Ticket> tickets;
     private RecyclerView llista;
+    private FloatingActionButton createTicket;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         llista= (RecyclerView) findViewById(R.id.llista);
         TicketManager.getInstance().getAllTickets(MainActivity.this);
-
-
+        createTicket = (FloatingActionButton) findViewById(R.id.add);
+        createTicket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new TicketDialog();
+                newFragment.show(getSupportFragmentManager(), "NoticeDialogFragment");
+            }
+        });
     }
+
+
 
     @Override
     public void onSuccess(List<Ticket> ticket) {
@@ -52,6 +65,17 @@ public class MainActivity extends AppCompatActivity implements TicketCallback{
         startActivity(i);
         finish();
     }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
+    }
+
 
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {

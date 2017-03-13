@@ -11,5 +11,9 @@
     <string name="error_incorrect_username_or_password">Username or password are  incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="register">Register</string>
+    <string name="title_activity_crear_ticket">CrearTicket</string>
+    <string name="dialog_title">Title</string>
+    <string name="ok">ok</string>
+    <string name="cancel">cancel</string>
 
 </resources>
