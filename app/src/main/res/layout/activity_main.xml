@@ -14,46 +14,44 @@
 
 
     <android.support.design.widget.FloatingActionButton
-    android:id="@+id/add"
-    android:layout_width="54dp"
-    android:layout_height="54dp"
-    android:layout_gravity="bottom"
-    android:layout_marginLeft="250dp"
-    android:layout_marginBottom="10dp"
-    app:srcCompat="@drawable/add"
-    android:padding="@dimen/activity_horizontal_margin"
-    app:backgroundTint="#62594B" />
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/upload"
+        android:id="@+id/add"
         android:layout_width="54dp"
         android:layout_height="54dp"
         android:layout_gravity="bottom"
-        android:layout_marginRight="250dp"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/refresh"
+        android:layout_marginRight="0dp"
         android:padding="@dimen/activity_horizontal_margin"
-        app:backgroundTint="#62594B" />
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="false"
-        android:layout_marginTop="110dp">
+        app:backgroundTint="@color/primary"
+        app:srcCompat="@drawable/add" />
 
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            layout="@layout/list_tickets"
-            android:id="@+id/llista" />
-
-    </FrameLayout>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="64dp"
         app:srcCompat="@drawable/ticketlogo"
         android:id="@+id/imageView"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="0dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="80dp">
+        <android.support.v4.widget.SwipeRefreshLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swiperefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/llista"
+                android:layout_width="match_parent"
+                android:layout_height="457dp" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>
