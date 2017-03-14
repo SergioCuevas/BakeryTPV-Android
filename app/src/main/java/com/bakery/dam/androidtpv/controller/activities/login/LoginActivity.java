@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.activities.main.*;
-import com.bakery.dam.androidtpv.controller.activities.signup.SignUp;
 import com.bakery.dam.androidtpv.controller.managers.LoginCallback;
 import com.bakery.dam.androidtpv.controller.managers.UserLoginManager;
 import com.bakery.dam.androidtpv.model.UserToken;
@@ -67,14 +66,14 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
         });
         //TODO REGISTRO
 
-        TextView mRegisterButton = (TextView) findViewById(R.id.registrer_button);
-        mRegisterButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), SignUp.class);
-                startActivity(i);
-            }
-        });
+//        TextView mRegisterButton = (TextView) findViewById(R.id.registrer_button);
+//        mRegisterButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(getApplicationContext(), SignUp.class);
+//                startActivity(i);
+//            }
+//        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -190,5 +189,3 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
     }
 
 }
-
-
