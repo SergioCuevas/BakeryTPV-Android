@@ -20,15 +20,30 @@
 
         <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
                 <!-- Customize your theme here. -->
-                <item name="colorPrimary">@color/colorPrimary</item>
-                <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-                <item name="colorAccent">@color/colorAccent</item>
-                <item name="android:navigationBarColor">#62594B</item>
-                <item name="android:colorBackground">#FFF7E5</item>
-                <item name="android:statusBarColor">#62594B</item>
-                <item name="android:textColorPrimary">#333</item>
-                <item name="android:textColorPrimaryInverse">#333</item>
-                <item name="android:textColorSecondary">#333</item>
-                <item name="android:textColorSecondaryInverse">#333</item>
+                <item name="colorPrimary">@color/primary</item>
+                <item name="colorPrimaryDark">@color/primary_darker</item>
+                <item name="colorAccent">@color/primary_dark</item>
+                <item name="android:navigationBarColor">@color/primary</item>
+
+                <item name="android:statusBarColor">@color/primary</item>
+                <item name="android:textColorPrimaryInverse">@color/primary</item>
+
+
+                <item name="colorButtonNormal">@color/primary</item>
+                <item name="android:colorButtonNormal">@color/primary</item>
+
+                <item name="colorControlNormal">@color/primary</item>
+                <item name="colorControlActivated">@color/primary</item>
+                <item name="colorControlHighlight">@color/primary</item>
+                <item name="android:textColorHint">@color/primary</item>
+
+                <item name="android:colorBackground">@color/accent</item>
+
+                <item name="android:textColorPrimary">@color/black</item>
+                <item name="android:textColorSecondary">@color/black</item>
+
+                <item name="android:textColorSecondaryInverse">@color/black</item>
+
+
         </style>
 </resources>
