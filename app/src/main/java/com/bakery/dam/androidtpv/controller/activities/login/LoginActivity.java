@@ -17,11 +17,11 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.activities.main.*;
-import com.bakery.dam.androidtpv.controller.activities.signup.SignUp;
 import com.bakery.dam.androidtpv.controller.managers.LoginCallback;
 import com.bakery.dam.androidtpv.controller.managers.UserLoginManager;
 import com.bakery.dam.androidtpv.model.UserToken;
@@ -32,17 +32,19 @@ import com.bakery.dam.androidtpv.model.UserToken;
 public class LoginActivity extends AppCompatActivity implements LoginCallback {
 
     // Elementos de la UI
-    private AutoCompleteTextView Username;
+    private EditText Username;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        linearLayout= (LinearLayout) findViewById(R.id.login_progress_ll);
         // Set up the login form.
-        Username = (AutoCompleteTextView) findViewById(R.id.username);
+        Username = (EditText) findViewById(R.id.username);
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -64,18 +66,26 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
         });
         //TODO REGISTRO
 
-        Button mRegisterButton = (Button) findViewById(R.id.register_button);
-        mRegisterButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), SignUp.class);
-                startActivity(i);
-            }
-        });
+//        TextView mRegisterButton = (TextView) findViewById(R.id.registrer_button);
+//        mRegisterButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(getApplicationContext(), SignUp.class);
+//                startActivity(i);
+//            }
+//        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
+
+
+    @Override
+    public void onBackPressed() {
+        // disable going back to the MainActivity
+        moveTaskToBack(true);
+    }
+
 
     /**
      * Attempts to log in the account specified by the login form.
@@ -162,22 +172,20 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
                 }
             });
 
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
+            linearLayout.setVisibility(show ? View.VISIBLE : View.GONE);
+            linearLayout.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                    linearLayout.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
         } else {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            linearLayout.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
 }
-
-
