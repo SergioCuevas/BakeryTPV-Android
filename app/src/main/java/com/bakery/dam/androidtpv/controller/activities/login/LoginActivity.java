@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
     @Override
     public void onSuccess(UserToken userToken) {
         showProgress(false);
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
         startActivity(intent);
         finish();
     }
