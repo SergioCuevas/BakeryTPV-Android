@@ -33,6 +33,8 @@
             android:name=".controller.activities.main.MenuActivity"
             android:label="Bakery TPV"
             android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".CreacionTicketActivity"></activity>
     </application>
 
 </manifest>
