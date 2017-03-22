@@ -29,7 +29,8 @@
         <activity
             android:name=".controller.activities.Crear.CrearTicket"
             android:label="@string/title_activity_crear_ticket"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".CreacionTicketActivity"></activity>
     </application>
 
 </manifest>
