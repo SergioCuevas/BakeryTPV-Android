@@ -6,6 +6,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.NumberPicker;
 
 import com.bakery.dam.androidtpv.R;
 
@@ -16,7 +19,6 @@ import com.bakery.dam.androidtpv.R;
 public class TicketDialog extends DialogFragment {
 
     final CharSequence[] items = new CharSequence[5];
-
 
 
 
@@ -33,12 +35,14 @@ public class TicketDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.dialog_title)
+        builder.setView(R.layout.dialog)
+
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // Send the positive button event back to the host activity
+
                         mListener.onDialogPositiveClick(TicketDialog.this);
                     }
                 })

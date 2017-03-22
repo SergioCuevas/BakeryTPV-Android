@@ -2,28 +2,28 @@ package com.bakery.dam.androidtpv.controller.activities.main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bakery.dam.androidtpv.R;
-
 import com.bakery.dam.androidtpv.controller.activities.Dialogs.TicketDialog;
 import com.bakery.dam.androidtpv.controller.activities.login.LoginActivity;
 import com.bakery.dam.androidtpv.controller.managers.TicketCallback;
@@ -31,16 +31,13 @@ import com.bakery.dam.androidtpv.controller.managers.TicketManager;
 import com.bakery.dam.androidtpv.controller.services.TicketService;
 import com.bakery.dam.androidtpv.model.Ticket;
 
-import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import retrofit2.Retrofit;
 
-public class MainActivity extends AppCompatActivity implements TicketCallback, TicketDialog.TicketDialogListener{
-
+public class MenuActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, TicketCallback {
     private RecyclerView recyclerView;
 
     private static Retrofit retrofit;
@@ -52,49 +49,100 @@ public class MainActivity extends AppCompatActivity implements TicketCallback, T
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_menu);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         llista= (ListView) findViewById(R.id.llista);
-        TicketManager.getInstance().getAllTickets(MainActivity.this);
-        add = (FloatingActionButton) findViewById(R.id.add);
-        add.setOnClickListener(new View.OnClickListener() {
+        TicketManager.getInstance().getAllTickets(MenuActivity.this);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, MenuActivity.class);
-                startActivity(i);
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override
     public void onSuccess(List<Ticket> ticket) {
         tickets = ticket;
-        llista.setAdapter(new PartsAdapter(this, tickets));
+        llista.setAdapter(new MenuActivity.PartsAdapter(this, tickets));
     }
 
     @Override
     public void onFailure(Throwable t) {
-        Intent i = new Intent(MainActivity.this, LoginActivity.class);
+        Intent i = new Intent(MenuActivity.this, LoginActivity.class);
         startActivity(i);
         finish();
     }
-
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
-        newFragment.dismiss();
-        EditText mesa = (EditText) findViewById(R.id.numMesa);
-        int num = Integer.parseInt(String.valueOf(mesa.getText()));
-        Toast.makeText(
-                this,
-                "Seleccionaste:" + num,
-                Toast.LENGTH_SHORT)
-                .show();
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-
-    }
-
     public class PartsAdapter extends BaseAdapter {
         private Context context;
         private List<Ticket> tickets;
@@ -134,14 +182,14 @@ public class MainActivity extends AppCompatActivity implements TicketCallback, T
                     //Inflo la lista con el layout que he creado (llista_item)
                     LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
                     myView = inflater.inflate(R.layout.llista_item, parent, false);
-                    ViewHolder holder = new ViewHolder();
+                    MenuActivity.PartsAdapter.ViewHolder holder = new MenuActivity.PartsAdapter.ViewHolder();
                     holder.tvMesa = (TextView) myView.findViewById(R.id.mesa);
                     holder.tvFecha = (TextView) myView.findViewById(R.id.fecha);
                     holder.tvPrecio = (TextView) myView.findViewById(R.id.precio);
                     holder.ivImage = (ImageView) myView.findViewById(R.id.table);
                     myView.setTag(holder);
                 }
-                ViewHolder holder = (ViewHolder) myView.getTag();
+                MenuActivity.PartsAdapter.ViewHolder holder = (MenuActivity.PartsAdapter.ViewHolder) myView.getTag();
 
                 //Voy asignando los datos
                 Ticket ticket = tickets.get(position);
@@ -168,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements TicketCallback, T
                 //Inflo la lista con el layout que he creado (llista_item)
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
                 myView = inflater.inflate(R.layout.llista_item, parent, false);
-                ViewHolder holder = new ViewHolder();
+                MenuActivity.PartsAdapter.ViewHolder holder = new MenuActivity.PartsAdapter.ViewHolder();
                 holder.tvMesa = (TextView) myView.findViewById(R.id.mesa);
                 holder.tvFecha = (TextView) myView.findViewById(R.id.fecha);
                 holder.tvPrecio = (TextView) myView.findViewById(R.id.precio);
@@ -178,5 +226,4 @@ public class MainActivity extends AppCompatActivity implements TicketCallback, T
             }
         }
     }
-
 }
