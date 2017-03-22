@@ -34,7 +34,7 @@
 
                 <item name="colorControlNormal">@color/primary</item>
                 <item name="colorControlActivated">@color/primary</item>
-                <item name="colorControlHighlight">@color/primary</item>
+                <item name="colorControlHighlight">@color/primary       </item>
                 <item name="android:textColorHint">@color/primary</item>
 
                 <item name="android:colorBackground">@color/accent</item>

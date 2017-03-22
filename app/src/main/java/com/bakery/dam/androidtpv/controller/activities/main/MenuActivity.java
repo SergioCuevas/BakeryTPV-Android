@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bakery.dam.androidtpv.CreacionTicketActivity;
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.activities.Dialogs.TicketDialog;
 import com.bakery.dam.androidtpv.controller.activities.login.LoginActivity;
@@ -61,6 +62,8 @@ public class MenuActivity extends AppCompatActivity
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent i = new Intent(MenuActivity.this, CreacionTicketActivity.class);
+                startActivity(i);
             }
         });
 
