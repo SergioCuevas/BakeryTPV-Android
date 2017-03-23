@@ -8,21 +8,36 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_scrollFlags="scroll|enterAlways" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="@color/accent"
+        android:background="@color/accent"
+        app:tabMaxWidth="0dp"
+        app:tabGravity="center"
+        app:tabMode="fixed"
+        android:visibility="visible"
+        app:tabIndicatorColor="@color/primary_dark"
         app:tabTextColor="@color/black" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="0px"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@android:color/white" />
+        android:background="@android:color/white">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+    </android.support.v4.view.ViewPager>
 
 
 </android.support.design.widget.AppBarLayout>
