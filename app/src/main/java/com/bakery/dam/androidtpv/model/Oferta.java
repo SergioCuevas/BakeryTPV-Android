@@ -22,7 +22,7 @@ public class Oferta {
 
     private String nombre;
 
-    private Integer precio;
+    private double precio;
 
     public String getDescripcion() {
         return descripcion;
@@ -80,11 +80,11 @@ public class Oferta {
         this.nombre = nombre;
     }
 
-    public Integer getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Integer precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 }

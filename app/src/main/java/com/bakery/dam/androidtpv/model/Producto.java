@@ -18,7 +18,7 @@ public class Producto {
 
     private String nombre;
 
-    private Integer precio;
+    private double precio;
 
     private Tipo tipo;
 
@@ -62,11 +62,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public Integer getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Integer precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
