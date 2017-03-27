@@ -10,6 +10,6 @@ import java.util.List;
  */
 
 public interface TicketCallback {
-    void onSuccess(List<Ticket> ticket);
+    void onSuccessTicket(List<Ticket> ticket);
     void onFailure(Throwable t);
 }

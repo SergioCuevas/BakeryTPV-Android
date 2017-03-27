@@ -55,7 +55,32 @@ public class TicketManager {
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
-                    ticketCallback.onSuccess(tickets);
+                    ticketCallback.onSuccessTicket(tickets);
+                } else {
+                    ticketCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Ticket>> call, Throwable t) {
+                Log.e("TeamManager->", t.toString());
+                ticketCallback.onFailure(t);
+            }
+
+        });
+    }
+    public synchronized void getTicketById(final TicketCallback ticketCallback, long id) {
+        Call<List<Ticket>> call = ticketService.getTicketById(UserLoginManager.getInstance().getBearerToken(), id);
+
+        call.enqueue(new Callback<List<Ticket>>() {
+            @Override
+            public void onResponse(Call<List<Ticket>> call, Response<List<Ticket>> response) {
+                tickets = response.body();
+
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    ticketCallback.onSuccessTicket(tickets);
                 } else {
                     ticketCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
                 }

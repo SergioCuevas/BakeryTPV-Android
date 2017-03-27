@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements TicketCallback, T
     }
 
     @Override
-    public void onSuccess(List<Ticket> ticket) {
+    public void onSuccessTicket(List<Ticket> ticket) {
         tickets = ticket;
         llista.setAdapter(new PartsAdapter(this, tickets));
     }

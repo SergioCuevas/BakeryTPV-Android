@@ -2,6 +2,7 @@ package com.bakery.dam.androidtpv.controller.activities.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -133,9 +135,17 @@ public class MenuActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSuccess(List<Ticket> ticket) {
+    public void onSuccessTicket(final List<Ticket> ticket) {
         tickets = ticket;
         llista.setAdapter(new MenuActivity.PartsAdapter(this, tickets));
+        llista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MenuActivity.this, ProductListActivity.class);
+                intent.putExtra("id", (long)ticket.get(i).getId());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -209,7 +219,9 @@ public class MenuActivity extends AppCompatActivity
                 }
                 holder.tvPrecio.setText(precio);
                 holder.tvFecha.setText(fecha);
-
+                if(position%2==0){
+                    myView.setBackgroundColor(Color.rgb(255, 246 ,238));
+                }
                 return myView;
 
             } else {
@@ -223,6 +235,9 @@ public class MenuActivity extends AppCompatActivity
                 holder.tvPrecio = (TextView) myView.findViewById(R.id.precio);
                 holder.ivImage = (ImageView) myView.findViewById(R.id.table);
                 myView.setTag(holder);
+                if(position%2==0){
+                    myView.setBackgroundColor(Color.rgb(255, 246 ,238));
+                }
                 return myView;
             }
         }
