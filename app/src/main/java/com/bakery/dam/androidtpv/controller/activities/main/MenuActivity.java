@@ -206,7 +206,7 @@ public class MenuActivity extends AppCompatActivity
                 Ticket ticket = tickets.get(position);
                 Date date=new Date();
                 String mesa = ticket.getMesa() + "";
-                String precio = ticket.getCantidad() + "€";
+                String precio = ticket.getCantidad() + "";
                 String fecha = ticket.getFecha() + "";
                 fecha=fecha.substring(11, 16);
                 if (!"0".equals(mesa)) {
