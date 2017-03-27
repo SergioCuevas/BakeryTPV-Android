@@ -179,7 +179,7 @@ public class MenuActivity extends AppCompatActivity
         }
 
         public class ViewHolder{
-            public TextView tvMesa;
+            public ImageView tvMesa;
             public TextView tvFecha;
             public TextView tvPrecio;
             public ImageView ivImage;
@@ -194,7 +194,7 @@ public class MenuActivity extends AppCompatActivity
                     LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
                     myView = inflater.inflate(R.layout.llista_item, parent, false);
                     MenuActivity.PartsAdapter.ViewHolder holder = new MenuActivity.PartsAdapter.ViewHolder();
-                    holder.tvMesa = (TextView) myView.findViewById(R.id.mesa);
+                    holder.tvMesa = (ImageView) myView.findViewById(R.id.mesa);
                     holder.tvFecha = (TextView) myView.findViewById(R.id.fecha);
                     holder.tvPrecio = (TextView) myView.findViewById(R.id.precio);
                     holder.ivImage = (ImageView) myView.findViewById(R.id.table);
@@ -210,12 +210,12 @@ public class MenuActivity extends AppCompatActivity
                 String fecha = ticket.getFecha() + "";
                 fecha=fecha.substring(11, 16);
                 if (!"0".equals(mesa)) {
-                    holder.tvMesa.setText(mesa);
+                    holder.tvMesa.setImageResource(R.drawable.nmesa);
                     holder.ivImage.setImageResource(R.drawable.local);
 
                 } else {
                     holder.ivImage.setImageResource(R.drawable.llevar);
-                    holder.tvMesa.setText("");
+                    holder.tvMesa.setImageResource(R.drawable.nmesa);
                 }
                 holder.tvPrecio.setText(precio);
                 holder.tvFecha.setText(fecha);
@@ -230,7 +230,7 @@ public class MenuActivity extends AppCompatActivity
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
                 myView = inflater.inflate(R.layout.llista_item, parent, false);
                 MenuActivity.PartsAdapter.ViewHolder holder = new MenuActivity.PartsAdapter.ViewHolder();
-                holder.tvMesa = (TextView) myView.findViewById(R.id.mesa);
+                holder.tvMesa = (ImageView) myView.findViewById(R.id.mesa);
                 holder.tvFecha = (TextView) myView.findViewById(R.id.fecha);
                 holder.tvPrecio = (TextView) myView.findViewById(R.id.precio);
                 holder.ivImage = (ImageView) myView.findViewById(R.id.table);
