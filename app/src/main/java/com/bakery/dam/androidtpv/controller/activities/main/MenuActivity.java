@@ -33,6 +33,8 @@ import com.bakery.dam.androidtpv.controller.managers.TicketManager;
 import com.bakery.dam.androidtpv.controller.services.TicketService;
 import com.bakery.dam.androidtpv.model.Ticket;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,10 +50,25 @@ public class MenuActivity extends AppCompatActivity
     private ListView llista;
     private FloatingActionButton add;
     private DialogFragment newFragment = new TicketDialog();
+    private List<Integer> imgs = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        imgs.add(R.drawable.takeaway);
+        imgs.add(R.drawable.mesa1);
+        imgs.add(R.drawable.mesa2);
+        imgs.add(R.drawable.mesa3);
+        imgs.add(R.drawable.mesa4);
+        imgs.add(R.drawable.mesa5);
+        imgs.add(R.drawable.mesa6);
+        imgs.add(R.drawable.mesa7);
+        imgs.add(R.drawable.mesa8);
+        imgs.add(R.drawable.mesa9);
+        imgs.add(R.drawable.mesa10);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         llista= (ListView) findViewById(R.id.llista);
@@ -217,13 +234,14 @@ public class MenuActivity extends AppCompatActivity
                 String precio = ticket.getCantidad() + "";
                 String fecha = ticket.getFecha() + "";
                 fecha=fecha.substring(11, 16);
+                holder.tvMesa.setImageResource(imgs.get(Integer.parseInt(mesa)));
                 if (!"0".equals(mesa)) {
-                    holder.tvMesa.setImageResource(R.drawable.nmesa);
+
                     holder.ivImage.setImageResource(R.drawable.local);
 
                 } else {
                     holder.ivImage.setImageResource(R.drawable.llevar);
-                    holder.tvMesa.setImageResource(R.drawable.nmesa);
+
                 }
                 holder.ivImage2.setImageResource(R.drawable.eurocoin);
                 holder.tvPrecio.setText(precio);
