@@ -1,10 +1,12 @@
-package com.bakery.dam.androidtpv;
+package com.bakery.dam.androidtpv.controller.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import com.bakery.dam.androidtpv.R;
 
 public class CreacionTicketActivity extends AppCompatActivity {
 
@@ -47,6 +49,9 @@ public class CreacionTicketActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
 
 }

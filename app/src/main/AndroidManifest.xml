@@ -35,7 +35,7 @@
             android:theme="@style/AppTheme"></activity>
             android:theme="@style/AppTheme" />
         android:theme="@style/AppTheme" />
-        <activity android:name=".CreacionTicketActivity" />
+        <activity android:name=".controller.activities.CreacionTicketActivity" />
         <activity android:name=".controller.activities.main.ProductListActivity"></activity>
     </application>
 

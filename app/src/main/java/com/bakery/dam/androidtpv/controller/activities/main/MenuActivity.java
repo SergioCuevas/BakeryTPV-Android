@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,8 +24,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.bakery.dam.androidtpv.CreacionTicketActivity;
 import com.bakery.dam.androidtpv.R;
+import com.bakery.dam.androidtpv.controller.activities.CreacionTicketActivity;
 import com.bakery.dam.androidtpv.controller.activities.Dialogs.TicketDialog;
 import com.bakery.dam.androidtpv.controller.activities.login.LoginActivity;
 import com.bakery.dam.androidtpv.controller.managers.TicketCallback;
@@ -62,7 +61,7 @@ public class MenuActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MenuActivity.this, ProductListActivity.class);
+                Intent i = new Intent(MenuActivity.this, CreacionTicketActivity.class);
                 startActivity(i);
             }
         });
