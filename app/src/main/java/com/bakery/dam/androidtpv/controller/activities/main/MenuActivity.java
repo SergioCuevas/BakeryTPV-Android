@@ -183,6 +183,7 @@ public class MenuActivity extends AppCompatActivity
             public TextView tvFecha;
             public TextView tvPrecio;
             public ImageView ivImage;
+            public ImageView ivImage2;
         }
 
         @Override
@@ -197,6 +198,14 @@ public class MenuActivity extends AppCompatActivity
                     holder.tvMesa = (ImageView) myView.findViewById(R.id.mesa);
                     holder.tvFecha = (TextView) myView.findViewById(R.id.fecha);
                     holder.tvPrecio = (TextView) myView.findViewById(R.id.precio);
+                    holder.ivImage2 = (ImageView) myView.findViewById(R.id.imageView2);
+                    holder.ivImage2.setImageResource(R.drawable.eurocoin);
+                    if(position%2==0){
+                        myView.setBackgroundColor(Color.rgb(255, 246 ,238));
+                    }
+                    else {
+                        myView.setBackgroundColor(Color.rgb(255, 255 ,255));
+                    }
                     holder.ivImage = (ImageView) myView.findViewById(R.id.table);
                     myView.setTag(holder);
                 }
@@ -217,10 +226,13 @@ public class MenuActivity extends AppCompatActivity
                     holder.ivImage.setImageResource(R.drawable.llevar);
                     holder.tvMesa.setImageResource(R.drawable.nmesa);
                 }
+                holder.ivImage2.setImageResource(R.drawable.eurocoin);
                 holder.tvPrecio.setText(precio);
                 holder.tvFecha.setText(fecha);
                 if(position%2==0){
                     myView.setBackgroundColor(Color.rgb(255, 246 ,238));
+                } else {
+                    myView.setBackgroundColor(Color.rgb(255, 255 ,255));
                 }
                 return myView;
 
@@ -234,9 +246,13 @@ public class MenuActivity extends AppCompatActivity
                 holder.tvFecha = (TextView) myView.findViewById(R.id.fecha);
                 holder.tvPrecio = (TextView) myView.findViewById(R.id.precio);
                 holder.ivImage = (ImageView) myView.findViewById(R.id.table);
+                holder.ivImage2 = (ImageView) myView.findViewById(R.id.imageView2);
                 myView.setTag(holder);
                 if(position%2==0){
                     myView.setBackgroundColor(Color.rgb(255, 246 ,238));
+                }
+                else {
+                    myView.setBackgroundColor(Color.rgb(255, 255 ,255));
                 }
                 return myView;
             }
