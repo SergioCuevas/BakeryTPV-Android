@@ -17,17 +17,22 @@ public class CreacionTicketActivity extends AppCompatActivity {
         setContentView(R.layout.activity_creacion_ticket);
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         //añadimos al "menu"
         tabs.addTab(tabs.newTab().setText("CALCULADORA"));
         tabs.addTab(tabs.newTab().setText("PRODUCTO"));
         //le damos una posición
+
+
+        // Setear adaptador al viewpager.
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.ViewPagerPrincipal);
+        Adapter_ViewPager adapter_viewPager = new Adapter_ViewPager(getSupportFragmentManager(),tabs.getTabCount());
+        viewPager.setAdapter(adapter_viewPager);
         tabs.setTabGravity(TabLayout.GRAVITY_FILL);
         tabs.setTabMode(TabLayout.MODE_FIXED);
 
-        // Setear adaptador al viewpager.
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabs.setupWithViewPager(viewPager);
-
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
 

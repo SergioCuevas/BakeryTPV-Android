@@ -21,7 +21,7 @@ public class Adapter_ViewPager extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new FragmentCalculadora();
+                return new FragmentProductos();
             case 1:
                 return new FragmentProductos();
 
