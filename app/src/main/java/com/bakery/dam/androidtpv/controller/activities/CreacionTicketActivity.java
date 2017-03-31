@@ -7,8 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.bakery.dam.androidtpv.R;
+import com.bakery.dam.androidtpv.controller.managers.ProductCallback;
+import com.bakery.dam.androidtpv.model.Producto;
 
-public class CreacionTicketActivity extends AppCompatActivity {
+import java.util.List;
+
+public class CreacionTicketActivity extends AppCompatActivity implements ProductCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +63,13 @@ public class CreacionTicketActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onSuccess(List<Producto> product) {
 
+    }
 
+    @Override
+    public void onFailure(Throwable t) {
 
+    }
 }
