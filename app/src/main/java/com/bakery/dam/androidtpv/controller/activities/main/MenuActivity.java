@@ -154,16 +154,28 @@ public class MenuActivity extends AppCompatActivity
 
     @Override
     public void onSuccessTicket(final Object ticket) {
-        tickets = (List<Ticket>) ticket;
-        llista.setAdapter(new MenuActivity.PartsAdapter(this, tickets));
-        llista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MenuActivity.this, ProductListActivity.class);
-                intent.putExtra("id", (long)tickets.get(i).getId());
-                startActivity(intent);
-            }
-        });
+        if(ticket!=null) {
+            tickets = (List<Ticket>) ticket;
+            llista.setAdapter(new MenuActivity.PartsAdapter(this, tickets));
+            llista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(MenuActivity.this, ProductListActivity.class);
+                    intent.putExtra("id", (long) tickets.get(i).getId());
+                    startActivity(intent);
+                }
+            });
+            llista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    tickets.remove(i);
+                    TicketManager.getInstance().deleteTicket(MenuActivity.this, (long) tickets.get(i).getId());
+                    return false;
+                }
+            });
+        } else {
+            llista.invalidateViews();
+        }
     }
 
 

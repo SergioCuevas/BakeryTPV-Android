@@ -30,13 +30,13 @@ public class CrearTicketActivity extends AppCompatActivity implements TicketCall
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(!et.getText().toString().equals("")) {
                     Ticket ticket = new Ticket();
                     String text = et.getText().toString();
                     int mesa = Integer.parseInt(text);
                     ticket.setMesa(mesa);
                     TicketManager.getInstance().createTicket(CrearTicketActivity.this, ticket);
-
+                }
             }
         });
     }

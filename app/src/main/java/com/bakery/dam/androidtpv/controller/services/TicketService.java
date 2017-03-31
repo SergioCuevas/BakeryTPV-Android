@@ -7,6 +7,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -24,6 +25,12 @@ public interface TicketService {
 
     @GET("api/tickets/{id}")
     Call<List<Ticket>> getTicketById(
+
+            @Header("Authorization") String Authorization,
+            @Path("id") long id);
+
+    @DELETE("api/tickets/{id}")
+    Call<Void> deleteTicket(
 
             @Header("Authorization") String Authorization,
             @Path("id") long id);

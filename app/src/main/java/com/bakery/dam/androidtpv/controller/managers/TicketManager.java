@@ -98,6 +98,31 @@ public class TicketManager {
         });
     }
 
+    public synchronized void deleteTicket(final TicketCallback ticketCallback, long id) {
+        Call<Void> call = ticketService.deleteTicket(UserLoginManager.getInstance().getBearerToken(), id);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    ticketCallback.onSuccessTicket(null);
+                } else {
+                    ticketCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("TeamManager->", t.toString());
+                ticketCallback.onFailure(t);
+            }
+
+        });
+    }
+
     public synchronized void getTicketById(final TicketCallback ticketCallback, long id) {
         Call<List<Ticket>> call = ticketService.getTicketById(UserLoginManager.getInstance().getBearerToken(), id);
 
