@@ -87,8 +87,9 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     }
 
     @Override
-    public void onSuccessTicket(List<Ticket> ticket) {
-        Ticket t=ticket.get(0);
+    public void onSuccessTicket(Object ticket) {
+        List<Ticket> ts = (List<Ticket>) ticket;
+        Ticket t=ts.get(0);
         tvMesa.setText(t.getMesa()+"");
         tvPrecio.setText(t.getCantidad()+"");
     }

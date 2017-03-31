@@ -16,7 +16,7 @@
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_crear_ticket);
 
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

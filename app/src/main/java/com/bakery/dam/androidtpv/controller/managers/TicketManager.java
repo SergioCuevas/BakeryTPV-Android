@@ -21,6 +21,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TicketManager {
     private static TicketManager ourInstance;
     private List<Ticket> tickets;
+    private static Ticket ticket;
+
     private Retrofit retrofit;
     private TicketService ticketService;
 
@@ -69,6 +71,33 @@ public class TicketManager {
 
         });
     }
+
+    public synchronized void createTicket(final TicketCallback ticketCallback, Ticket t) {
+        Call<Ticket> call = ticketService.createTicket(UserLoginManager.getInstance().getBearerToken(), t);
+
+        call.enqueue(new Callback<Ticket>() {
+            @Override
+            public void onResponse(Call<Ticket> call, Response<Ticket> response) {
+                ticket = response.body();
+
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    ticketCallback.onSuccessTicket(ticket);
+                } else {
+                    ticketCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Ticket> call, Throwable t) {
+                Log.e("TeamManager->", t.toString());
+                ticketCallback.onFailure(t);
+            }
+
+        });
+    }
+
     public synchronized void getTicketById(final TicketCallback ticketCallback, long id) {
         Call<List<Ticket>> call = ticketService.getTicketById(UserLoginManager.getInstance().getBearerToken(), id);
 

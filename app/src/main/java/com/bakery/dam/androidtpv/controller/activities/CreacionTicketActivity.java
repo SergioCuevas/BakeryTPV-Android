@@ -32,7 +32,10 @@ public class CreacionTicketActivity extends AppCompatActivity {
         tabs.setTabGravity(TabLayout.GRAVITY_FILL);
         tabs.setTabMode(TabLayout.MODE_FIXED);
 
-        tabs.setupWithViewPager(viewPager);
+        // Setear adaptador al viewpager.
+        //ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        //tabs.setupWithViewPager(viewPager);
+
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
 

@@ -32,11 +32,12 @@
         <activity
             android:name=".controller.activities.main.MenuActivity"
             android:label="Bakery TPV"
-            android:theme="@style/AppTheme"></activity>
             android:theme="@style/AppTheme" />
         android:theme="@style/AppTheme" />
+        android:theme="@style/AppTheme" />
         <activity android:name=".controller.activities.CreacionTicketActivity" />
-        <activity android:name=".controller.activities.main.ProductListActivity"></activity>
+        <activity android:name=".controller.activities.main.ProductListActivity" />
+        <activity android:name=".controller.activities.CrearTicketActivity" />
     </application>
 
 </manifest>

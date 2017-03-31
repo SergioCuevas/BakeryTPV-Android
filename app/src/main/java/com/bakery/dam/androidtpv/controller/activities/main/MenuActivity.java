@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.activities.CreacionTicketActivity;
+import com.bakery.dam.androidtpv.controller.activities.CrearTicketActivity;
 import com.bakery.dam.androidtpv.controller.activities.Dialogs.TicketDialog;
 import com.bakery.dam.androidtpv.controller.activities.login.LoginActivity;
 import com.bakery.dam.androidtpv.controller.managers.TicketCallback;
@@ -74,11 +75,11 @@ public class MenuActivity extends AppCompatActivity
         llista= (ListView) findViewById(R.id.llista);
         TicketManager.getInstance().getAllTickets(MenuActivity.this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MenuActivity.this, CreacionTicketActivity.class);
+                Intent i = new Intent(MenuActivity.this, CrearTicketActivity.class);
                 startActivity(i);
             }
         });
@@ -143,18 +144,19 @@ public class MenuActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSuccessTicket(final List<Ticket> ticket) {
-        tickets = ticket;
+    public void onSuccessTicket(final Object ticket) {
+        tickets = (List<Ticket>) ticket;
         llista.setAdapter(new MenuActivity.PartsAdapter(this, tickets));
         llista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MenuActivity.this, ProductListActivity.class);
-                intent.putExtra("id", (long)ticket.get(i).getId());
+                intent.putExtra("id", (long)tickets.get(i).getId());
                 startActivity(intent);
             }
         });
     }
+
 
     @Override
     public void onFailure(Throwable t) {
