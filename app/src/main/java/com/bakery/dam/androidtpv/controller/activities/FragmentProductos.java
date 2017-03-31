@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bakery.dam.androidtpv.R;
+import com.bakery.dam.androidtpv.controller.managers.ProductCallback;
+import com.bakery.dam.androidtpv.controller.managers.ProductManager;
+import com.bakery.dam.androidtpv.controller.managers.TicketManager;
 import com.bakery.dam.androidtpv.model.Oferta;
 import com.bakery.dam.androidtpv.model.Producto;
 
@@ -23,27 +27,39 @@ import java.util.List;
  * Created by DAM on 28/3/17.
  */
 
-public class FragmentProductos extends Fragment {
-    private CardView llista;
+public class FragmentProductos extends Fragment implements ProductCallback
+{
+    TicketManager ticketManager;
+    private RecyclerView llista;
+    View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
 
-        View view = inflater.inflate(R.layout.fragment_productos, container, false);
-        llista= (CardView) view.findViewById(R.id.cardproductosid);
-        //  "Inflamos" el archivo XML correspondiente a esta sección.
+        view = inflater.inflate(R.layout.fragment_productos, container, false);
+        llista= (RecyclerView) view.findViewById(R.id.cardproductosid);
+        //ProductManager.getInstance().getAllProductos(FragmentProductos.this);
+
         return view;
+    }
+
+    @Override
+    public void onSuccess(List<Producto> product) {
+        //llista.setAdapter(new ProductoAdapter(view.getContext(), product));
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+
     }
 
     public class ProductoAdapter extends BaseAdapter {
         private Context context;
-        private List<Object> products;
-        private List<Integer> quantity;
-        public ProductoAdapter(Context context, List<Object> products, List<Integer> quantity){
+        private List<Producto> products;
+        public ProductoAdapter(Context context, List<Producto> products){
             this.context=context;
             this.products=products;
-            this.quantity=quantity;
         }
         @Override
         public int getCount() {
@@ -57,7 +73,7 @@ public class FragmentProductos extends Fragment {
 
         @Override
         public long getItemId(int position) {
-            int id= (int) products.get(position);
+            int id= (int) products.get(position).getId();
             return id;
         }
 
