@@ -24,14 +24,16 @@ import java.util.List;
  */
 
 public class FragmentProductos extends Fragment {
-    private ListView llista;
+    private CardView llista;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
 
+        View view = inflater.inflate(R.layout.fragment_productos, container, false);
+        llista= (CardView) view.findViewById(R.id.cardproductosid);
         //  "Inflamos" el archivo XML correspondiente a esta sección.
-        return inflater.inflate(R.layout.calculadora,container,false);
+        return view;
     }
 
     public class ProductoAdapter extends BaseAdapter {
