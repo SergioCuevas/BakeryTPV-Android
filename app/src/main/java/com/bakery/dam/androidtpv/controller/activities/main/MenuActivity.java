@@ -48,12 +48,9 @@ public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TicketCallback {
     private RecyclerView recyclerView;
 
-    private static Retrofit retrofit;
-    private TicketService ticketService;
     private List<Ticket> tickets;
     private ListView llista;
-    private FloatingActionButton add;
-    private DialogFragment newFragment = new TicketDialog();
+    long id;
     private List<Integer> imgs = new ArrayList<>();
 
     @Override
@@ -168,13 +165,15 @@ public class MenuActivity extends AppCompatActivity
             llista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    tickets.remove(i);
+                    id=(long) tickets.get(i).getId();
                     TicketManager.getInstance().deleteTicket(MenuActivity.this, (long) tickets.get(i).getId());
+
                     return false;
                 }
             });
         } else {
-            llista.invalidateViews();
+            Intent intent = new Intent(MenuActivity.this, MenuActivity.class);
+            startActivity(intent);
         }
     }
 
