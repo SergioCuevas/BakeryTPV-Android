@@ -1,5 +1,6 @@
 package com.bakery.dam.androidtpv.controller.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,7 +43,8 @@ public class CrearTicketActivity extends AppCompatActivity implements TicketCall
 
     @Override
     public void onSuccessTicket(Object o) {
-
+        Intent i = new Intent(CrearTicketActivity.this, MenuActivity.class);
+        startActivity(i);
     }
 
     @Override
