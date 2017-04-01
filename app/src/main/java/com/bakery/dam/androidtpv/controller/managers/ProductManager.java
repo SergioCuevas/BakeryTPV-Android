@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.bakery.dam.androidtpv.controller.services.ProductService;
 import com.bakery.dam.androidtpv.model.Producto;
+import com.bakery.dam.androidtpv.model.Tipo;
 import com.bakery.dam.androidtpv.util.CustomProperties;
 
 import java.util.List;
@@ -69,6 +70,32 @@ public class ProductManager {
 
     public synchronized void getProductsByTicket(final ProductCallback productCallback, long id) {
         Call<List<Producto>> call = productService.getProducts(UserLoginManager.getInstance().getBearerToken(), id);
+
+        call.enqueue(new Callback<List<Producto>>() {
+            @Override
+            public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
+                products = response.body();
+
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    productCallback.onSuccess(products);
+                } else {
+                    productCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Producto>> call, Throwable t) {
+                Log.e("TeamManager->", t.toString());
+                productCallback.onFailure(t);
+            }
+
+        });
+    }
+
+    public synchronized void getProductsByTipo(final ProductCallback productCallback, String tipo) {
+        Call<List<Producto>> call = productService.getProductosByTipo(UserLoginManager.getInstance().getBearerToken(), tipo);
 
         call.enqueue(new Callback<List<Producto>>() {
             @Override

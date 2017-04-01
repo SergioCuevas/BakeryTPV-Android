@@ -6,6 +6,7 @@ package com.bakery.dam.androidtpv.controller.services;
 
 import com.bakery.dam.androidtpv.model.Oferta;
 import com.bakery.dam.androidtpv.model.Producto;
+import com.bakery.dam.androidtpv.model.Tipo;
 
 import java.util.List;
 
@@ -22,6 +23,12 @@ public interface ProductService {
     @GET("api/productos")
     Call<List<Producto>> getAllProductos(
             @Header("Authorization") String Authorization
+    );
+
+    @GET("api/productos/tipo/{tipo}")
+    Call<List<Producto>> getProductosByTipo(
+            @Header("Authorization") String Authorization,
+            @Path("tipo") String tipo
     );
 
 

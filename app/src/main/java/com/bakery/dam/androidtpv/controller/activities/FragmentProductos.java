@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -62,7 +63,7 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
         for (Producto p:productosList){
             productos.add(p);
         }
-
+        Update();
     }
 
     @Override
@@ -75,13 +76,41 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
         llista.setAdapter(pa);
     }
 
+
     @Override
     public void onSuccessTipo(Object o) {
-        List<Tipo>tiposList= (List<Tipo>) o;
+        final List<Tipo>tiposList= (List<Tipo>) o;
         for (Tipo t:tiposList){
             tipos.add(t.getNombre());
         }
         spinner.setAdapter(new SpinnerAdapter(this.getContext(), tipos));
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(tipos.get(i).equals("Todos")){
+                    productos=new ArrayList<>();
+                    ProductManager.getInstance().getAllProductos(FragmentProductos.this);
+                    OfferManager.getInstance().getAllOffers(FragmentProductos.this);
+                } else if(tipos.get(i).equals("Ofertas")){
+                    productos=new ArrayList<>();
+                    OfferManager.getInstance().getAllOffers(FragmentProductos.this);
+                } else {
+                    productos=new ArrayList<>();
+                    ProductManager.getInstance().getProductsByTipo(FragmentProductos.this, tiposList.get(i-2).getNombre());
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    public void Update(){
+    ProductoAdapter pa = new ProductoAdapter(this.getContext(), productos);
+    llista.setAdapter(pa);
     }
 
     @Override
