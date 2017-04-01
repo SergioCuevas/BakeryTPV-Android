@@ -10,6 +10,9 @@ public class LineaOferta {
 
     private Integer cantidad;
 
+
+
+
     private Integer id;
 
     private String nombre;

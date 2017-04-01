@@ -30,7 +30,8 @@ import java.util.List;
 public class FragmentProductos extends Fragment implements ProductCallback
 {
     TicketManager ticketManager;
-    private RecyclerView llista;
+    private ListView llista;
+    private List<Producto> productos;
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,15 +39,16 @@ public class FragmentProductos extends Fragment implements ProductCallback
 
 
         view = inflater.inflate(R.layout.fragment_productos, container, false);
-        llista= (RecyclerView) view.findViewById(R.id.cardproductosid);
-        //ProductManager.getInstance().getAllProductos(FragmentProductos.this);
+        llista= (ListView) view.findViewById(R.id.list_view_productos);
+        ProductManager.getInstance().getAllProductos(FragmentProductos.this);
 
         return view;
     }
 
     @Override
     public void onSuccess(List<Producto> product) {
-        //llista.setAdapter(new ProductoAdapter(view.getContext(), product));
+        ProductoAdapter pa = new ProductoAdapter(this.getContext(), product);
+        llista.setAdapter(pa);
     }
 
     @Override
@@ -73,7 +75,7 @@ public class FragmentProductos extends Fragment implements ProductCallback
 
         @Override
         public long getItemId(int position) {
-            int id= (int) products.get(position).getId();
+            int id=  products.get(position).getId();
             return id;
         }
 
@@ -104,7 +106,6 @@ public class FragmentProductos extends Fragment implements ProductCallback
             if(products.get(position) instanceof Producto){
                 Producto producto = (Producto) products.get(position);
                 String nombre = producto.getNombre() + "";
-                String cantidad = quantity.get(position) + "";
                 String description = producto.getDescripcion()+"";
                 String price = producto.getPrecio()+"";
                 String image = producto.getImagen()+"";
@@ -112,14 +113,6 @@ public class FragmentProductos extends Fragment implements ProductCallback
                 holder.tvNombre.setText(nombre);
                 holder.tvDescription.setText(description);
                 holder.tvPrice.setText(price);
-            } else {
-                Oferta oferta = (Oferta) products.get(position);
-                String nombre = oferta.getNombre() + "";
-                String cantidad = quantity.get(position) + "";
-                holder.tvNombre.setText(nombre);
-            }
-            if(position%2==0){
-                myView.setBackgroundColor(Color.rgb(255, 246 ,238));
             }
             return myView;
         }

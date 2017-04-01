@@ -1,49 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardproductosid"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginTop="5dp"
-    android:orientation="vertical"
-    card_view:cardCornerRadius="5dp">
+    android:orientation="horizontal"
+    card_view:cardCornerRadius="5dp"
+    android:weightSum="1"
+    android:layout_margin="0dp"
+    android:background="@color/white"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:layout_height="115dp">
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="98dp"
+        android:layout_height="match_parent"
+        card_view:srcCompat="@mipmap/ic_launcher"
+        android:layout_gravity="center" />
 
     <LinearLayout
-        android:id="@+id/layoutproducts"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="111dp"
-        android:layout_margin="10dp"
-        android:weightSum="1">
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="71dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.06"
-            card_view:srcCompat="@mipmap/ic_launcher" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="5dp">
 
         <TextView
             android:id="@+id/card_productname"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="0dp"
+            android:text="dddddddd"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:shadowColor="@color/black" />
 
         <TextView
             android:id="@+id/card_productdescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:text="aaaaaaa"
+            android:textColor="@color/jumbo"
+            android:layout_margin="3dp"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/card_productprice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:text="20€"
+            android:hapticFeedbackEnabled="true"
+            android:textColor="@color/cardview_dark_background"
+            android:layout_marginTop="5dp"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
 
-</android.support.v7.widget.CardView>
+</LinearLayout>

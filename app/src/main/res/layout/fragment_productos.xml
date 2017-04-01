@@ -4,9 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_recycler_view"
+    <ListView
+        android:id="@+id/list_view_productos"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_marginTop="115dp"
+        android:dividerHeight="@dimen/cardview_compat_inset_shadow"
+        android:divider="@color/cardview_shadow_start_color"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+    </ListView>
 </RelativeLayout>
