@@ -12,43 +12,76 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bakery.dam.androidtpv.R;
+import com.bakery.dam.androidtpv.controller.managers.OfferCallback;
+import com.bakery.dam.androidtpv.controller.managers.OfferManager;
 import com.bakery.dam.androidtpv.controller.managers.ProductCallback;
 import com.bakery.dam.androidtpv.controller.managers.ProductManager;
 import com.bakery.dam.androidtpv.controller.managers.TicketManager;
+import com.bakery.dam.androidtpv.controller.managers.TipoCallback;
+import com.bakery.dam.androidtpv.controller.managers.TipoManager;
 import com.bakery.dam.androidtpv.model.Oferta;
 import com.bakery.dam.androidtpv.model.Producto;
+import com.bakery.dam.androidtpv.model.Tipo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by DAM on 28/3/17.
  */
 
-public class FragmentProductos extends Fragment implements ProductCallback
+public class FragmentProductos extends Fragment implements ProductCallback, OfferCallback, TipoCallback
 {
     TicketManager ticketManager;
     private ListView llista;
-    private List<Producto> productos;
+    private Spinner spinner;
+    private List<Object> productos = new ArrayList<>();
+    private List<String> tipos;
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-
-
         view = inflater.inflate(R.layout.fragment_productos, container, false);
         llista= (ListView) view.findViewById(R.id.list_view_productos);
+        tipos=new ArrayList<>();
+        tipos.add("Todos");
+        tipos.add("Ofertas");
+        spinner= (Spinner) view.findViewById(R.id.spinnertipos);
+        TipoManager.getInstance().getAllTipos(FragmentProductos.this);
         ProductManager.getInstance().getAllProductos(FragmentProductos.this);
-
+        OfferManager.getInstance().getAllOffers(FragmentProductos.this);
         return view;
     }
 
     @Override
-    public void onSuccess(List<Producto> product) {
-        ProductoAdapter pa = new ProductoAdapter(this.getContext(), product);
+    public void onSuccess(Object product) {
+        List<Producto>productosList= (List<Producto>) product;
+        for (Producto p:productosList){
+            productos.add(p);
+        }
+
+    }
+
+    @Override
+    public void onSuccessOffer(Object offer) {
+        List<Oferta>offersList= (List<Oferta>) offer;
+        for (Oferta o:offersList){
+            productos.add(o);
+        }
+        ProductoAdapter pa = new ProductoAdapter(this.getContext(), productos);
         llista.setAdapter(pa);
+    }
+
+    @Override
+    public void onSuccessTipo(Object o) {
+        List<Tipo>tiposList= (List<Tipo>) o;
+        for (Tipo t:tiposList){
+            tipos.add(t.getNombre());
+        }
+        spinner.setAdapter(new SpinnerAdapter(this.getContext(), tipos));
     }
 
     @Override
@@ -58,8 +91,8 @@ public class FragmentProductos extends Fragment implements ProductCallback
 
     public class ProductoAdapter extends BaseAdapter {
         private Context context;
-        private List<Producto> products;
-        public ProductoAdapter(Context context, List<Producto> products){
+        private List<Object> products;
+        public ProductoAdapter(Context context, List<Object> products){
             this.context=context;
             this.products=products;
         }
@@ -75,7 +108,7 @@ public class FragmentProductos extends Fragment implements ProductCallback
 
         @Override
         public long getItemId(int position) {
-            int id=  products.get(position).getId();
+            int id=  0;
             return id;
         }
 
@@ -113,7 +146,64 @@ public class FragmentProductos extends Fragment implements ProductCallback
                 holder.tvNombre.setText(nombre);
                 holder.tvDescription.setText(description);
                 holder.tvPrice.setText(price);
+            } else {
+                Oferta oferta = (Oferta) products.get(position);
+                String nombre = oferta.getNombre() + "";
+                String description = oferta.getDescripcion()+"";
+                String price = oferta.getPrecio()+"";
+                String image = oferta.getImagen()+"";
+
+                holder.tvNombre.setText(nombre);
+                holder.tvDescription.setText(description);
+                holder.tvPrice.setText(price);
             }
+            return myView;
+        }
+    }
+
+    public class SpinnerAdapter extends BaseAdapter {
+        private Context context;
+        private List<String> tipos;
+        public SpinnerAdapter(Context context, List<String> tipos){
+            this.context=context;
+            this.tipos=tipos;
+        }
+        @Override
+        public int getCount() {
+            return tipos.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return tipos.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            int id=  0;
+            return id;
+        }
+
+        public class ViewHolder{
+            public TextView tvNombre;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View myView = convertView;
+            if (myView == null) {
+
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+                myView = inflater.inflate(R.layout.spinner, parent, false);
+                FragmentProductos.SpinnerAdapter.ViewHolder holder = new FragmentProductos.SpinnerAdapter.ViewHolder();
+                holder.tvNombre = (TextView) myView.findViewById(R.id.nombretipo);
+                myView.setTag(holder);
+            }
+            FragmentProductos.SpinnerAdapter.ViewHolder holder = (FragmentProductos.SpinnerAdapter.ViewHolder) myView.getTag();
+
+            holder.tvNombre.setText(tipos.get(position));
+
+
             return myView;
         }
     }

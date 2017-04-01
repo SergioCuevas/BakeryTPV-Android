@@ -10,6 +10,6 @@ import java.util.List;
  */
 
 public interface ProductCallback {
-    void onSuccess(List<Producto> product);
+    void onSuccess(Object product);
     void onFailure(Throwable t);
 }

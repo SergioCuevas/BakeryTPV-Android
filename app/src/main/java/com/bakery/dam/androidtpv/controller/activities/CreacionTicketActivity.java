@@ -64,7 +64,7 @@ public class CreacionTicketActivity extends AppCompatActivity implements Product
 
 
     @Override
-    public void onSuccess(List<Producto> product) {
+    public void onSuccess(Object product) {
 
     }
 

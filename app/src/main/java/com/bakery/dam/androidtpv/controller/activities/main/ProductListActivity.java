@@ -67,8 +67,8 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     }
 
     @Override
-    public void onSuccess(List<Producto> product) {
-        productos=product;
+    public void onSuccess(Object product) {
+        productos= (List<Producto>) product;
         for(Producto p : productos){
             if(!productsAndOffers.contains(p)){
 
@@ -82,8 +82,8 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     }
 
     @Override
-    public void onSuccessOffer(List<Oferta> offer) {
-        offers=offer;
+    public void onSuccessOffer(Object offer) {
+        offers= (List<Oferta>) offer;
         for(Oferta o : offers){
             if(!productsAndOffers.contains(o)){
                 productsAndOffers.add(o);
