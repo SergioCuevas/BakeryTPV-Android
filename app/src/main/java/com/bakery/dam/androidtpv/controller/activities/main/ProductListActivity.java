@@ -44,18 +44,20 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     private TextView tvPrecio;
     private TextView tvMesa;
     private FloatingActionButton fb;
+    private Long id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
         llista= (ListView) findViewById(R.id.productos);
         Intent intent=this.getIntent();
-        long id= intent.getLongExtra("id", 0);
+        id= intent.getLongExtra("id", 0);
         fb = (FloatingActionButton) findViewById(R.id.addProduct);
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ProductListActivity.this, CreacionTicketActivity.class);
+                i.putExtra("id", id);
                 startActivity(i);
             }
         });

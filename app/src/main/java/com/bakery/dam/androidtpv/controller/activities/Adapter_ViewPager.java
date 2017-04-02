@@ -11,17 +11,21 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class Adapter_ViewPager extends FragmentPagerAdapter {
 
     int numDeSecciones;
-
-    public Adapter_ViewPager(FragmentManager fm, int numDeSecciones) {
+    private long id;
+    public Adapter_ViewPager(FragmentManager fm, int numDeSecciones, long id) {
         super(fm);
         this.numDeSecciones=numDeSecciones;
+        this.id = id;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new FragmentCalculadora();
+                FragmentProductos fp = new FragmentProductos();
+                fp.setId(this.id);
+                return fp;
+
             case 1:
                 return new FragmentProductos();
 

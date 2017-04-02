@@ -49,8 +49,10 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
     private List<Object> productos = new ArrayList<>();
     private List<String> tipos;
     private EditText search;
+    public long id;
     private ImageButton searchButton;
     View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_productos, container, false);
@@ -60,6 +62,7 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
         tipos=new ArrayList<>();
         tipos.add("Todos");
         tipos.add("Ofertas");
+        CreacionTicketActivity ca=new CreacionTicketActivity();
         spinner= (Spinner) view.findViewById(R.id.spinnertipos);
         TipoManager.getInstance().getAllTipos(FragmentProductos.this);
         ProductManager.getInstance().getAllProductos(FragmentProductos.this);
@@ -77,6 +80,12 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
         });
         return view;
     }
+
+    public void setId(long id){
+        this.id=id;
+    }
+
+
     public class KeyboardUtil
     {
         public void hideKeyboard(Activity activity)
