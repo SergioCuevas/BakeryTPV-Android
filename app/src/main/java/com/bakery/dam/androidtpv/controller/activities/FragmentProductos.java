@@ -1,16 +1,22 @@
 package com.bakery.dam.androidtpv.controller.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -42,10 +48,14 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
     private Spinner spinner;
     private List<Object> productos = new ArrayList<>();
     private List<String> tipos;
+    private EditText search;
+    private ImageButton searchButton;
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_productos, container, false);
+        search = (EditText) view.findViewById(R.id.search);
+        searchButton = (ImageButton) view.findViewById(R.id.searchbutton);
         llista= (ListView) view.findViewById(R.id.list_view_productos);
         tipos=new ArrayList<>();
         tipos.add("Todos");
@@ -54,9 +64,34 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
         TipoManager.getInstance().getAllTipos(FragmentProductos.this);
         ProductManager.getInstance().getAllProductos(FragmentProductos.this);
         OfferManager.getInstance().getAllOffers(FragmentProductos.this);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!search.getText().toString().equals("")){
+                    productos = new ArrayList<>();
+                    ProductManager.getInstance().getProductsByNombre(FragmentProductos.this, search.getText().toString());
+                    KeyboardUtil k = new KeyboardUtil();
+                    k.hideKeyboard((Activity) view.getContext());
+                }
+            }
+        });
         return view;
     }
-
+    public class KeyboardUtil
+    {
+        public void hideKeyboard(Activity activity)
+        {
+            try
+            {
+                InputMethodManager inputManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+            catch (Exception e)
+            {
+                // Ignore exceptions if any
+            }
+        }
+    }
     @Override
     public void onSuccess(Object product) {
         List<Producto>productosList= (List<Producto>) product;

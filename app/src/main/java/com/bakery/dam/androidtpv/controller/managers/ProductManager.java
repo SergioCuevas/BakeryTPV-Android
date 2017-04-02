@@ -105,6 +105,32 @@ public class ProductManager {
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
+                     productCallback.onSuccess(products);
+                } else {
+                    productCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Producto>> call, Throwable t) {
+                Log.e("TeamManager->", t.toString());
+                productCallback.onFailure(t);
+            }
+
+        });
+    }
+
+    public synchronized void getProductsByNombre(final ProductCallback productCallback, String nombre) {
+        Call<List<Producto>> call = productService.getProductosByNombre(UserLoginManager.getInstance().getBearerToken(), nombre);
+
+        call.enqueue(new Callback<List<Producto>>() {
+            @Override
+            public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
+                products = response.body();
+
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
                     productCallback.onSuccess(products);
                 } else {
                     productCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));

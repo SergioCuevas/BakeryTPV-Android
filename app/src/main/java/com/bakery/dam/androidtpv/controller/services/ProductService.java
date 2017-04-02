@@ -31,6 +31,11 @@ public interface ProductService {
             @Path("tipo") String tipo
     );
 
+    @GET("api/productos/nombre/{nombre}")
+    Call<List<Producto>> getProductosByNombre(
+            @Header("Authorization") String Authorization,
+            @Path("nombre") String nombre
+    );
 
     @GET("api/tickets/productos/{id}")
     Call<List<Producto>> getProducts(
