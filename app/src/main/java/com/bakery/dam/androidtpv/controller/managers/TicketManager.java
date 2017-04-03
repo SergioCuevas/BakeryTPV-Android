@@ -3,6 +3,8 @@ package com.bakery.dam.androidtpv.controller.managers;
 import android.util.Log;
 
 import com.bakery.dam.androidtpv.controller.services.TicketService;
+import com.bakery.dam.androidtpv.model.Oferta;
+import com.bakery.dam.androidtpv.model.Producto;
 import com.bakery.dam.androidtpv.model.Ticket;
 import com.bakery.dam.androidtpv.util.CustomProperties;
 
@@ -74,6 +76,58 @@ public class TicketManager {
 
     public synchronized void createTicket(final TicketCallback ticketCallback, Ticket t) {
         Call<Ticket> call = ticketService.createTicket(UserLoginManager.getInstance().getBearerToken(), t);
+
+        call.enqueue(new Callback<Ticket>() {
+            @Override
+            public void onResponse(Call<Ticket> call, Response<Ticket> response) {
+                ticket = response.body();
+
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    ticketCallback.onSuccessTicket(ticket);
+                } else {
+                    ticketCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Ticket> call, Throwable t) {
+                Log.e("TeamManager->", t.toString());
+                ticketCallback.onFailure(t);
+            }
+
+        });
+    }
+
+    public synchronized void updateTicketProducto(final TicketCallback ticketCallback, Producto p, long id ) {
+        Call<Ticket> call = ticketService.updateTicketProducto(UserLoginManager.getInstance().getBearerToken(), p, id);
+
+        call.enqueue(new Callback<Ticket>() {
+            @Override
+            public void onResponse(Call<Ticket> call, Response<Ticket> response) {
+                ticket = response.body();
+
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    ticketCallback.onSuccessTicket(ticket);
+                } else {
+                    ticketCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Ticket> call, Throwable t) {
+                Log.e("TeamManager->", t.toString());
+                ticketCallback.onFailure(t);
+            }
+
+        });
+    }
+
+    public synchronized void updateTicketOferta(final TicketCallback ticketCallback, Oferta o, long id ) {
+        Call<Ticket> call = ticketService.updateTicketOferta(UserLoginManager.getInstance().getBearerToken(), o, id);
 
         call.enqueue(new Callback<Ticket>() {
             @Override
