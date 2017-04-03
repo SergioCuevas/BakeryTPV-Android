@@ -1,5 +1,6 @@
 package com.bakery.dam.androidtpv.controller.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -13,7 +14,7 @@ import com.bakery.dam.androidtpv.model.Producto;
 import java.util.List;
 
 public class CreacionTicketActivity extends AppCompatActivity implements ProductCallback {
-
+    public long id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +27,13 @@ public class CreacionTicketActivity extends AppCompatActivity implements Product
         tabs.addTab(tabs.newTab().setText("CALCULADORA"));
         tabs.addTab(tabs.newTab().setText("PRODUCTO"));
         //le damos una posición
-
+        Intent intent=this.getIntent();
+        id= intent.getLongExtra("id", 0);
 
         // Setear adaptador al viewpager.
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.ViewPagerPrincipal);
-        Adapter_ViewPager adapter_viewPager = new Adapter_ViewPager(getSupportFragmentManager(),tabs.getTabCount());
+        Adapter_ViewPager adapter_viewPager = new Adapter_ViewPager(getSupportFragmentManager(),tabs.getTabCount(), id);
         viewPager.setAdapter(adapter_viewPager);
         tabs.setTabGravity(TabLayout.GRAVITY_FILL);
         tabs.setTabMode(TabLayout.MODE_FIXED);
@@ -64,7 +66,7 @@ public class CreacionTicketActivity extends AppCompatActivity implements Product
 
 
     @Override
-    public void onSuccess(List<Producto> product) {
+    public void onSuccess(Object product) {
 
     }
 

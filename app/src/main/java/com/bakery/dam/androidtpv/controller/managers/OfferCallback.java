@@ -10,6 +10,6 @@ import java.util.List;
  */
 
 public interface OfferCallback {
-    void onSuccessOffer(List<Oferta> offer);
+    void onSuccessOffer(Object offer);
     void onFailure(Throwable t);
 }

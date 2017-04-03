@@ -5,5 +5,6 @@ package com.bakery.dam.androidtpv.model;
  */
 
 public enum MetodoPago {
+
     TARJETA, EFECTIVO;
 }

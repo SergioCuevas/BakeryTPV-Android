@@ -46,7 +46,30 @@ public class OfferManager {
         return ourInstance;
     }
 
-    /* GET - GET ALL TEAMS */
+    public synchronized void getAllOffers(final OfferCallback productCallback) {
+        Call<List<Oferta>> call = offerService.getAllOffers(UserLoginManager.getInstance().getBearerToken());
+
+        call.enqueue(new Callback<List<Oferta>>() {
+            @Override
+            public void onResponse(Call<List<Oferta>> call, Response<List<Oferta>> response) {
+                offers = response.body();
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    productCallback.onSuccessOffer(offers);
+
+                } else {
+                    productCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Oferta>> call, Throwable t) {
+                Log.e("TeamManager->", t.toString());
+                productCallback.onFailure(t);
+            }
+        });
+    }
 
     public synchronized void getOffersByTicket(final OfferCallback offerCallback, long id) {
         Call<List<Oferta>> call = offerService.getOffersByTicket(UserLoginManager.getInstance().getBearerToken(), id);

@@ -3,6 +3,7 @@ package com.bakery.dam.androidtpv.controller.activities.main;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bakery.dam.androidtpv.R;
+import com.bakery.dam.androidtpv.controller.activities.CreacionTicketActivity;
 import com.bakery.dam.androidtpv.controller.managers.OfferCallback;
 import com.bakery.dam.androidtpv.controller.managers.OfferManager;
 import com.bakery.dam.androidtpv.controller.managers.ProductCallback;
@@ -41,14 +43,24 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     private OfferManager offerManager;
     private TextView tvPrecio;
     private TextView tvMesa;
+    private FloatingActionButton fb;
+    private Long id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
         llista= (ListView) findViewById(R.id.productos);
         Intent intent=this.getIntent();
-        long id= intent.getLongExtra("id", 0);
-
+        id= intent.getLongExtra("id", 0);
+        fb = (FloatingActionButton) findViewById(R.id.addProduct);
+        fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ProductListActivity.this, CreacionTicketActivity.class);
+                i.putExtra("id", id);
+                startActivity(i);
+            }
+        });
         tvPrecio= (TextView) findViewById(R.id.preciototal);
         tvMesa= (TextView) findViewById(R.id.mesaticket);
         TicketManager.getInstance().getTicketById(ProductListActivity.this, id);
@@ -57,8 +69,8 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     }
 
     @Override
-    public void onSuccess(List<Producto> product) {
-        productos=product;
+    public void onSuccess(Object product) {
+        productos= (List<Producto>) product;
         for(Producto p : productos){
             if(!productsAndOffers.contains(p)){
 
@@ -72,8 +84,8 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     }
 
     @Override
-    public void onSuccessOffer(List<Oferta> offer) {
-        offers=offer;
+    public void onSuccessOffer(Object offer) {
+        offers= (List<Oferta>) offer;
         for(Oferta o : offers){
             if(!productsAndOffers.contains(o)){
                 productsAndOffers.add(o);
