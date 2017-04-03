@@ -24,8 +24,8 @@ public class CreacionTicketActivity extends AppCompatActivity implements Product
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //añadimos al "menu"
-        tabs.addTab(tabs.newTab().setText("CALCULADORA"));
         tabs.addTab(tabs.newTab().setText("PRODUCTO"));
+        tabs.addTab(tabs.newTab().setText("CALCULADORA"));
         //le damos una posición
         Intent intent=this.getIntent();
         id= intent.getLongExtra("id", 0);

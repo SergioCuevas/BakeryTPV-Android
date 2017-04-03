@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.bakery.dam.androidtpv.controller.services.ProductService;
 import com.bakery.dam.androidtpv.model.Producto;
+import com.bakery.dam.androidtpv.model.Ticket;
 import com.bakery.dam.androidtpv.model.Tipo;
 import com.bakery.dam.androidtpv.util.CustomProperties;
 
@@ -22,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProductManager {
     private static ProductManager ourInstance;
     private List<Producto> products;
+    private Producto product;
     private Retrofit retrofit;
     private ProductService productService;
 
@@ -41,6 +43,7 @@ public class ProductManager {
 
         return ourInstance;
     }
+
 
     /* GET - GET ALL TEAMS */
     public synchronized void getAllProductos(final ProductCallback productCallback) {

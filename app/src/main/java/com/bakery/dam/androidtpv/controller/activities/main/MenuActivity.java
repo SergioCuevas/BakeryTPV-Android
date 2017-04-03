@@ -2,6 +2,7 @@ package com.bakery.dam.androidtpv.controller.activities.main;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -149,6 +151,41 @@ public class MenuActivity extends AppCompatActivity
         return true;
     }
 
+
+    private AlertDialog AskOption(final int i)
+    {
+        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+                //personalizar mensaje
+                .setTitle("Delete")
+                .setMessage("Do you want to Delete")
+
+
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //delete
+                        id = (long) tickets.get(i).getId();
+                        TicketManager.getInstance().deleteTicket(MenuActivity.this, (long) tickets.get(i).getId());
+
+                        dialog.dismiss();
+                    }
+
+                })
+
+
+
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
+
+    }
+
     @Override
     public void onSuccessTicket(final Object ticket) {
         if(ticket!=null) {
@@ -157,18 +194,26 @@ public class MenuActivity extends AppCompatActivity
             llista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = new Intent(MenuActivity.this, ProductListActivity.class);
-                    intent.putExtra("id", (long) tickets.get(i).getId());
-                    startActivity(intent);
+                    if (tickets.get(i).getMesa()!=null) {
+                        Intent intent = new Intent(MenuActivity.this, ProductListActivity.class);
+                        intent.putExtra("id", (long) tickets.get(i).getId());
+                        startActivity(intent);
+                    }
                 }
             });
             llista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    id=(long) tickets.get(i).getId();
-                    TicketManager.getInstance().deleteTicket(MenuActivity.this, (long) tickets.get(i).getId());
+                    if (tickets.get(i).getMesa()!=null) {
 
-                    return false;
+                        AlertDialog diaBox = AskOption(i);
+                        diaBox.show();
+                   //     id = (long) tickets.get(i).getId();
+                    //    TicketManager.getInstance().deleteTicket(MenuActivity.this, (long) tickets.get(i).getId());
+                    }
+                        return false;
+
+
                 }
             });
         } else {
@@ -288,5 +333,6 @@ public class MenuActivity extends AppCompatActivity
                 return myView;
             }
         }
+
     }
 }

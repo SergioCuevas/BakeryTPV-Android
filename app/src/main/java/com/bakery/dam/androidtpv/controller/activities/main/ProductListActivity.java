@@ -71,13 +71,23 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     @Override
     public void onSuccess(Object product) {
         productos= (List<Producto>) product;
+        int position= 0;
+        boolean contains = false;
         for(Producto p : productos){
-            if(!productsAndOffers.contains(p)){
+            for(Object productoQ:productsAndOffers){
+                if(productoQ instanceof Producto) {
+                    Producto pr = (Producto) productoQ;
+                    if (pr.getId() == p.getId()) {
+                        contains = true;
+                        position = productsAndOffers.indexOf(pr);
+                    }
+                }
+            }
+            if(contains==false){
 
                 productsAndOffers.add(p);
                 quantity.add(1);
             } else{
-                int position = productsAndOffers.indexOf(p);
                 quantity.set(position, quantity.get(position)+1);
             }
         }
@@ -86,12 +96,22 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     @Override
     public void onSuccessOffer(Object offer) {
         offers= (List<Oferta>) offer;
+        int position= 0;
+        boolean contains = false;
         for(Oferta o : offers){
-            if(!productsAndOffers.contains(o)){
+            for(Object ofertaQ:productsAndOffers){
+                if(ofertaQ instanceof Oferta) {
+                    Oferta of = (Oferta) ofertaQ;
+                    if (of.getId() == o.getId()) {
+                        contains = true;
+                        position = productsAndOffers.indexOf(of);
+                    }
+                }
+            }
+            if(contains==false){
                 productsAndOffers.add(o);
                 quantity.add(1);
             } else{
-                int position = productsAndOffers.indexOf(o);
                 quantity.set(position, quantity.get(position)+1);
             }
         }
