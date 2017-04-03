@@ -30,7 +30,7 @@
 
         <EditText
             android:id="@+id/search"
-            android:layout_width="289dp"
+            android:layout_width="179dp"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/list_view_productos"
             android:layout_alignLeft="@+id/list_view_productos"
@@ -42,7 +42,8 @@
             android:inputType="textPersonName"
             android:textColor="@color/iron"
             android:textSize="14dp"
-            tools:text="Buscar" />
+            tools:text="Buscar"
+            android:layout_weight="1.57" />
 
         <ImageButton
             android:id="@+id/searchbutton"

@@ -27,6 +27,7 @@ import com.bakery.dam.androidtpv.controller.managers.OfferCallback;
 import com.bakery.dam.androidtpv.controller.managers.OfferManager;
 import com.bakery.dam.androidtpv.controller.managers.ProductCallback;
 import com.bakery.dam.androidtpv.controller.managers.ProductManager;
+import com.bakery.dam.androidtpv.controller.managers.TicketCallback;
 import com.bakery.dam.androidtpv.controller.managers.TicketManager;
 import com.bakery.dam.androidtpv.controller.managers.TipoCallback;
 import com.bakery.dam.androidtpv.controller.managers.TipoManager;
@@ -41,7 +42,7 @@ import java.util.List;
  * Created by DAM on 28/3/17.
  */
 
-public class FragmentProductos extends Fragment implements ProductCallback, OfferCallback, TipoCallback
+public class FragmentProductos extends Fragment implements ProductCallback, OfferCallback, TipoCallback, TicketCallback
 {
     TicketManager ticketManager;
     private ListView llista;
@@ -117,7 +118,7 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
             productos.add(o);
         }
         ProductoAdapter pa = new ProductoAdapter(this.getContext(), productos);
-        llista.setAdapter(pa);
+        Update();
     }
 
 
@@ -155,6 +156,21 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
     public void Update(){
     ProductoAdapter pa = new ProductoAdapter(this.getContext(), productos);
     llista.setAdapter(pa);
+        llista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(productos.get(i) instanceof Producto){
+                    TicketManager.getInstance().updateTicketProducto(FragmentProductos.this, (Producto) productos.get(i), id);
+                } else {
+                    TicketManager.getInstance().updateTicketOferta(FragmentProductos.this, (Oferta) productos.get(i), id);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onSuccessTicket(Object o) {
+
     }
 
     @Override
