@@ -157,18 +157,22 @@ public class MenuActivity extends AppCompatActivity
             llista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = new Intent(MenuActivity.this, ProductListActivity.class);
-                    intent.putExtra("id", (long) tickets.get(i).getId());
-                    startActivity(intent);
+                    if (tickets.get(i).getMesa()!=null) {
+                        Intent intent = new Intent(MenuActivity.this, ProductListActivity.class);
+                        intent.putExtra("id", (long) tickets.get(i).getId());
+                        startActivity(intent);
+                    }
                 }
             });
             llista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    id=(long) tickets.get(i).getId();
-                    TicketManager.getInstance().deleteTicket(MenuActivity.this, (long) tickets.get(i).getId());
+                    if (tickets.get(i).getMesa()!=null) {
+                        id = (long) tickets.get(i).getId();
+                        TicketManager.getInstance().deleteTicket(MenuActivity.this, (long) tickets.get(i).getId());
+                    }
+                        return false;
 
-                    return false;
                 }
             });
         } else {
