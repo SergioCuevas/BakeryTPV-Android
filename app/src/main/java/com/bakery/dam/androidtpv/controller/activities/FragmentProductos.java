@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.managers.OfferCallback;
@@ -76,6 +77,7 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
                     ProductManager.getInstance().getProductsByNombre(FragmentProductos.this, search.getText().toString());
                     KeyboardUtil k = new KeyboardUtil();
                     k.hideKeyboard((Activity) view.getContext());
+
                 }
             }
         });
@@ -161,8 +163,16 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(productos.get(i) instanceof Producto){
                     TicketManager.getInstance().updateTicketProducto(FragmentProductos.this, (Producto) productos.get(i), id);
+                    Toast toast2 =
+                            Toast.makeText(view.getContext(),
+                                    "¡"+((Producto) productos.get(i)).getNombre()+" añadido!", Toast.LENGTH_SHORT);
+                    toast2.show();
                 } else {
                     TicketManager.getInstance().updateTicketOferta(FragmentProductos.this, (Oferta) productos.get(i), id);
+                    Toast toast2 =
+                            Toast.makeText(view.getContext(),
+                                    "¡"+((Oferta) productos.get(i)).getNombre()+" añadido!", Toast.LENGTH_SHORT);
+                    toast2.show();
                 }
             }
         });

@@ -57,4 +57,12 @@ public interface TicketService {
             @Body Oferta oferta, @Path("id") long id
 
     );
+
+    @PUT("api//tickets/{id}/calculadora/{valor}")
+    Call<Ticket> updateTicketCalculadora(
+            @Header("Authorization") String Authorization,
+            @Path("id") long id,
+            @Path("valor") String valor
+
+    );
 }

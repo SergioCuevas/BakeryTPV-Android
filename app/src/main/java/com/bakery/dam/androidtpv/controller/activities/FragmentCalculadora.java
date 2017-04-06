@@ -10,12 +10,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bakery.dam.androidtpv.R;
+import com.bakery.dam.androidtpv.controller.managers.TicketCallback;
+import com.bakery.dam.androidtpv.controller.managers.TicketManager;
 
 /**
  * Created by DAM on 31/3/17.
  */
 
-public class FragmentCalculadora extends Fragment {
+public class FragmentCalculadora extends Fragment implements TicketCallback{
 
     View view;
     private Button btn1;private Button btn2;private Button btn3;
@@ -23,6 +25,7 @@ public class FragmentCalculadora extends Fragment {
     private Button btn7;private Button btn8;private Button btn9;private Button btn0;
     private Button btnmas;private Button btnmenos;private Button btncoma;private Button btnc;
     private TextView tv;
+    private long id;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.calculate, container, false);
@@ -47,7 +50,10 @@ public class FragmentCalculadora extends Fragment {
                         tv.setText(tv.getText().toString() + ".");
                     }
                 } else if(v.getId()==R.id.c){
-                        tv.setText("");
+                    tv.setText("");
+                } else if(v.getId()==R.id.mas){
+                    String valor = tv.getText().toString();
+                    TicketManager.getInstance().updateTicketCalculadora(FragmentCalculadora.this, id, valor);
                 }
             }
         };
@@ -59,5 +65,17 @@ public class FragmentCalculadora extends Fragment {
         return view;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
+    @Override
+    public void onSuccessTicket(Object o) {
+
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+
+    }
 }

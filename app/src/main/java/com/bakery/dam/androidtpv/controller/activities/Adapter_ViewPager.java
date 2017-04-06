@@ -27,7 +27,9 @@ public class Adapter_ViewPager extends FragmentPagerAdapter {
                 return fp;
 
             case 1:
-                return new FragmentCalculadora();
+                FragmentCalculadora fc = new FragmentCalculadora();
+                fc.setId(this.id);
+                return fc;
 
                 default:
                     return null;

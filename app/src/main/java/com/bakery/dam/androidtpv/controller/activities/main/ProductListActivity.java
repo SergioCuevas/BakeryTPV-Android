@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -50,6 +51,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
         llista= (ListView) findViewById(R.id.productos);
+        productsAndOffers = new ArrayList<>();
         Intent intent=this.getIntent();
         id= intent.getLongExtra("id", 0);
         fb = (FloatingActionButton) findViewById(R.id.addProduct);
@@ -72,8 +74,9 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     public void onSuccess(Object product) {
         productos= (List<Producto>) product;
         int position= 0;
-        boolean contains = false;
+        boolean contains;
         for(Producto p : productos){
+            contains=false;
             for(Object productoQ:productsAndOffers){
                 if(productoQ instanceof Producto) {
                     Producto pr = (Producto) productoQ;
@@ -152,7 +155,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
 
         @Override
         public long getItemId(int position) {
-            int id= (int) products.get(position);
+            int id= 0;
             return id;
         }
 
