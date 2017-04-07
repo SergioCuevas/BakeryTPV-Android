@@ -2,10 +2,14 @@ package com.bakery.dam.androidtpv.controller.activities.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -185,8 +189,12 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
                     Producto producto = (Producto) products.get(position);
                     String nombre = producto.getNombre() + "";
                     String cantidad = quantity.get(position) + "";
+                    String Image = producto.getImagen();
                     holder.tvNombre.setText(nombre);
                     holder.tvCantidad.setText(cantidad);
+
+                    byte[] imageAsBytes  = Base64.decode(Image, Base64.DEFAULT);
+                    holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
                 } else {
                     Oferta oferta = (Oferta) products.get(position);
                     String nombre = oferta.getNombre() + "";

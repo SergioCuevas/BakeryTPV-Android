@@ -2,12 +2,15 @@ package com.bakery.dam.androidtpv.controller.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -240,11 +243,13 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
                 String nombre = producto.getNombre() + "";
                 String description = producto.getDescripcion()+"";
                 String price = producto.getPrecio()+"";
-                String image = producto.getImagen()+"";
-
+                String Image = producto.getImagen();
                 holder.tvNombre.setText(nombre);
                 holder.tvDescription.setText(description);
                 holder.tvPrice.setText(price);
+
+                byte[] imageAsBytes  = Base64.decode(Image, Base64.DEFAULT);
+                holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
             } else {
                 Oferta oferta = (Oferta) products.get(position);
                 String nombre = oferta.getNombre() + "";
