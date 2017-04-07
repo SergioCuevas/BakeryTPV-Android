@@ -195,6 +195,8 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
 
                     byte[] imageAsBytes  = Base64.decode(Image, Base64.DEFAULT);
                     holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                    holder.ivImage.setMaxWidth(80);
+                    holder.ivImage.setMaxWidth(80);
                 } else {
                     Oferta oferta = (Oferta) products.get(position);
                     String nombre = oferta.getNombre() + "";

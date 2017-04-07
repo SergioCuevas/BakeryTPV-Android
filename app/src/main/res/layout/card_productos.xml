@@ -9,7 +9,7 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginTop="5dp"
-    android:background="@color/redMenu"
+    android:background="@android:color/transparent"
     android:orientation="horizontal"
     android:paddingBottom="5dp"
     android:paddingTop="5dp"
@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
         card_view:srcCompat="@mipmap/ic_launcher" />
 

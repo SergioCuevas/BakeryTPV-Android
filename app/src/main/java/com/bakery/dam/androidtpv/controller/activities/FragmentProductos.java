@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -248,8 +249,12 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
                 holder.tvDescription.setText(description);
                 holder.tvPrice.setText(price);
 
+
                 byte[] imageAsBytes  = Base64.decode(Image, Base64.DEFAULT);
                 holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                holder.ivImage.setMaxWidth(80);
+                holder.ivImage.setMaxWidth(80);
+
             } else {
                 Oferta oferta = (Oferta) products.get(position);
                 String nombre = oferta.getNombre() + "";
