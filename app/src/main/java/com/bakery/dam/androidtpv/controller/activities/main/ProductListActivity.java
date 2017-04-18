@@ -70,8 +70,9 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
         tvPrecio= (TextView) findViewById(R.id.preciototal);
         tvMesa= (TextView) findViewById(R.id.mesaticket);
         TicketManager.getInstance().getTicketById(ProductListActivity.this, id);
-        ProductManager.getInstance().getProductsByTicket(ProductListActivity.this, id);
+
         OfferManager.getInstance().getOffersByTicket(ProductListActivity.this, id);
+        ProductManager.getInstance().getProductsByTicket(ProductListActivity.this, id);
     }
 
     @Override
@@ -98,6 +99,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
                 quantity.set(position, quantity.get(position)+1);
             }
         }
+        llista.setAdapter(new ProductListActivity.ProductsAdapter(this, productsAndOffers, quantity));
     }
 
     @Override
