@@ -2,13 +2,18 @@ package com.bakery.dam.androidtpv.controller.activities.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -50,6 +55,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
         llista= (ListView) findViewById(R.id.productos);
+        productsAndOffers = new ArrayList<>();
         Intent intent=this.getIntent();
         id= intent.getLongExtra("id", 0);
         fb = (FloatingActionButton) findViewById(R.id.addProduct);
@@ -72,8 +78,9 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     public void onSuccess(Object product) {
         productos= (List<Producto>) product;
         int position= 0;
-        boolean contains = false;
+        boolean contains;
         for(Producto p : productos){
+            contains=false;
             for(Object productoQ:productsAndOffers){
                 if(productoQ instanceof Producto) {
                     Producto pr = (Producto) productoQ;
@@ -152,7 +159,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
 
         @Override
         public long getItemId(int position) {
-            int id= (int) products.get(position);
+            int id= 0;
             return id;
         }
 
@@ -182,8 +189,14 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
                     Producto producto = (Producto) products.get(position);
                     String nombre = producto.getNombre() + "";
                     String cantidad = quantity.get(position) + "";
+                    String Image = producto.getImagen();
                     holder.tvNombre.setText(nombre);
                     holder.tvCantidad.setText(cantidad);
+
+                    byte[] imageAsBytes  = Base64.decode(Image, Base64.DEFAULT);
+                    holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                    holder.ivImage.setMaxWidth(80);
+                    holder.ivImage.setMaxWidth(80);
                 } else {
                     Oferta oferta = (Oferta) products.get(position);
                     String nombre = oferta.getNombre() + "";

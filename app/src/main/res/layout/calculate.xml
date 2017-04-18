@@ -126,10 +126,18 @@
 
         <Button
             android:id="@+id/button0"
+            android:layout_width="225dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:text="0"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/c"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/primary"
-            android:text="0"
+            android:text="C"
             android:textColor="@color/white" />
 
     </LinearLayout>

@@ -2,12 +2,15 @@ package com.bakery.dam.androidtpv.controller.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +19,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.managers.OfferCallback;
@@ -76,6 +81,7 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
                     ProductManager.getInstance().getProductsByNombre(FragmentProductos.this, search.getText().toString());
                     KeyboardUtil k = new KeyboardUtil();
                     k.hideKeyboard((Activity) view.getContext());
+
                 }
             }
         });
@@ -161,8 +167,16 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(productos.get(i) instanceof Producto){
                     TicketManager.getInstance().updateTicketProducto(FragmentProductos.this, (Producto) productos.get(i), id);
+                    Toast toast2 =
+                            Toast.makeText(view.getContext(),
+                                    "¡"+((Producto) productos.get(i)).getNombre()+" añadido!", Toast.LENGTH_SHORT);
+                    toast2.show();
                 } else {
                     TicketManager.getInstance().updateTicketOferta(FragmentProductos.this, (Oferta) productos.get(i), id);
+                    Toast toast2 =
+                            Toast.makeText(view.getContext(),
+                                    "¡"+((Oferta) productos.get(i)).getNombre()+" añadido!", Toast.LENGTH_SHORT);
+                    toast2.show();
                 }
             }
         });
@@ -230,11 +244,17 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
                 String nombre = producto.getNombre() + "";
                 String description = producto.getDescripcion()+"";
                 String price = producto.getPrecio()+"";
-                String image = producto.getImagen()+"";
-
+                String Image = producto.getImagen();
                 holder.tvNombre.setText(nombre);
                 holder.tvDescription.setText(description);
                 holder.tvPrice.setText(price);
+
+
+                byte[] imageAsBytes  = Base64.decode(Image, Base64.DEFAULT);
+                holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                holder.ivImage.setMaxWidth(80);
+                holder.ivImage.setMaxWidth(80);
+
             } else {
                 Oferta oferta = (Oferta) products.get(position);
                 String nombre = oferta.getNombre() + "";

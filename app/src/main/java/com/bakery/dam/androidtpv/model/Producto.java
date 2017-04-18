@@ -12,7 +12,7 @@ public class Producto {
 
     private Integer id;
 
-    private List<String> imagen = null;
+    private String imagen;
 
     private String imagenContentType;
 
@@ -38,11 +38,11 @@ public class Producto {
         this.id = id;
     }
 
-    public List<String> getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(List<String> imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 

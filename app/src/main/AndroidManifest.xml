@@ -15,6 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".controller.activities.SplashScreenActivity"
+            android:theme="@style/AppTheme.SplashTheme"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".controller.activities.login.LoginActivity"
             android:theme="@style/AppTheme.Dark">
             <intent-filter>
