@@ -22,7 +22,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final int SPLASH_SCREEN_MIN_LENGTH = 5000;
+        final int SPLASH_SCREEN_MIN_LENGTH = 1000;
         final int SPLASH_SCREEN_ANIM_TIME = getResources().getInteger(android.R.integer.config_longAnimTime);
 
         super.onCreate(savedInstanceState);

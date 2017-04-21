@@ -73,6 +73,7 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
         TipoManager.getInstance().getAllTipos(FragmentProductos.this);
         ProductManager.getInstance().getAllProductos(FragmentProductos.this);
         OfferManager.getInstance().getAllOffers(FragmentProductos.this);
+        search.clearFocus();
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -268,6 +269,7 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
             }
             return myView;
         }
+
     }
 
     public class SpinnerAdapter extends BaseAdapter {
