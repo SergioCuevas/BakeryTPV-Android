@@ -33,8 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.activities.main.MainActivity" />
-        <activity android:name=".controller.activities.Crear.CrearTipo" />
         <activity
             android:name=".controller.activities.Crear.CrearTicket"
             android:label="@string/title_activity_crear_ticket"

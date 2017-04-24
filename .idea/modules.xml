@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BakeryTPV-Android.iml" filepath="$PROJECT_DIR$/BakeryTPV-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BakeryTPV-Android.iml" filepath="$PROJECT_DIR$/BakeryTPV-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/android-bakery.iml" filepath="$PROJECT_DIR$/android-bakery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
