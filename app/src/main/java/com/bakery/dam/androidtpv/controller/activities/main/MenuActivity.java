@@ -25,9 +25,11 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.activities.CreacionTicketActivity;
@@ -38,6 +40,9 @@ import com.bakery.dam.androidtpv.controller.managers.TicketCallback;
 import com.bakery.dam.androidtpv.controller.managers.TicketManager;
 import com.bakery.dam.androidtpv.controller.services.TicketService;
 import com.bakery.dam.androidtpv.model.Ticket;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.daimajia.swipe.SwipeLayout;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -259,6 +264,8 @@ public class MenuActivity extends AppCompatActivity
             public TextView tvPrecio;
             public ImageView ivImage;
             public ImageView ivImage2;
+            public SwipeLayout swipeLayout;
+            public Button delete;
         }
 
         @Override
@@ -275,6 +282,8 @@ public class MenuActivity extends AppCompatActivity
                     holder.tvPrecio = (TextView) myView.findViewById(R.id.precio);
                     holder.ivImage2 = (ImageView) myView.findViewById(R.id.imageView2);
                     holder.ivImage2.setImageResource(R.drawable.eurocoin);
+                    holder.swipeLayout = (SwipeLayout) myView.findViewById(R.id.swipe);
+                    holder.delete = (Button) myView.findViewById(R.id.delete);
                     if(position%2==0){
                         myView.setBackgroundColor(Color.rgb(255, 246 ,238));
                     }
@@ -282,7 +291,48 @@ public class MenuActivity extends AppCompatActivity
                         myView.setBackgroundColor(Color.rgb(255, 255 ,255));
                     }
                     holder.ivImage = (ImageView) myView.findViewById(R.id.table);
+
                     myView.setTag(holder);
+                    holder.delete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(context, "click delete", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    holder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
+                        @Override
+                        public void onClose(SwipeLayout layout) {
+
+                        }
+
+                        @Override
+                        public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
+                            //you are swiping.
+                        }
+
+                        @Override
+                        public void onStartOpen(SwipeLayout layout) {
+                            //                    Log.i("swipelayout", "onStartOpen");
+                        }
+
+                        @Override
+                        public void onOpen(final SwipeLayout layout) {
+
+                            YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.trash));
+
+                        }
+
+                        @Override
+                        public void onStartClose(SwipeLayout layout) {
+                        }
+
+                        @Override
+                        public void onHandRelease(final SwipeLayout layout, final float xvel, final float yvel) {
+                            //when user's hand released.
+                        }
+                    });
+
+
                 }
                 MenuActivity.PartsAdapter.ViewHolder holder = (MenuActivity.PartsAdapter.ViewHolder) myView.getTag();
 

@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/trash"
-            android:layout_width="27dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:src="@drawable/trash" />
 
@@ -32,15 +32,15 @@
 
         <Button
             android:id="@+id/delete"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="4"
+            android:layout_height="56dp"
+            android:layout_weight="4.01"
+            android:layout_marginRight="5dp"
             android:background="@color/white"
             android:text="Yes,Delete"
             android:textColor="#FF5534" />
     </LinearLayout>
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -117,4 +117,6 @@
             android:layout_weight="1.40" />
 
     </LinearLayout>
+
+
 </com.daimajia.swipe.SwipeLayout>
