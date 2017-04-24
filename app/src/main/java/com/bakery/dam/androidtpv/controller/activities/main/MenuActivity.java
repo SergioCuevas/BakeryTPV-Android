@@ -12,6 +12,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -296,39 +297,42 @@ public class MenuActivity extends AppCompatActivity
                     holder.delete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Toast.makeText(context, "click delete", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "click button", Toast.LENGTH_SHORT).show();
                         }
                     });
                     holder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
+                        //cerrado completamente
                         @Override
                         public void onClose(SwipeLayout layout) {
-
+                            Toast.makeText(context, "on Close", Toast.LENGTH_SHORT).show();
                         }
-
+                        //?¿?¿?¿?
                         @Override
                         public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
-                            //you are swiping.
                         }
-
+                        //comenzando a abrir
                         @Override
                         public void onStartOpen(SwipeLayout layout) {
-                            //                    Log.i("swipelayout", "onStartOpen");
+                            Toast.makeText(context, "on start Open", Toast.LENGTH_SHORT).show();
                         }
-
+                        //abierto completamente
                         @Override
                         public void onOpen(final SwipeLayout layout) {
 
                             YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.trash));
-
+                            Toast.makeText(context, "on Open", Toast.LENGTH_SHORT).show();
                         }
-
+                        //comenzando a cerrar
                         @Override
                         public void onStartClose(SwipeLayout layout) {
+                            Toast.makeText(context, "on Start Close", Toast.LENGTH_SHORT).show();
                         }
 
+                        //Coger y Soltar
                         @Override
                         public void onHandRelease(final SwipeLayout layout, final float xvel, final float yvel) {
                             //when user's hand released.
+                            Toast.makeText(context, "Hand Release", Toast.LENGTH_SHORT).show();
                         }
                     });
 
