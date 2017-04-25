@@ -26,7 +26,7 @@ public interface TicketService {
     );
 
     @GET("api/tickets/{id}")
-    Call<List<Ticket>> getTicketById(
+    Call<Ticket> getTicketById(
 
             @Header("Authorization") String Authorization,
             @Path("id") long id);

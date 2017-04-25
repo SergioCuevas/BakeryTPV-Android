@@ -47,12 +47,24 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     private TicketManager ticketManager;
     private OfferManager offerManager;
     private TextView tvPrecio;
-    private TextView tvMesa;
+    private ImageView tvMesa;
     private FloatingActionButton fb;
     private Long id;
+    private List<Integer> imgs = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        imgs.add(R.drawable.takeaway);
+        imgs.add(R.drawable.mesa1);
+        imgs.add(R.drawable.mesa2);
+        imgs.add(R.drawable.mesa3);
+        imgs.add(R.drawable.mesa4);
+        imgs.add(R.drawable.mesa5);
+        imgs.add(R.drawable.mesa6);
+        imgs.add(R.drawable.mesa7);
+        imgs.add(R.drawable.mesa8);
+        imgs.add(R.drawable.mesa9);
+        imgs.add(R.drawable.mesa10);
         setContentView(R.layout.activity_product_list);
         llista= (ListView) findViewById(R.id.productos);
         productsAndOffers = new ArrayList<>();
@@ -68,7 +80,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
             }
         });
         tvPrecio= (TextView) findViewById(R.id.preciototal);
-        tvMesa= (TextView) findViewById(R.id.mesaticket);
+        tvMesa= (ImageView) findViewById(R.id.mesanumero);
         TicketManager.getInstance().getTicketById(ProductListActivity.this, id);
 
         OfferManager.getInstance().getOffersByTicket(ProductListActivity.this, id);
@@ -129,15 +141,15 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
 
     @Override
     public void onSuccessTicket(Object ticket) {
-        List<Ticket> ts = (List<Ticket>) ticket;
-        Ticket t=ts.get(0);
-        tvMesa.setText(t.getMesa()+"");
-        tvPrecio.setText(t.getCantidad()+"");
+        Ticket ts = (Ticket) ticket;
+        Ticket t=ts;
+        tvMesa.setImageResource(imgs.get(t.getMesa()));
+        tvPrecio.setText(t.getCantidad()+"€");
     }
 
     @Override
     public void onFailure(Throwable t) {
-
+        int a;
     }
 
     public class ProductsAdapter extends BaseAdapter {

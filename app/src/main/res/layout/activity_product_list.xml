@@ -1,19 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="0dp"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.bakery.dam.androidtpv.controller.activities.main.ProductListActivity">
 
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
     <FrameLayout
         android:layout_width="385dp"
-        android:layout_height="560dp"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="false"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="false"
@@ -23,34 +28,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="38dp"
-            android:background="?attr/colorBackgroundFloating"
+            android:layout_marginTop="65dp"
+            android:background="?android:attr/colorBackgroundFloating"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/preciototal"
                 android:layout_width="186dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 android:text="Total: 20€"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 android:textSize="20dp" />
 
-            <TextView
-                android:id="@+id/mesaticket"
+            <ImageView
+                android:id="@+id/mesanumero"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="2"
-                android:textAlignment="center"
-                android:textColor="@color/white" />
+                android:layout_height="23dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/bakerylogolauncher" />
+
         </LinearLayout>
 
         <ListView
             android:id="@+id/productos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="48dp" />
+            android:layout_marginTop="112dp" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/addProduct"

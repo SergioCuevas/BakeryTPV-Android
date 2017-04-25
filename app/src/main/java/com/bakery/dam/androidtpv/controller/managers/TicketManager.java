@@ -205,24 +205,24 @@ public class TicketManager {
     }
 
     public synchronized void getTicketById(final TicketCallback ticketCallback, long id) {
-        Call<List<Ticket>> call = ticketService.getTicketById(UserLoginManager.getInstance().getBearerToken(), id);
+        Call<Ticket> call = ticketService.getTicketById(UserLoginManager.getInstance().getBearerToken(), id);
 
-        call.enqueue(new Callback<List<Ticket>>() {
+        call.enqueue(new Callback<Ticket>() {
             @Override
-            public void onResponse(Call<List<Ticket>> call, Response<List<Ticket>> response) {
-                tickets = response.body();
+            public void onResponse(Call<Ticket> call, Response<Ticket> response) {
+                ticket = response.body();
 
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
-                    ticketCallback.onSuccessTicket(tickets);
+                    ticketCallback.onSuccessTicket(ticket);
                 } else {
                     ticketCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Ticket>> call, Throwable t) {
+            public void onFailure(Call<Ticket> call, Throwable t) {
                 Log.e("TeamManager->", t.toString());
                 ticketCallback.onFailure(t);
             }
