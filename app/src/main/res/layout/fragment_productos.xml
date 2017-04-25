@@ -13,58 +13,70 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="140dp"
         android:divider="@color/cardview_shadow_start_color"
         android:dividerHeight="@dimen/cardview_compat_inset_shadow"></ListView>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:orientation="horizontal"
-        android:layout_alignBottom="@+id/spinnertipos"
-        android:layout_alignLeft="@+id/spinnertipos"
-        android:layout_alignStart="@+id/spinnertipos"
-        android:layout_alignRight="@+id/spinnertipos"
-        android:layout_alignEnd="@+id/spinnertipos">
+        android:layout_alignEnd="@+id/list_view_productos"
+        android:layout_alignLeft="@+id/list_view_productos"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/list_view_productos"
+        android:layout_alignStart="@+id/list_view_productos"
+        android:layout_marginTop="70dp"
+        android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/search"
-            android:layout_width="179dp"
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/spinnertipos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignEnd="@+id/list_view_productos"
             android:layout_alignLeft="@+id/list_view_productos"
-            android:layout_alignParentBottom="true"
             android:layout_alignRight="@+id/list_view_productos"
             android:layout_alignStart="@+id/list_view_productos"
+            android:layout_below="@+id/linearLayout2"
             android:layout_gravity="center"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColor="@color/iron"
-            android:textSize="14dp"
-            tools:text="Buscar"
-            android:layout_weight="1.57" />
+            android:layout_weight="1" />
 
-        <ImageButton
-            android:id="@+id/searchbutton"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/spinnertipos"
+            android:layout_alignLeft="@+id/spinnertipos"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/spinnertipos"
+            android:layout_alignStart="@+id/spinnertipos"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@color/white"
-            app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
+            android:orientation="horizontal">
 
+            <EditText
+                android:id="@+id/search"
+                android:layout_width="134dp"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/list_view_productos"
+                android:layout_alignLeft="@+id/list_view_productos"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/list_view_productos"
+                android:layout_alignStart="@+id/list_view_productos"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="@color/iron"
+                android:textSize="14dp"
+                tools:text="Buscar" />
+
+            <ImageButton
+                android:id="@+id/searchbutton"
+                android:layout_width="37dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@android:color/white"
+                app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
+
+        </LinearLayout>
     </LinearLayout>
-
-    <Spinner
-        android:id="@+id/spinnertipos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="159dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/list_view_productos"
-        android:layout_alignStart="@+id/list_view_productos"
-        android:layout_alignRight="@+id/list_view_productos"
-        android:layout_alignEnd="@+id/list_view_productos" />
 
 </RelativeLayout>
