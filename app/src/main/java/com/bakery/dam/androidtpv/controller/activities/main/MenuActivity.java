@@ -158,39 +158,7 @@ public class MenuActivity extends AppCompatActivity
     }
 
 
-    private AlertDialog AskOption(final int i)
-    {
-        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
-                //personalizar mensaje
-                .setTitle("Delete")
-                .setMessage("Do you want to Delete")
 
-
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        //delete
-                        id = (long) tickets.get(i).getId();
-                        TicketManager.getInstance().deleteTicket(MenuActivity.this, (long) tickets.get(i).getId());
-
-                        dialog.dismiss();
-                    }
-
-                })
-
-
-
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.dismiss();
-
-                    }
-                })
-                .create();
-        return myQuittingDialogBox;
-
-    }
 
     @Override
     public void onSuccessTicket(final Object ticket) {
@@ -205,21 +173,6 @@ public class MenuActivity extends AppCompatActivity
                         intent.putExtra("id", (long) tickets.get(i).getId());
                         startActivity(intent);
                     }
-                }
-            });
-            llista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    if (tickets.get(i).getMesa()!=null) {
-
-                        AlertDialog diaBox = AskOption(i);
-                        diaBox.show();
-                   //     id = (long) tickets.get(i).getId();
-                    //    TicketManager.getInstance().deleteTicket(MenuActivity.this, (long) tickets.get(i).getId());
-                    }
-                        return false;
-
-
                 }
             });
         } else {
@@ -270,7 +223,7 @@ public class MenuActivity extends AppCompatActivity
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             if (tickets.get(position).getMesa() != null) {
                 View myView = convertView;
                 if (myView == null) {
@@ -284,7 +237,6 @@ public class MenuActivity extends AppCompatActivity
                     holder.ivImage2 = (ImageView) myView.findViewById(R.id.imageView2);
                     holder.ivImage2.setImageResource(R.drawable.eurocoin);
                     holder.swipeLayout = (SwipeLayout) myView.findViewById(R.id.swipe);
-                    holder.delete = (Button) myView.findViewById(R.id.delete);
                     if(position%2==0){
                         myView.setBackgroundColor(Color.rgb(255, 246 ,238));
                     }
@@ -294,45 +246,32 @@ public class MenuActivity extends AppCompatActivity
                     holder.ivImage = (ImageView) myView.findViewById(R.id.table);
 
                     myView.setTag(holder);
-                    holder.delete.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast.makeText(context, "click button", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+
                     holder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
-                        //cerrado completamente
                         @Override
                         public void onClose(SwipeLayout layout) {
-                            Toast.makeText(context, "on Close", Toast.LENGTH_SHORT).show();
                         }
-                        //?¿?¿?¿?
                         @Override
                         public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
                         }
-                        //comenzando a abrir
                         @Override
                         public void onStartOpen(SwipeLayout layout) {
-                            Toast.makeText(context, "on start Open", Toast.LENGTH_SHORT).show();
+
                         }
-                        //abierto completamente
                         @Override
                         public void onOpen(final SwipeLayout layout) {
 
                             YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.trash));
-                            Toast.makeText(context, "on Open", Toast.LENGTH_SHORT).show();
+                            id = (long) tickets.get(position).getId();
+                            TicketManager.getInstance().deleteTicket(MenuActivity.this, (long) tickets.get(position).getId());
+
                         }
-                        //comenzando a cerrar
                         @Override
                         public void onStartClose(SwipeLayout layout) {
-                            Toast.makeText(context, "on Start Close", Toast.LENGTH_SHORT).show();
                         }
 
-                        //Coger y Soltar
                         @Override
                         public void onHandRelease(final SwipeLayout layout, final float xvel, final float yvel) {
-                            //when user's hand released.
-                            Toast.makeText(context, "Hand Release", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -368,7 +307,7 @@ public class MenuActivity extends AppCompatActivity
 
             } else {
                 View myView;
-                //Inflo la lista con el layout que he creado (llista_item)
+
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
                 myView = inflater.inflate(R.layout.llista_item, parent, false);
                 MenuActivity.PartsAdapter.ViewHolder holder = new MenuActivity.PartsAdapter.ViewHolder();
