@@ -101,7 +101,7 @@ public class TicketManager {
     }
 
     public synchronized void updateTicketProducto(final TicketCallback ticketCallback, Producto p, long id ) {
-        Call<Ticket> call = ticketService.updateTicketProducto(UserLoginManager.getInstance().getBearerToken(), p, id);
+        Call<Ticket> call = ticketService.updateTicketProducto(UserLoginManager.getInstance().getBearerToken(), p.getId(), id);
 
         call.enqueue(new Callback<Ticket>() {
             @Override

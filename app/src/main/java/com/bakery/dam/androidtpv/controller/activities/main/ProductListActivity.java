@@ -1,5 +1,6 @@
 package com.bakery.dam.androidtpv.controller.activities.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,6 +52,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     private ImageView tvMesa;
     private FloatingActionButton fb;
     private Long id;
+    private Toolbar tb;
     private List<Integer> imgs = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,10 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
         imgs.add(R.drawable.mesa8);
         imgs.add(R.drawable.mesa9);
         imgs.add(R.drawable.mesa10);
+        Activity activity = this;
+        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbarproductlist);
+            activity.setTitle("Title");
+
         setContentView(R.layout.activity_product_list);
         llista= (ListView) findViewById(R.id.productos);
         productsAndOffers = new ArrayList<>();

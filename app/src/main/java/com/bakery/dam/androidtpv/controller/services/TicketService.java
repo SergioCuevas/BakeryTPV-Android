@@ -44,10 +44,10 @@ public interface TicketService {
 
     );
 
-    @PUT("api/tickets/producto/add/{id}")
+    @PUT("api/tickets/{id}/producto/{idProducto}")
     Call<Ticket> updateTicketProducto(
             @Header("Authorization") String Authorization,
-            @Body Producto producto, @Path("id") long id
+            @Path("idProducto") long idProducto, @Path("id") long id
 
     );
 
