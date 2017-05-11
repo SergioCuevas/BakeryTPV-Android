@@ -16,14 +16,14 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".controller.activities.SplashScreenActivity"
-            android:theme="@style/AppTheme.SplashTheme"
-            android:configChanges="keyboardHidden|orientation|screenSize">
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/AppTheme.SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".controller.activities.login.LoginActivity"
             android:theme="@style/AppTheme.Dark">
@@ -46,6 +46,7 @@
         <activity android:name=".controller.activities.CreacionTicketActivity" />
         <activity android:name=".controller.activities.main.ProductListActivity" />
         <activity android:name=".controller.activities.CrearTicketActivity" />
+        <activity android:name=".controller.activities.CambiarMesaActivity"></activity>
     </application>
 
 </manifest>

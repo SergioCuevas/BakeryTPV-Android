@@ -152,6 +152,32 @@ public class TicketManager {
         });
     }
 
+    public synchronized void updateTicketMesa(final TicketCallback ticketCallback, long id, int mesa) {
+        Call<Ticket> call = ticketService.updateTicketMesa(UserLoginManager.getInstance().getBearerToken(), id, mesa);
+
+        call.enqueue(new Callback<Ticket>() {
+            @Override
+            public void onResponse(Call<Ticket> call, Response<Ticket> response) {
+                ticket = response.body();
+
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    ticketCallback.onSuccessTicket(ticket);
+                } else {
+                    ticketCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Ticket> call, Throwable t) {
+                Log.e("TeamManager->", t.toString());
+                ticketCallback.onFailure(t);
+            }
+
+        });
+    }
+
 
     public synchronized void updateTicketOferta(final TicketCallback ticketCallback, Oferta o, long id ) {
         Call<Ticket> call = ticketService.updateTicketOferta(UserLoginManager.getInstance().getBearerToken(), o, id);

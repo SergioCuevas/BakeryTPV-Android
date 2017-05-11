@@ -58,6 +58,14 @@ public interface TicketService {
 
     );
 
+    @PUT("api//tickets/{id}/mesa/{mesa}")
+    Call<Ticket> updateTicketMesa(
+            @Header("Authorization") String Authorization,
+            @Path("id") long id,
+            @Path("mesa") int mesa
+
+    );
+
     @PUT("api//tickets/{id}/calculadora/{valor}")
     Call<Ticket> updateTicketCalculadora(
             @Header("Authorization") String Authorization,

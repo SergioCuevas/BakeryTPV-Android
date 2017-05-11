@@ -3,7 +3,6 @@ package com.bakery.dam.androidtpv.controller.activities.main;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
@@ -11,17 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bakery.dam.androidtpv.R;
+import com.bakery.dam.androidtpv.controller.activities.CambiarMesaActivity;
 import com.bakery.dam.androidtpv.controller.activities.CreacionTicketActivity;
 import com.bakery.dam.androidtpv.controller.managers.OfferCallback;
 import com.bakery.dam.androidtpv.controller.managers.OfferManager;
@@ -29,14 +27,11 @@ import com.bakery.dam.androidtpv.controller.managers.ProductCallback;
 import com.bakery.dam.androidtpv.controller.managers.ProductManager;
 import com.bakery.dam.androidtpv.controller.managers.TicketCallback;
 import com.bakery.dam.androidtpv.controller.managers.TicketManager;
-import com.bakery.dam.androidtpv.controller.services.OfferService;
-import com.bakery.dam.androidtpv.controller.services.ProductService;
 import com.bakery.dam.androidtpv.model.Oferta;
 import com.bakery.dam.androidtpv.model.Producto;
 import com.bakery.dam.androidtpv.model.Ticket;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ProductListActivity extends AppCompatActivity implements ProductCallback, OfferCallback, TicketCallback{
@@ -88,6 +83,16 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
         });
         tvPrecio= (TextView) findViewById(R.id.preciototal);
         tvMesa= (ImageView) findViewById(R.id.mesanumero);
+
+        tvMesa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ProductListActivity.this, CambiarMesaActivity.class);
+                i.putExtra("id", id);
+                startActivity(i);
+
+            }
+        });
         TicketManager.getInstance().getTicketById(ProductListActivity.this, id);
 
         OfferManager.getInstance().getOffersByTicket(ProductListActivity.this, id);
