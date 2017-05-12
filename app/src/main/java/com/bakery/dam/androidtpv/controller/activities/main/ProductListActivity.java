@@ -100,6 +100,15 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     }
 
     @Override
+    public void onResume()
+    {  // After a pause OR at startup
+        super.onResume();
+        //Refresh your stuff here
+        tvMesa= (ImageView) findViewById(R.id.mesanumero);
+        tvPrecio= (TextView) findViewById(R.id.preciototal);
+    }
+
+    @Override
     public void onSuccess(Object product) {
         productos= (List<Producto>) product;
         int position= 0;
