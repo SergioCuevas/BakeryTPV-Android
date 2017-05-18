@@ -250,19 +250,29 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
                 holder.tvDescription.setText(description);
                 holder.tvPrice.setText(price);
 
-
-                byte[] imageAsBytes  = Base64.decode(Image, Base64.DEFAULT);
-                holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
-                holder.ivImage.setMaxWidth(80);
-                holder.ivImage.setMaxWidth(80);
+                if(Image != null) {
+                    byte[] imageAsBytes = Base64.decode(Image, Base64.DEFAULT);
+                    holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                    holder.ivImage.setMaxWidth(80);
+                    holder.ivImage.setMaxWidth(80);
+                }else {
+                    holder.ivImage.setImageResource(R.drawable.bakerylogoticketsrojo);
+                }
 
             } else {
                 Oferta oferta = (Oferta) products.get(position);
                 String nombre = oferta.getNombre() + "";
                 String description = oferta.getDescripcion()+"";
                 String price = oferta.getPrecio()+"";
-                String image = oferta.getImagen()+"";
-
+                String image = oferta.getImagen();
+                if(image != null) {
+                    byte[] imageAsBytes = Base64.decode(image, Base64.DEFAULT);
+                    holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                    holder.ivImage.setMaxWidth(80);
+                    holder.ivImage.setMaxWidth(80);
+                } else {
+                    holder.ivImage.setImageResource(R.drawable.bakerylogoticketsrojo);
+                }
                 holder.tvNombre.setText(nombre);
                 holder.tvDescription.setText(description);
                 holder.tvPrice.setText(price);

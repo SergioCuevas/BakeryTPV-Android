@@ -227,17 +227,29 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
                     String Image = producto.getImagen();
                     holder.tvNombre.setText(nombre);
                     holder.tvCantidad.setText(cantidad);
-
-                    byte[] imageAsBytes  = Base64.decode(Image, Base64.DEFAULT);
-                    holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
-                    holder.ivImage.setMaxWidth(80);
-                    holder.ivImage.setMaxWidth(80);
+                    if(Image != null) {
+                        byte[] imageAsBytes = Base64.decode(Image, Base64.DEFAULT);
+                        holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                        holder.ivImage.setMaxWidth(80);
+                        holder.ivImage.setMaxWidth(80);
+                    }else {
+                        holder.ivImage.setImageResource(R.drawable.bakerylogoticketsrojo);
+                    }
                 } else {
                     Oferta oferta = (Oferta) products.get(position);
                     String nombre = oferta.getNombre() + "";
+                    String Image = oferta.getImagen();
                     String cantidad = quantity.get(position) + "";
                     holder.tvNombre.setText(nombre);
                     holder.tvCantidad.setText(cantidad);
+                    if(Image != null) {
+                        byte[] imageAsBytes = Base64.decode(Image, Base64.DEFAULT);
+                        holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                        holder.ivImage.setMaxWidth(80);
+                        holder.ivImage.setMaxWidth(80);
+                    }else {
+                        holder.ivImage.setImageResource(R.drawable.bakerylogoticketsrojo);
+                    }
                 }
             if(position%2==0){
                 myView.setBackgroundColor(Color.rgb(255, 246 ,238));
