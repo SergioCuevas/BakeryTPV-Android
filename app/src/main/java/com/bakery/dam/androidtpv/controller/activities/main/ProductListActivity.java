@@ -3,6 +3,7 @@ package com.bakery.dam.androidtpv.controller.activities.main;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
@@ -70,8 +71,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
         setContentView(R.layout.activity_product_list);
         llista= (ListView) findViewById(R.id.productos);
         productsAndOffers = new ArrayList<>();
-        Intent intent=this.getIntent();
-        id= intent.getLongExtra("id", 0);
         fb = (FloatingActionButton) findViewById(R.id.addProduct);
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,10 +92,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
 
             }
         });
-        TicketManager.getInstance().getTicketById(ProductListActivity.this, id);
-
-        OfferManager.getInstance().getOffersByTicket(ProductListActivity.this, id);
-        ProductManager.getInstance().getProductsByTicket(ProductListActivity.this, id);
     }
 
     @Override
@@ -104,8 +99,30 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     {  // After a pause OR at startup
         super.onResume();
         //Refresh your stuff here
-        tvMesa= (ImageView) findViewById(R.id.mesanumero);
-        tvPrecio= (TextView) findViewById(R.id.preciototal);
+        Intent intent=this.getIntent();
+        id= intent.getLongExtra("id", 0);
+        if(id==0||id==null) {
+            SharedPreferences settings = getSharedPreferences("pref", 0);
+            long id = settings.getLong("id", 0L);
+        }
+        productsAndOffers = new ArrayList<>();
+        productos = new ArrayList<>();
+        offers = new ArrayList<>();
+        quantity = new ArrayList<>();
+        TicketManager.getInstance().getTicketById(ProductListActivity.this, id);
+
+        OfferManager.getInstance().getOffersByTicket(ProductListActivity.this, id);
+        ProductManager.getInstance().getProductsByTicket(ProductListActivity.this, id);
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        SharedPreferences settings = getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = settings.edit();
+        // Necessary to clear first if we save preferences onPause.
+        editor.clear();
+        editor.putLong("id", id);
+        editor.commit();
     }
 
     @Override

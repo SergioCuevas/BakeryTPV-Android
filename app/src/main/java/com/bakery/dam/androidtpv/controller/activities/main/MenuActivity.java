@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -58,6 +59,7 @@ public class MenuActivity extends AppCompatActivity
 
     private List<Ticket> tickets;
     private ListView llista;
+    private SwipeRefreshLayout swipeRefreshLayout;
     long id;
     private List<Integer> imgs = new ArrayList<>();
 
@@ -77,6 +79,14 @@ public class MenuActivity extends AppCompatActivity
         imgs.add(R.drawable.mesa9);
         imgs.add(R.drawable.mesa10);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                tickets = new ArrayList<>();
+                TicketManager.getInstance().getAllTickets(MenuActivity.this);
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -179,6 +189,7 @@ public class MenuActivity extends AppCompatActivity
             Intent intent = new Intent(MenuActivity.this, MenuActivity.class);
             startActivity(intent);
         }
+        swipeRefreshLayout.setRefreshing(false);
     }
 
 
