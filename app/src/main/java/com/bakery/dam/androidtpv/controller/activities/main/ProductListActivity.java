@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import com.bakery.dam.androidtpv.controller.managers.TicketManager;
 import com.bakery.dam.androidtpv.model.Oferta;
 import com.bakery.dam.androidtpv.model.Producto;
 import com.bakery.dam.androidtpv.model.Ticket;
+import com.daimajia.swipe.SwipeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -216,8 +218,10 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
 
         public class ViewHolder{
             public TextView tvNombre;
-            public TextView tvCantidad;;
+            public TextView tvCantidad;
             public ImageView ivImage;
+            public EditText etCantidadmodicable;
+            public SwipeLayout swipeLayout;
         }
 
         @Override
@@ -227,10 +231,43 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
                     //Inflo la lista con el layout que he creado (llista_item)
                     LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
                     myView = inflater.inflate(R.layout.item_product_list, parent, false);
-                    ProductListActivity.ProductsAdapter.ViewHolder holder = new ProductListActivity.ProductsAdapter.ViewHolder();
+                    final ProductListActivity.ProductsAdapter.ViewHolder holder = new ProductListActivity.ProductsAdapter.ViewHolder();
                     holder.tvNombre = (TextView) myView.findViewById(R.id.nombreProducto);
                     holder.tvCantidad = (TextView) myView.findViewById(R.id.cantidadTotal);
                     holder.ivImage = (ImageView) myView.findViewById(R.id.imagenProducto);
+                    holder.etCantidadmodicable = (EditText) myView.findViewById(R.id.cantidadproductostickets);
+                    holder.swipeLayout = (SwipeLayout) myView.findViewById(R.id.swipelayout);
+                    holder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
+                        @Override
+                        public void onStartOpen(SwipeLayout layout) {
+
+                        }
+
+                        @Override
+                        public void onOpen(SwipeLayout layout) {
+                            holder.swipeLayout.setSwipeEnabled(true);
+                        }
+
+                        @Override
+                        public void onStartClose(SwipeLayout layout) {
+
+                        }
+
+                        @Override
+                        public void onClose(SwipeLayout layout) {
+
+                        }
+
+                        @Override
+                        public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
+
+                        }
+
+                        @Override
+                        public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
+
+                        }
+                    });
                     myView.setTag(holder);
                 }
                 ProductListActivity.ProductsAdapter.ViewHolder holder = (ProductListActivity.ProductsAdapter.ViewHolder) myView.getTag();
@@ -243,6 +280,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
                     String Image = producto.getImagen();
                     holder.tvNombre.setText(nombre);
                     holder.tvCantidad.setText(cantidad);
+                    holder.etCantidadmodicable.setText(cantidad);
                     if(Image != null) {
                         byte[] imageAsBytes = Base64.decode(Image, Base64.DEFAULT);
                         holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
@@ -267,9 +305,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
                         holder.ivImage.setImageResource(R.drawable.bakerylogoticketsrojo);
                     }
                 }
-            if(position%2==0){
-                myView.setBackgroundColor(Color.rgb(255, 246 ,238));
-            }
                 return myView;
         }
     }

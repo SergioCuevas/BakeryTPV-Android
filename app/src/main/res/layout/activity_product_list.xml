@@ -28,8 +28,6 @@
 
         <ImageView
             android:id="@+id/mesanumero"
-            android:tintMode="src_atop"
-            android:background="@color/white"
             android:layout_width="85dp"
             android:layout_height="25dp"
             android:layout_gravity="center"
@@ -52,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:tint="@color/black"
+            android:tint="@color/white"
             android:layout_margin="@dimen/fab_margin"
             app:srcCompat="@drawable/add" />
 
