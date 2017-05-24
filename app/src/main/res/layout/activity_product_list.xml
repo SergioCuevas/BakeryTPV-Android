@@ -11,10 +11,29 @@
         android:id="@+id/toolbarproductlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:theme="?attr/actionBarTheme" >
+
+
+        <TextView
+            android:id="@+id/preciototal"
+            android:layout_width="186dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Total: 20€"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/mesanumero"
+            android:layout_width="85dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/bakerylogolauncher" />
+
+        </android.support.v7.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/toolbar"
@@ -26,45 +45,20 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
-            android:layout_marginTop="65dp"
-            android:background="?android:attr/colorBackgroundFloating"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/preciototal"
-                android:layout_width="186dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Total: 20€"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="20dp" />
-
-            <ImageView
-                android:id="@+id/mesanumero"
-                android:layout_width="match_parent"
-                android:layout_height="23dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/bakerylogolauncher" />
-
-        </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:tint="@color/white"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@drawable/add" />
 
         <ListView
             android:id="@+id/productos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="112dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/addProduct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@drawable/add" />
+            android:layout_marginTop="59dp" />
 
     </FrameLayout>
 </RelativeLayout>
