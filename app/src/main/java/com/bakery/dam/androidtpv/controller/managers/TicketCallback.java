@@ -11,5 +11,6 @@ import java.util.List;
 
 public interface TicketCallback {
     void onSuccessTicket(Object o);
+    void onSuccessDelete(Object o);
     void onFailure(Throwable t);
 }

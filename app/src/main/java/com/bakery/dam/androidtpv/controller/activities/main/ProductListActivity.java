@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.activities.CambiarMesaActivity;
@@ -32,6 +34,8 @@ import com.bakery.dam.androidtpv.controller.managers.TicketManager;
 import com.bakery.dam.androidtpv.model.Oferta;
 import com.bakery.dam.androidtpv.model.Producto;
 import com.bakery.dam.androidtpv.model.Ticket;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.swipe.SwipeLayout;
 
 import java.util.ArrayList;
@@ -128,29 +132,31 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
 
     @Override
     public void onSuccess(Object product) {
-        productos= (List<Producto>) product;
-        int position= 0;
-        boolean contains;
-        for(Producto p : productos){
-            contains=false;
-            for(Object productoQ:productsAndOffers){
-                if(productoQ instanceof Producto) {
-                    Producto pr = (Producto) productoQ;
-                    if (pr.getId() == p.getId()) {
-                        contains = true;
-                        position = productsAndOffers.indexOf(pr);
+        if(product instanceof ArrayList) {
+            productos = (List<Producto>) product;
+            int position = 0;
+            boolean contains;
+            for (Producto p : productos) {
+                contains = false;
+                for (Object productoQ : productsAndOffers) {
+                    if (productoQ instanceof Producto) {
+                        Producto pr = (Producto) productoQ;
+                        if (pr.getId() == p.getId()) {
+                            contains = true;
+                            position = productsAndOffers.indexOf(pr);
+                        }
                     }
                 }
-            }
-            if(contains==false){
+                if (contains == false) {
 
-                productsAndOffers.add(p);
-                quantity.add(1);
-            } else{
-                quantity.set(position, quantity.get(position)+1);
+                    productsAndOffers.add(p);
+                    quantity.add(1);
+                } else {
+                    quantity.set(position, quantity.get(position) + 1);
+                }
             }
+            llista.setAdapter(new ProductListActivity.ProductsAdapter(this, productsAndOffers, quantity));
         }
-        llista.setAdapter(new ProductListActivity.ProductsAdapter(this, productsAndOffers, quantity));
     }
 
     @Override
@@ -184,6 +190,11 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
         Ticket t=ts;
         tvMesa.setImageResource(imgs.get(t.getMesa()));
         tvPrecio.setText(t.getCantidad()+"€");
+    }
+
+    @Override
+    public void onSuccessDelete(Object o) {
+        ProductListActivity.this.onResume();
     }
 
     @Override
@@ -225,7 +236,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
                 View myView = convertView;
                 if (myView == null) {
                     //Inflo la lista con el layout que he creado (llista_item)
@@ -245,7 +256,17 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
 
                         @Override
                         public void onOpen(SwipeLayout layout) {
-                            holder.swipeLayout.setSwipeEnabled(true);
+                            try {
+                                int cantidad = Integer.parseInt(holder.etCantidadmodicable.getText().toString());
+                                if (productsAndOffers.get(position) instanceof Producto) {
+                                    TicketManager.getInstance().deleteTicketProducto(ProductListActivity.this, (Producto) productsAndOffers.get(position), id, cantidad);
+                                    holder.swipeLayout.close();
+                                }
+                                ProductListActivity.this.onResume();
+                                Log.d("Borraddoooo", "aaaaa");
+                            } catch (Exception e){
+
+                            }
                         }
 
                         @Override

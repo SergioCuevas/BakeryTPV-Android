@@ -192,6 +192,11 @@ public class MenuActivity extends AppCompatActivity
         swipeRefreshLayout.setRefreshing(false);
     }
 
+    @Override
+    public void onSuccessDelete(Object o) {
+
+    }
+
 
     @Override
     public void onFailure(Throwable t) {

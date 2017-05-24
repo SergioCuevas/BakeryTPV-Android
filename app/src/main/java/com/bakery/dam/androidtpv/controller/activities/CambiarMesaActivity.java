@@ -50,6 +50,11 @@ public class CambiarMesaActivity extends AppCompatActivity implements TicketCall
     }
 
     @Override
+    public void onSuccessDelete(Object o) {
+
+    }
+
+    @Override
     public void onFailure(Throwable t) {
 
     }

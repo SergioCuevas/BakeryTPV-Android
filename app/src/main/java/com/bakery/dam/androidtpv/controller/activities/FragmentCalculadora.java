@@ -107,6 +107,11 @@ public class FragmentCalculadora extends Fragment implements TicketCallback{
     }
 
     @Override
+    public void onSuccessDelete(Object o) {
+
+    }
+
+    @Override
     public void onFailure(Throwable t) {
 
     }
