@@ -280,7 +280,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
                     String Image = producto.getImagen();
                     holder.tvNombre.setText(nombre);
                     holder.tvCantidad.setText(cantidad);
-                    holder.etCantidadmodicable.setText(cantidad);
+                    //holder.etCantidadmodicable.setText(cantidad);
                     if(Image != null) {
                         byte[] imageAsBytes = Base64.decode(Image, Base64.DEFAULT);
                         holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
