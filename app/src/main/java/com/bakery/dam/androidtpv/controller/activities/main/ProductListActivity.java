@@ -67,7 +67,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
         Activity activity = this;
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbarproductlist);
             activity.setTitle("Title");
-
         setContentView(R.layout.activity_product_list);
         llista= (ListView) findViewById(R.id.productos);
         productsAndOffers = new ArrayList<>();
