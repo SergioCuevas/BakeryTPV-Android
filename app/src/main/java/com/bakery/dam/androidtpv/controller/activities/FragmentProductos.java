@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +52,7 @@ import java.util.List;
 public class FragmentProductos extends Fragment implements ProductCallback, OfferCallback, TipoCallback, TicketCallback
 {
     TicketManager ticketManager;
-    private ListView llista;
+    private GridView llista;
     private Spinner spinner;
     private List<Object> productos = new ArrayList<>();
     private List<String> tipos;
@@ -64,7 +66,7 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
         view = inflater.inflate(R.layout.fragment_productos, container, false);
         search = (EditText) view.findViewById(R.id.search);
         searchButton = (ImageButton) view.findViewById(R.id.searchbutton);
-        llista= (ListView) view.findViewById(R.id.list_view_productos);
+        llista= (GridView) view.findViewById(R.id.list_view_productos);
         tipos=new ArrayList<>();
         tipos.add("Todos");
         tipos.add("Ofertas");
@@ -230,10 +232,26 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
 
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
                 myView = inflater.inflate(R.layout.card_productos, parent, false);
-                FragmentProductos.ProductoAdapter.ViewHolder holder = new FragmentProductos.ProductoAdapter.ViewHolder();
+                final FragmentProductos.ProductoAdapter.ViewHolder holder = new FragmentProductos.ProductoAdapter.ViewHolder();
                 holder.tvNombre = (TextView) myView.findViewById(R.id.card_productname);
                 holder.tvDescription = (TextView) myView.findViewById(R.id.card_productdescription);
                 holder.tvPrice = (TextView) myView.findViewById(R.id.card_productprice);
+                holder.tvPrice.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
                 holder.ivImage = (ImageView) myView.findViewById(R.id.imageView3);
                 myView.setTag(holder);
             }
