@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -105,7 +106,6 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
-
 
     @Override
     public void onResume()
@@ -246,7 +246,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
         }
 
         @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, final View convertView, ViewGroup parent) {
                 View myView = convertView;
                 if (myView == null) {
                     //Inflo la lista con el layout que he creado (llista_item)
@@ -275,7 +275,9 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
                                 ProductListActivity.this.onResume();
                                 Log.d("Borraddoooo", "aaaaa");
                             } catch (Exception e){
-
+                                Snackbar.make(layout, "Debes añadir la cantidad que quieres borrar", Snackbar.LENGTH_SHORT)
+                                        .show();
+                                holder.swipeLayout.close();
                             }
                         }
 
