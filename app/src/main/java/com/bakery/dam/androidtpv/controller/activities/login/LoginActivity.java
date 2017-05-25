@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
     private View mLoginFormView;
     private LinearLayout linearLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,13 +50,15 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                if (id == R.id.login || id == EditorInfo.IME_NULL || (keyEvent != null && (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (id == EditorInfo.IME_ACTION_DONE)) {
                     attemptLogin();
                     return true;
                 }
                 return false;
             }
         });
+
+
 
         Button mEmailSignInButton = (Button) findViewById(R.id.user_log_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
