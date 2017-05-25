@@ -1,5 +1,6 @@
 package com.bakery.dam.androidtpv.controller.activities.main;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bakery.dam.androidtpv.R;
+import com.bakery.dam.androidtpv.controller.activities.login.LoginActivity;
 
 /**
  * Created by DAM on 25/5/17.
@@ -44,9 +46,14 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_products) {
+
         } else if (id == R.id.nav_tickets) {
+            Intent intent = new Intent(this, MenuActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
         } else if (id == R.id.nav_logout) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

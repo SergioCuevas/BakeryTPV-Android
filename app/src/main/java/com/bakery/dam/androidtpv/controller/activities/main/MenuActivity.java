@@ -128,28 +128,6 @@ public class MenuActivity extends BaseActivity
         }
     }*/
 
-
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_products) {
-        } else if (id == R.id.nav_tickets) {
-        } else if (id == R.id.nav_manage) {
-        } else if (id == R.id.nav_logout) {
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-
-
-
     @Override
     public void onSuccessTicket(final Object ticket) {
         if(ticket!=null) {
