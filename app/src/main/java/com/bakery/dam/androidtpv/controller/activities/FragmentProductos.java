@@ -6,10 +6,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +53,7 @@ import java.util.List;
 public class FragmentProductos extends Fragment implements ProductCallback, OfferCallback, TipoCallback, TicketCallback
 {
     TicketManager ticketManager;
-    private ListView llista;
+    private GridView llista;
     private Spinner spinner;
     private List<Object> productos = new ArrayList<>();
     private List<String> tipos;
@@ -64,7 +67,7 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
         view = inflater.inflate(R.layout.fragment_productos, container, false);
         search = (EditText) view.findViewById(R.id.search);
         searchButton = (ImageButton) view.findViewById(R.id.searchbutton);
-        llista= (ListView) view.findViewById(R.id.list_view_productos);
+        llista= (GridView) view.findViewById(R.id.list_view_productos);
         tipos=new ArrayList<>();
         tipos.add("Todos");
         tipos.add("Ofertas");
@@ -73,6 +76,7 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
         TipoManager.getInstance().getAllTipos(FragmentProductos.this);
         ProductManager.getInstance().getAllProductos(FragmentProductos.this);
         OfferManager.getInstance().getAllOffers(FragmentProductos.this);
+        search.clearFocus();
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,16 +171,20 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(productos.get(i) instanceof Producto){
                     TicketManager.getInstance().updateTicketProducto(FragmentProductos.this, (Producto) productos.get(i), id);
-                    Toast toast2 =
+                    Snackbar.make(view, "¡"+((Producto) productos.get(i)).getNombre()+" añadido!", Snackbar.LENGTH_SHORT)
+                            .show();
+                    /*Toast toast2 =
                             Toast.makeText(view.getContext(),
                                     "¡"+((Producto) productos.get(i)).getNombre()+" añadido!", Toast.LENGTH_SHORT);
-                    toast2.show();
+                    toast2.show();*/
                 } else {
                     TicketManager.getInstance().updateTicketOferta(FragmentProductos.this, (Oferta) productos.get(i), id);
-                    Toast toast2 =
+                    Snackbar.make(view, "¡"+((Oferta) productos.get(i)).getNombre()+" añadido!", Snackbar.LENGTH_SHORT)
+                            .show();
+                    /*Toast toast2 =
                             Toast.makeText(view.getContext(),
                                     "¡"+((Oferta) productos.get(i)).getNombre()+" añadido!", Toast.LENGTH_SHORT);
-                    toast2.show();
+                    toast2.show();*/
                 }
             }
         });
@@ -184,6 +192,11 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
 
     @Override
     public void onSuccessTicket(Object o) {
+
+    }
+
+    @Override
+    public void onSuccessDelete(Object o) {
 
     }
 
@@ -229,10 +242,26 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
 
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
                 myView = inflater.inflate(R.layout.card_productos, parent, false);
-                FragmentProductos.ProductoAdapter.ViewHolder holder = new FragmentProductos.ProductoAdapter.ViewHolder();
+                final FragmentProductos.ProductoAdapter.ViewHolder holder = new FragmentProductos.ProductoAdapter.ViewHolder();
                 holder.tvNombre = (TextView) myView.findViewById(R.id.card_productname);
                 holder.tvDescription = (TextView) myView.findViewById(R.id.card_productdescription);
                 holder.tvPrice = (TextView) myView.findViewById(R.id.card_productprice);
+                holder.tvPrice.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
                 holder.ivImage = (ImageView) myView.findViewById(R.id.imageView3);
                 myView.setTag(holder);
             }
@@ -249,25 +278,36 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
                 holder.tvDescription.setText(description);
                 holder.tvPrice.setText(price);
 
-
-                byte[] imageAsBytes  = Base64.decode(Image, Base64.DEFAULT);
-                holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
-                holder.ivImage.setMaxWidth(80);
-                holder.ivImage.setMaxWidth(80);
+                if(Image != null) {
+                    byte[] imageAsBytes = Base64.decode(Image, Base64.DEFAULT);
+                    holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                    holder.ivImage.setMaxWidth(80);
+                    holder.ivImage.setMaxWidth(80);
+                }else {
+                    holder.ivImage.setImageResource(R.drawable.bakerylogoticketsrojo);
+                }
 
             } else {
                 Oferta oferta = (Oferta) products.get(position);
                 String nombre = oferta.getNombre() + "";
                 String description = oferta.getDescripcion()+"";
                 String price = oferta.getPrecio()+"";
-                String image = oferta.getImagen()+"";
-
+                String image = oferta.getImagen();
+                if(image != null) {
+                    byte[] imageAsBytes = Base64.decode(image, Base64.DEFAULT);
+                    holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                    holder.ivImage.setMaxWidth(80);
+                    holder.ivImage.setMaxWidth(80);
+                } else {
+                    holder.ivImage.setImageResource(R.drawable.bakerylogoticketsrojo);
+                }
                 holder.tvNombre.setText(nombre);
                 holder.tvDescription.setText(description);
                 holder.tvPrice.setText(price);
             }
             return myView;
         }
+
     }
 
     public class SpinnerAdapter extends BaseAdapter {

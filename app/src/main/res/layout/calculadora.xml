@@ -16,8 +16,8 @@
     <Button
         android:id="@+id/numero_8"
         style="@style/AppTheme.BotonCalculadora.Azul"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="102dp"
+        android:layout_height="134dp"
         android:layout_column="1"
         android:layout_row="0"
         android:text="8" />
@@ -25,8 +25,8 @@
     <Button
         android:id="@+id/numero_9"
         style="@style/AppTheme.BotonCalculadora.Azul"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="116dp"
         android:layout_column="2"
         android:layout_row="0"
         android:text="9" />

@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.managers.TicketCallback;
 import com.bakery.dam.androidtpv.controller.managers.TicketManager;
+import com.bakery.dam.androidtpv.model.Producto;
 
 /**
  * Created by DAM on 31/3/17.
@@ -41,19 +43,49 @@ public class FragmentCalculadora extends Fragment implements TicketCallback{
             @Override
             public void onClick(View v) {
                 if(v.getId()!=R.id.mas&&v.getId()!=R.id.menos&&v.getId()!=R.id.coma&&v.getId()!=R.id.coma&&v.getId()!=R.id.c){
-                    Button b = (Button) view.findViewById(v.getId());
-                    String num = b.getText().toString()+"";
-                    int numero = Integer.parseInt(num);
-                    tv.setText(tv.getText().toString()+num);
+                    String valor = tv.getText().toString();
+                    if(valor.contains(".")&&valor.length()>=4){
+                        char va = valor.charAt(valor.length()-3);
+                        if(!".".equals(valor.substring(valor.length()-3, valor.length()-2))){
+                            Button b = (Button) view.findViewById(v.getId());
+                            String num = b.getText().toString()+"";
+                            int numero = Integer.parseInt(num);
+                            tv.setText(tv.getText().toString()+num);
+                        }
+                    } else {
+                        Button b = (Button) view.findViewById(v.getId());
+                        String num = b.getText().toString()+"";
+                        int numero = Integer.parseInt(num);
+                        tv.setText(tv.getText().toString()+num);
+                    }
+
                 } else if(v.getId()==R.id.coma){
-                    if(!tv.getText().toString().contains(".")) {
+                    if(!tv.getText().toString().contains(".")&&!"".equals(tv.getText().toString())) {
                         tv.setText(tv.getText().toString() + ".");
                     }
                 } else if(v.getId()==R.id.c){
                     tv.setText("");
                 } else if(v.getId()==R.id.mas){
                     String valor = tv.getText().toString();
-                    TicketManager.getInstance().updateTicketCalculadora(FragmentCalculadora.this, id, valor);
+                    if(!"".equals(valor)&&!valor.startsWith(".")&&!valor.endsWith(".")) {
+                        TicketManager.getInstance().updateTicketCalculadora(FragmentCalculadora.this, id, valor);
+                        Toast toast2 =
+                                Toast.makeText(view.getContext(),
+                                        "¡Has sumado "+valor+" al precio final!", Toast.LENGTH_SHORT);
+                        toast2.show();
+                        tv.setText("");
+                    }
+                } else if(v.getId()==R.id.menos){
+                    String valor = tv.getText().toString();
+                    double value = Double.parseDouble(valor)*(-1);
+                    if(!"".equals(valor)&&!valor.startsWith(".")&&!valor.endsWith(".")) {
+                        TicketManager.getInstance().updateTicketCalculadora(FragmentCalculadora.this, id, value+"");
+                        Toast toast2 =
+                                Toast.makeText(view.getContext(),
+                                        "¡Has restado "+valor+" al precio final!", Toast.LENGTH_SHORT);
+                        toast2.show();
+                        tv.setText("");
+                    }
                 }
             }
         };
@@ -71,6 +103,11 @@ public class FragmentCalculadora extends Fragment implements TicketCallback{
 
     @Override
     public void onSuccessTicket(Object o) {
+
+    }
+
+    @Override
+    public void onSuccessDelete(Object o) {
 
     }
 

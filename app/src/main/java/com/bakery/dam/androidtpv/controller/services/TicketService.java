@@ -26,7 +26,7 @@ public interface TicketService {
     );
 
     @GET("api/tickets/{id}")
-    Call<List<Ticket>> getTicketById(
+    Call<Ticket> getTicketById(
 
             @Header("Authorization") String Authorization,
             @Path("id") long id);
@@ -44,10 +44,17 @@ public interface TicketService {
 
     );
 
-    @PUT("api/tickets/producto/add/{id}")
+    @PUT("api/tickets/{id}/producto/{idProducto}")
     Call<Ticket> updateTicketProducto(
             @Header("Authorization") String Authorization,
-            @Body Producto producto, @Path("id") long id
+            @Path("idProducto") long idProducto, @Path("id") long id
+
+    );
+
+    @DELETE("api/tickets/{id}/producto/{idProducto}/cantidad/{cantidad}")
+    Call<Ticket> deleteTicketProducto(
+            @Header("Authorization") String Authorization,
+            @Path("idProducto") long idProducto, @Path("id") long id, @Path("cantidad") int cantidad
 
     );
 
@@ -55,6 +62,14 @@ public interface TicketService {
     Call<Ticket> updateTicketOferta(
             @Header("Authorization") String Authorization,
             @Body Oferta oferta, @Path("id") long id
+
+    );
+
+    @PUT("api/tickets/{id}/mesa/{mesa}")
+    Call<Ticket> updateTicketMesa(
+            @Header("Authorization") String Authorization,
+            @Path("id") long id,
+            @Path("mesa") int mesa
 
     );
 

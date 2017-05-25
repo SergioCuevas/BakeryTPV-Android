@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -25,9 +27,11 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.activities.CreacionTicketActivity;
@@ -38,6 +42,9 @@ import com.bakery.dam.androidtpv.controller.managers.TicketCallback;
 import com.bakery.dam.androidtpv.controller.managers.TicketManager;
 import com.bakery.dam.androidtpv.controller.services.TicketService;
 import com.bakery.dam.androidtpv.model.Ticket;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.daimajia.swipe.SwipeLayout;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -46,12 +53,13 @@ import java.util.List;
 
 import retrofit2.Retrofit;
 
-public class MenuActivity extends AppCompatActivity
+public class MenuActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, TicketCallback {
     private RecyclerView recyclerView;
 
     private List<Ticket> tickets;
     private ListView llista;
+    private SwipeRefreshLayout swipeRefreshLayout;
     long id;
     private List<Integer> imgs = new ArrayList<>();
 
@@ -71,6 +79,14 @@ public class MenuActivity extends AppCompatActivity
         imgs.add(R.drawable.mesa9);
         imgs.add(R.drawable.mesa10);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                tickets = new ArrayList<>();
+                TicketManager.getInstance().getAllTickets(MenuActivity.this);
+            }
+        });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -102,7 +118,7 @@ public class MenuActivity extends AppCompatActivity
         TicketManager.getInstance().getAllTickets(MenuActivity.this);
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -110,29 +126,9 @@ public class MenuActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
+    }*/
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -152,39 +148,7 @@ public class MenuActivity extends AppCompatActivity
     }
 
 
-    private AlertDialog AskOption(final int i)
-    {
-        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
-                //personalizar mensaje
-                .setTitle("Delete")
-                .setMessage("Do you want to Delete")
 
-
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        //delete
-                        id = (long) tickets.get(i).getId();
-                        TicketManager.getInstance().deleteTicket(MenuActivity.this, (long) tickets.get(i).getId());
-
-                        dialog.dismiss();
-                    }
-
-                })
-
-
-
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.dismiss();
-
-                    }
-                })
-                .create();
-        return myQuittingDialogBox;
-
-    }
 
     @Override
     public void onSuccessTicket(final Object ticket) {
@@ -201,25 +165,16 @@ public class MenuActivity extends AppCompatActivity
                     }
                 }
             });
-            llista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    if (tickets.get(i).getMesa()!=null) {
-
-                        AlertDialog diaBox = AskOption(i);
-                        diaBox.show();
-                   //     id = (long) tickets.get(i).getId();
-                    //    TicketManager.getInstance().deleteTicket(MenuActivity.this, (long) tickets.get(i).getId());
-                    }
-                        return false;
-
-
-                }
-            });
         } else {
             Intent intent = new Intent(MenuActivity.this, MenuActivity.class);
             startActivity(intent);
         }
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onSuccessDelete(Object o) {
+
     }
 
 
@@ -259,10 +214,12 @@ public class MenuActivity extends AppCompatActivity
             public TextView tvPrecio;
             public ImageView ivImage;
             public ImageView ivImage2;
+            public SwipeLayout swipeLayout;
+            public Button delete;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             if (tickets.get(position).getMesa() != null) {
                 View myView = convertView;
                 if (myView == null) {
@@ -275,6 +232,7 @@ public class MenuActivity extends AppCompatActivity
                     holder.tvPrecio = (TextView) myView.findViewById(R.id.precio);
                     holder.ivImage2 = (ImageView) myView.findViewById(R.id.imageView2);
                     holder.ivImage2.setImageResource(R.drawable.eurocoin);
+                    holder.swipeLayout = (SwipeLayout) myView.findViewById(R.id.swipe);
                     if(position%2==0){
                         myView.setBackgroundColor(Color.rgb(255, 246 ,238));
                     }
@@ -282,7 +240,38 @@ public class MenuActivity extends AppCompatActivity
                         myView.setBackgroundColor(Color.rgb(255, 255 ,255));
                     }
                     holder.ivImage = (ImageView) myView.findViewById(R.id.table);
+
                     myView.setTag(holder);
+
+                    holder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
+                        @Override
+                        public void onClose(SwipeLayout layout) {
+                        }
+                        @Override
+                        public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
+                        }
+                        @Override
+                        public void onStartOpen(SwipeLayout layout) {
+
+                        }
+                        @Override
+                        public void onOpen(final SwipeLayout layout) {
+
+                            YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.trash));
+                            id = (long) tickets.get(position).getId();
+                            TicketManager.getInstance().deleteTicket(MenuActivity.this, (long) tickets.get(position).getId());
+
+                        }
+                        @Override
+                        public void onStartClose(SwipeLayout layout) {
+                        }
+
+                        @Override
+                        public void onHandRelease(final SwipeLayout layout, final float xvel, final float yvel) {
+                        }
+                    });
+
+
                 }
                 MenuActivity.PartsAdapter.ViewHolder holder = (MenuActivity.PartsAdapter.ViewHolder) myView.getTag();
 
@@ -314,7 +303,7 @@ public class MenuActivity extends AppCompatActivity
 
             } else {
                 View myView;
-                //Inflo la lista con el layout que he creado (llista_item)
+
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
                 myView = inflater.inflate(R.layout.llista_item, parent, false);
                 MenuActivity.PartsAdapter.ViewHolder holder = new MenuActivity.PartsAdapter.ViewHolder();
