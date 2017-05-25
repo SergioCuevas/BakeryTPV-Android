@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
@@ -170,16 +171,20 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(productos.get(i) instanceof Producto){
                     TicketManager.getInstance().updateTicketProducto(FragmentProductos.this, (Producto) productos.get(i), id);
-                    Toast toast2 =
+                    Snackbar.make(view, "¡"+((Producto) productos.get(i)).getNombre()+" añadido!", Snackbar.LENGTH_SHORT)
+                            .show();
+                    /*Toast toast2 =
                             Toast.makeText(view.getContext(),
                                     "¡"+((Producto) productos.get(i)).getNombre()+" añadido!", Toast.LENGTH_SHORT);
-                    toast2.show();
+                    toast2.show();*/
                 } else {
                     TicketManager.getInstance().updateTicketOferta(FragmentProductos.this, (Oferta) productos.get(i), id);
-                    Toast toast2 =
+                    Snackbar.make(view, "¡"+((Oferta) productos.get(i)).getNombre()+" añadido!", Snackbar.LENGTH_SHORT)
+                            .show();
+                    /*Toast toast2 =
                             Toast.makeText(view.getContext(),
                                     "¡"+((Oferta) productos.get(i)).getNombre()+" añadido!", Toast.LENGTH_SHORT);
-                    toast2.show();
+                    toast2.show();*/
                 }
             }
         });

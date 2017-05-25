@@ -7,12 +7,16 @@ import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -41,7 +45,7 @@ import com.daimajia.swipe.SwipeLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductListActivity extends AppCompatActivity implements ProductCallback, OfferCallback, TicketCallback{
+public class ProductListActivity extends BaseActivity implements ProductCallback, OfferCallback, TicketCallback{
     private ListView llista;
     private List<Producto> productos;
     private List<Object> productsAndOffers = new ArrayList<>();
@@ -71,9 +75,8 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
         imgs.add(R.drawable.mesa9);
         imgs.add(R.drawable.mesa10);
         Activity activity = this;
-        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbarproductlist);
-            activity.setTitle("Title");
-        setContentView(R.layout.activity_product_list);
+        //Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbarproductlist);
+        setContentView(R.layout.activity_product_list_menu);
         llista= (ListView) findViewById(R.id.productos);
         productsAndOffers = new ArrayList<>();
         fb = (FloatingActionButton) findViewById(R.id.addProduct);
@@ -85,10 +88,10 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
                 startActivity(i);
             }
         });
-        tvPrecio= (TextView) findViewById(R.id.preciototal);
-        tvMesa= (ImageView) findViewById(R.id.mesanumero);
+        //tvPrecio= (TextView) findViewById(R.id.preciototal);
+        //tvMesa= (ImageView) findViewById(R.id.mesanumero);
 
-        tvMesa.setOnClickListener(new View.OnClickListener() {
+        /*tvMesa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ProductListActivity.this, CambiarMesaActivity.class);
@@ -96,8 +99,13 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
                 startActivity(i);
 
             }
-        });
+        });*/
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
+
 
     @Override
     public void onResume()
@@ -188,9 +196,11 @@ public class ProductListActivity extends AppCompatActivity implements ProductCal
     public void onSuccessTicket(Object ticket) {
         Ticket ts = (Ticket) ticket;
         Ticket t=ts;
-        tvMesa.setImageResource(imgs.get(t.getMesa()));
-        tvPrecio.setText(t.getCantidad()+"€");
+        //tvMesa.setImageResource(imgs.get(t.getMesa()));
+        //tvPrecio.setText(t.getCantidad()+"€");
     }
+
+
 
     @Override
     public void onSuccessDelete(Object o) {
