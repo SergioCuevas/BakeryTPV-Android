@@ -53,11 +53,11 @@
     <color name="LightGoldenrodYellow">#FAFAD2</color>
     <color name="Linen">#FAF0E6</color>
     <color name="AntiqueWhite">#FAEBD7</color>
-    <color name="Salmon">#FA8072</color>
-    <color name="GhostWhite">#F8F8FF</color>
+    <color name="Salmon">#fa8072</color>
+    <color name="GhostWhite">#f8f8ff</color>
     <color name="MintCream">#F5FFFA</color>
     <color name="WhiteSmoke">#F5F5F5</color>
-    <color name="Beige">#F5F5DC</color>
+    <color name="Beige">#f5f5dc</color>
     <color name="Wheat">#F5DEB3</color>
     <color name="SandyBrown">#F4A460</color>
     <color name="Azure">#F0FFFF</color>
@@ -91,7 +91,7 @@
     <color name="DarkGoldenrod">#B8860B</color>
     <color name="FireBrick">#B22222</color>
     <color name="PowderBlue">#B0E0E6</color>
-    <color name="LightSteelBlue">#B0C4DE</color>
+    <color name="LightSteelBlue">#b0c4de</color>
     <color name="PaleTurquoise">#AFEEEE</color>
     <color name="GreenYellow">#ADFF2F</color>
     <color name="LightBlue">#ADD8E6</color>
@@ -158,4 +158,5 @@
     <color name="DarkBlue">#00008B</color>
     <color name="Navy">#000080</color>
     <color name="Black">#000000</color>
+    <color name="Saraguga">#EEECEC</color>
 </resources>

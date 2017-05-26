@@ -11,6 +11,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -60,6 +61,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
     private FloatingActionButton fb;
     private Long id;
     private Toolbar tb;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private List<Integer> imgs = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,20 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
                 Intent i = new Intent(ProductListActivity.this, CreacionTicketActivity.class);
                 i.putExtra("id", id);
                 startActivity(i);
+            }
+        });
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                productsAndOffers = new ArrayList<>();
+                productos = new ArrayList<>();
+                offers = new ArrayList<>();
+                quantity = new ArrayList<>();
+                TicketManager.getInstance().getTicketById(ProductListActivity.this, id);
+
+                OfferManager.getInstance().getOffersByTicket(ProductListActivity.this, id);
+                ProductManager.getInstance().getProductsByTicket(ProductListActivity.this, id);
             }
         });
         //tvPrecio= (TextView) findViewById(R.id.preciototal);
@@ -165,6 +181,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
             }
             llista.setAdapter(new ProductListActivity.ProductsAdapter(this, productsAndOffers, quantity));
         }
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

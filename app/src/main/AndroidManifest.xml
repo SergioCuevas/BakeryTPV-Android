@@ -46,7 +46,8 @@
         <activity android:name=".controller.activities.CreacionTicketActivity" />
         <activity android:name=".controller.activities.main.ProductListActivity" />
         <activity android:name=".controller.activities.CrearTicketActivity" />
-        <activity android:name=".controller.activities.CambiarMesaActivity"></activity>
+        <activity android:name=".controller.activities.CambiarMesaActivity" />
+        <activity android:name=".controller.activities.CobrarActivity"></activity>
     </application>
 
 </manifest>
