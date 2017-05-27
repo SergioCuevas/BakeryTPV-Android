@@ -272,7 +272,7 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
                 Producto producto = (Producto) products.get(position);
                 String nombre = producto.getNombre() + "";
                 String description = producto.getDescripcion()+"";
-                String price = producto.getPrecio()+"";
+                String price = producto.getPrecio()+"€";
                 String Image = producto.getImagen();
                 holder.tvNombre.setText(nombre);
                 holder.tvDescription.setText(description);
@@ -291,7 +291,7 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
                 Oferta oferta = (Oferta) products.get(position);
                 String nombre = oferta.getNombre() + "";
                 String description = oferta.getDescripcion()+"";
-                String price = oferta.getPrecio()+"";
+                String price = oferta.getPrecio()+"€";
                 String image = oferta.getImagen();
                 if(image != null) {
                     byte[] imageAsBytes = Base64.decode(image, Base64.DEFAULT);

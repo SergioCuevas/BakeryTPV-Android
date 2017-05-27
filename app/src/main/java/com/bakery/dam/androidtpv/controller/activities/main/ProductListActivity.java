@@ -257,6 +257,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
         public class ViewHolder{
             public TextView tvNombre;
             public TextView tvCantidad;
+            public TextView tvDescricpión;
             public ImageView ivImage;
             public EditText etCantidadmodicable;
             public SwipeLayout swipeLayout;
@@ -272,6 +273,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
                     final ProductListActivity.ProductsAdapter.ViewHolder holder = new ProductListActivity.ProductsAdapter.ViewHolder();
                     holder.tvNombre = (TextView) myView.findViewById(R.id.nombreProducto);
                     holder.tvCantidad = (TextView) myView.findViewById(R.id.cantidadTotal);
+                    holder.tvDescricpión = (TextView) myView.findViewById(R.id.descripcion);
                     holder.ivImage = (ImageView) myView.findViewById(R.id.imagenProducto);
                     holder.etCantidadmodicable = (EditText) myView.findViewById(R.id.cantidadproductostickets);
                     holder.swipeLayout = (SwipeLayout) myView.findViewById(R.id.swipelayout);
@@ -330,6 +332,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
                     String Image = producto.getImagen();
                     holder.tvNombre.setText(nombre);
                     holder.tvCantidad.setText(cantidad);
+                    holder.tvDescricpión.setText(producto.getDescripcion());
                     //holder.etCantidadmodicable.setText(cantidad);
                     if(Image != null) {
                         byte[] imageAsBytes = Base64.decode(Image, Base64.DEFAULT);
@@ -346,6 +349,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
                     String cantidad = quantity.get(position) + "";
                     holder.tvNombre.setText(nombre);
                     holder.tvCantidad.setText(cantidad);
+                    holder.tvDescricpión.setText(oferta.getDescripcion());
                     if(Image != null) {
                         byte[] imageAsBytes = Base64.decode(Image, Base64.DEFAULT);
                         holder.ivImage.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));

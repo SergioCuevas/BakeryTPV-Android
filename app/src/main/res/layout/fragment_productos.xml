@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/LightSlateGray">
 
     <GridView
         android:id="@+id/list_view_productos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout3"
+        android:background="@color/LightSlateGray"
         android:columnWidth="120dp"
         android:horizontalSpacing="4dp"
         android:numColumns="auto_fit"
         android:padding="4dp"
-        android:verticalSpacing="4dp"
-        android:layout_below="@+id/linearLayout3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:verticalSpacing="4dp" />
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/list_view_productos"
@@ -27,9 +29,13 @@
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/list_view_productos"
         android:layout_alignStart="@+id/list_view_productos"
-        android:layout_marginTop="70dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="52dp"
+        android:background="@android:color/white"
         android:orientation="horizontal"
-        android:id="@+id/linearLayout3">
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp">
 
         <Spinner
             android:id="@+id/spinnertipos"
