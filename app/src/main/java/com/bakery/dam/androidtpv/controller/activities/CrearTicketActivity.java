@@ -11,8 +11,11 @@ import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.activities.main.MenuActivity;
 import com.bakery.dam.androidtpv.controller.managers.TicketCallback;
 import com.bakery.dam.androidtpv.controller.managers.TicketManager;
+import com.bakery.dam.androidtpv.model.Oferta;
+import com.bakery.dam.androidtpv.model.Producto;
 import com.bakery.dam.androidtpv.model.Ticket;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CrearTicketActivity extends AppCompatActivity implements TicketCallback {
@@ -35,6 +38,10 @@ public class CrearTicketActivity extends AppCompatActivity implements TicketCall
                     String text = et.getText().toString();
                     int mesa = Integer.parseInt(text);
                     ticket.setMesa(mesa);
+                    ticket.setCerrado(false);
+                    ticket.setCantidad(0);
+                    ticket.setProductos(new ArrayList<Producto>());
+                    ticket.setOfertas(new ArrayList<Oferta>());
                     TicketManager.getInstance().createTicket(CrearTicketActivity.this, ticket);
                 }
             }

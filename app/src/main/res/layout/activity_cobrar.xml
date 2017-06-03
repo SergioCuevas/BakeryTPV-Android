@@ -7,7 +7,16 @@
     tools:context="com.bakery.dam.androidtpv.controller.activities.main.ProductListActivity">
 
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/separado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/separado" />
+
     <LinearLayout
+        android:id="@+id/contenido"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/LightSlateGray"
@@ -35,7 +44,9 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:layout_weight="0.69"
-            android:background="@android:color/white" />
+            android:background="@android:color/white"
+            android:focusableInTouchMode="false"
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/cobrarticket"

@@ -4,6 +4,7 @@ import com.bakery.dam.androidtpv.model.Oferta;
 import com.bakery.dam.androidtpv.model.Producto;
 import com.bakery.dam.androidtpv.model.Ticket;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -50,6 +51,14 @@ public interface TicketService {
             @Body Ticket ticket
 
     );
+
+    @PUT("api/tickets/cobrar")
+    Call<Ticket> updateTicketSeparado(
+            @Header("Authorization") String Authorization,
+            @Body Ticket ticket,
+            @Body ArrayList<Object> lista
+
+            );
 
     @PUT("api/tickets/{id}/producto/{idProducto}")
     Call<Ticket> updateTicketProducto(
