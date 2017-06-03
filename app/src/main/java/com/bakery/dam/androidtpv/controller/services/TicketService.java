@@ -44,6 +44,13 @@ public interface TicketService {
 
     );
 
+    @PUT("api/tickets")
+    Call<Ticket> updateTicket(
+            @Header("Authorization") String Authorization,
+            @Body Ticket ticket
+
+    );
+
     @PUT("api/tickets/{id}/producto/{idProducto}")
     Call<Ticket> updateTicketProducto(
             @Header("Authorization") String Authorization,

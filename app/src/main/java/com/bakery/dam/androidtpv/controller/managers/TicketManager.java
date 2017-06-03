@@ -203,6 +203,33 @@ public class TicketManager {
         });
     }
 
+    public synchronized void updateTicketCerrado(final TicketCallback ticketCallback, Ticket t) {
+        t.setCerrado(true);
+        Call<Ticket> call = ticketService.updateTicket(UserLoginManager.getInstance().getBearerToken(), t);
+
+        call.enqueue(new Callback<Ticket>() {
+            @Override
+            public void onResponse(Call<Ticket> call, Response<Ticket> response) {
+                ticket = response.body();
+
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    ticketCallback.onSuccessTicket(ticket);
+                } else {
+                    ticketCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Ticket> call, Throwable t) {
+                Log.e("TeamManager->", t.toString());
+                ticketCallback.onFailure(t);
+            }
+
+        });
+    }
+
     public synchronized void updateTicketMesa(final TicketCallback ticketCallback, long id, int mesa) {
         Call<Ticket> call = ticketService.updateTicketMesa(UserLoginManager.getInstance().getBearerToken(), id, mesa);
 

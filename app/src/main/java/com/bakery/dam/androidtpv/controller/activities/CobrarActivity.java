@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.activities.main.BaseActivity;
+import com.bakery.dam.androidtpv.controller.activities.main.MenuActivity;
 import com.bakery.dam.androidtpv.controller.activities.main.ProductListActivity;
 import com.bakery.dam.androidtpv.controller.managers.OfferCallback;
 import com.bakery.dam.androidtpv.controller.managers.OfferManager;
@@ -49,7 +50,14 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
         setContentView(R.layout.activity_cobrar);
         precio = (TextView) findViewById(R.id.precio);
         lista = (ListView) findViewById(R.id.listcobrar);
-        cobrar = (Button) findViewById(R.id.cobrar);
+        cobrar = (Button) findViewById(R.id.cobrarticket);
+
+        cobrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TicketManager.getInstance().updateTicketCerrado(CobrarActivity.this, ts);
+            }
+        });
 
     }
 
@@ -90,6 +98,10 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
     @Override
     public void onSuccessTicket(Object o) {
         ts = (Ticket) o;
+        if(ts.getCerrado()){
+            Intent i = new Intent(CobrarActivity.this, MenuActivity.class);
+            startActivity(i);
+        }
         precio.setText(""+ts.getCantidad());
     }
 
