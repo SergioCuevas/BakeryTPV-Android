@@ -1,51 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bakery.dam.androidtpv.controller.activities.CobrarActivity">
+    tools:context="com.bakery.dam.androidtpv.controller.activities.main.ProductListActivity">
 
-    <android.support.design.widget.AppBarLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="52dp"
-        android:layout_weight="1"
-        android:text="30,05"
-        android:textColor="@color/Black"
-        android:textSize="50sp"
-        tools:layout_editor_absoluteX="131dp"
-        tools:layout_editor_absoluteY="84dp" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="229dp"
-        android:layout_height="53dp"
-        android:text="Cobrar"
-        android:textColor="@android:color/white"
-        tools:layout_editor_absoluteX="78dp"
-        tools:layout_editor_absoluteY="498dp" />
-
-    <ListView
-        android:id="@+id/listaparacobrar"
-        android:layout_width="298dp"
-        android:layout_height="294dp"
+        android:layout_height="match_parent"
+        android:background="@color/LightSlateGray"
+        android:elevation="1dp"
+        android:orientation="vertical"
         android:padding="10dp"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="167dp" />
+        android:weightSum="1">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/precio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="50dp"
+            android:paddingTop="50dp"
+            android:text="30,05"
+            android:textAlignment="center"
+            android:textColor="@color/Black"
+            android:textSize="50dp" />
+
+        <ListView
+            android:id="@+id/listcobrar"
+            android:layout_width="match_parent"
+            android:layout_height="249dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.69"
+            android:background="@android:color/white" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cobrar"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</RelativeLayout>

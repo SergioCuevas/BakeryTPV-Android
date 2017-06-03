@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.activities.CambiarMesaActivity;
+import com.bakery.dam.androidtpv.controller.activities.CobrarActivity;
 import com.bakery.dam.androidtpv.controller.activities.CreacionTicketActivity;
 import com.bakery.dam.androidtpv.controller.managers.OfferCallback;
 import com.bakery.dam.androidtpv.controller.managers.OfferManager;
@@ -59,7 +60,9 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
     private TextView tvPrecio;
     private ImageView tvMesa;
     private FloatingActionButton fb;
+    private FloatingActionButton cobrar;
     private Long id;
+    public int cantidad;
     private Toolbar tb;
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<Integer> imgs = new ArrayList<>();
@@ -81,12 +84,22 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
         //Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbarproductlist);
         setContentView(R.layout.activity_product_list_menu);
         llista= (ListView) findViewById(R.id.productos);
+        llista.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
         productsAndOffers = new ArrayList<>();
         fb = (FloatingActionButton) findViewById(R.id.addProduct);
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ProductListActivity.this, CreacionTicketActivity.class);
+                i.putExtra("id", id);
+                startActivity(i);
+            }
+        });
+        cobrar = (FloatingActionButton) findViewById(R.id.cobrar);
+        cobrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ProductListActivity.this, CobrarActivity.class);
                 i.putExtra("id", id);
                 startActivity(i);
             }
@@ -221,7 +234,33 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
 
     @Override
     public void onSuccessDelete(Object o) {
-        ProductListActivity.this.onResume();
+        if (o instanceof Producto) {
+            for (int i = productsAndOffers.size() - 1; i >= 0; i--) {
+                if (productsAndOffers.get(i) instanceof Producto) {
+                    Producto pro = (Producto) productsAndOffers.get(i);
+                    if (pro.getId() == ((Producto) o).getId() && cantidad > 0) {
+
+                        quantity.set(i, quantity.get(i) - cantidad);
+                        if (quantity.get(i) <= 0) {
+                            quantity.remove(i);
+                            productsAndOffers.remove(i);
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            for (int i = productsAndOffers.size() - 1; i >= 0; i--) {
+                if (productsAndOffers.get(i) instanceof Oferta) {
+                    Oferta oferta = (Oferta) productsAndOffers.get(i);
+                    if (oferta.getId() == ((Oferta) o).getId()) {
+                        quantity.remove(i);
+                        productsAndOffers.remove(i);
+                    }
+                }
+            }
+        }
+        llista.setAdapter(new ProductListActivity.ProductsAdapter(this, productsAndOffers, quantity));
     }
 
     @Override
@@ -286,12 +325,16 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
                         @Override
                         public void onOpen(SwipeLayout layout) {
                             try {
-                                int cantidad = Integer.parseInt(holder.etCantidadmodicable.getText().toString());
+
                                 if (productsAndOffers.get(position) instanceof Producto) {
-                                    TicketManager.getInstance().deleteTicketProducto(ProductListActivity.this, (Producto) productsAndOffers.get(position), id, cantidad);
+                                    int c = Integer.parseInt(holder.etCantidadmodicable.getText().toString());
+                                    TicketManager.getInstance().deleteTicketProducto(ProductListActivity.this, (Producto) productsAndOffers.get(position), id, c);
+                                    cantidad = c;
+                                    holder.swipeLayout.close();
+                                } else {
+                                    TicketManager.getInstance().deleteTicketOferta(ProductListActivity.this, (Oferta) productsAndOffers.get(position), id);
                                     holder.swipeLayout.close();
                                 }
-                                ProductListActivity.this.onResume();
                                 Log.d("Borraddoooo", "aaaaa");
                             } catch (Exception e){
                                 Snackbar.make(layout, "Debes añadir la cantidad que quieres borrar", Snackbar.LENGTH_SHORT)
@@ -349,6 +392,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
                     String cantidad = quantity.get(position) + "";
                     holder.tvNombre.setText(nombre);
                     holder.tvCantidad.setText(cantidad);
+                    holder.etCantidadmodicable.setVisibility(View.INVISIBLE);
                     holder.tvDescricpión.setText(oferta.getDescripcion());
                     if(Image != null) {
                         byte[] imageAsBytes = Base64.decode(Image, Base64.DEFAULT);

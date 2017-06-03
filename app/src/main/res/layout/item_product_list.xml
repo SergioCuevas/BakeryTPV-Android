@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     swipe:leftEdgeSwipeOffset="0dp"
+    android:descendantFocusability="afterDescendants"
     swipe:rightEdgeSwipeOffset="0dp">
 
     <LinearLayout
@@ -142,7 +143,9 @@
                             android:layout_below="@+id/descripcion"
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:text="5"
+                            android:textSize="10dp" />
 
                     </RelativeLayout>
 

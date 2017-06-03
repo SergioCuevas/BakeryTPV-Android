@@ -58,6 +58,13 @@ public interface TicketService {
 
     );
 
+    @DELETE("api/tickets/{id}/oferta/{idOferta}")
+    Call<Ticket> deleteTicketOferta(
+            @Header("Authorization") String Authorization,
+            @Path("idOferta") long idOferta, @Path("id") long id
+
+    );
+
     @PUT("api/tickets/oferta/add/{id}")
     Call<Ticket> updateTicketOferta(
             @Header("Authorization") String Authorization,

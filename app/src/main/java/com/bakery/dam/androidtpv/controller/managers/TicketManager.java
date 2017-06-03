@@ -100,18 +100,17 @@ public class TicketManager {
         });
     }
 
-    public synchronized void deleteTicketProducto(final TicketCallback ticketCallback, Producto p, long id, int cantidad ) {
+    public synchronized void deleteTicketProducto(final TicketCallback ticketCallback, final Producto p, long id, int cantidad ) {
         Call<Ticket> call = ticketService.deleteTicketProducto(UserLoginManager.getInstance().getBearerToken(), p.getId(), id, cantidad);
 
         call.enqueue(new Callback<Ticket>() {
             @Override
             public void onResponse(Call<Ticket> call, Response<Ticket> response) {
                 ticket = response.body();
-
                 int code = response.code();
 
                 if (code == 200 || code == 201) {
-                    ticketCallback.onSuccessTicket(ticket);
+                    ticketCallback.onSuccessDelete(p);
                 } else {
                     ticketCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
                 }
@@ -126,6 +125,31 @@ public class TicketManager {
         });
     }
 
+    public synchronized void deleteTicketOferta(final TicketCallback ticketCallback, final Oferta o, long id) {
+        Call<Ticket> call = ticketService.deleteTicketOferta(UserLoginManager.getInstance().getBearerToken(), o.getId(), id);
+
+        call.enqueue(new Callback<Ticket>() {
+            @Override
+            public void onResponse(Call<Ticket> call, Response<Ticket> response) {
+                ticket = response.body();
+
+                int code = response.code();
+
+                if (code == 200 || code == 201) {
+                    ticketCallback.onSuccessDelete(o);
+                } else {
+                    ticketCallback.onFailure(new Throwable("ERROR" + code + ", " + response.raw().message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Ticket> call, Throwable t) {
+                Log.e("TeamManager->", t.toString());
+                ticketCallback.onFailure(t);
+            }
+
+        });
+    }
 
     public synchronized void updateTicketProducto(final TicketCallback ticketCallback, Producto p, long id ) {
         Call<Ticket> call = ticketService.updateTicketProducto(UserLoginManager.getInstance().getBearerToken(), p.getId(), id);

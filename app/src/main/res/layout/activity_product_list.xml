@@ -40,6 +40,16 @@
             android:layout_margin="@dimen/fab_margin"
             app:srcCompat="@drawable/add" />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/cobrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="150dp"
+            android:layout_marginRight="16dp"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/pay" />
+
         <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/swiperefresh"
             android:layout_width="match_parent"
@@ -52,6 +62,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="59dp"
                 android:background="@color/Saraguga"
+                android:descendantFocusability="afterDescendants"
                 android:divider="@color/white" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
