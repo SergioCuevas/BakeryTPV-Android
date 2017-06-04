@@ -21,7 +21,7 @@ import retrofit2.http.Path;
  */
 
 public interface TicketService {
-    @GET("/api/tickets")
+    @GET("/api/tickets/abiertos")
     Call<List<Ticket>> getAllTickets(
             @Header("Authorization") String Authorization
     );
@@ -52,10 +52,10 @@ public interface TicketService {
 
     );
 
-    @PUT("api/tickets/cobrar")
+    @PUT("api/tickets/{id}/cobrar")
     Call<Ticket> updateTicketSeparado(
             @Header("Authorization") String Authorization,
-            @Body Ticket ticket,
+            @Path("id") long id,
             @Body ArrayList<Object> lista
 
             );

@@ -182,7 +182,7 @@ public class MenuActivity extends BaseActivity
 
         @Override
         public long getItemId(int position) {
-            int id= (int) tickets.get(position).getCantidad();
+            int id= (int) tickets.get(position).getId();
             return id;
         }
 

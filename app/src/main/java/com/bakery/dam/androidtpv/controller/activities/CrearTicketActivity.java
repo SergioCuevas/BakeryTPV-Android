@@ -15,6 +15,7 @@ import com.bakery.dam.androidtpv.model.Oferta;
 import com.bakery.dam.androidtpv.model.Producto;
 import com.bakery.dam.androidtpv.model.Ticket;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -39,7 +40,7 @@ public class CrearTicketActivity extends AppCompatActivity implements TicketCall
                     int mesa = Integer.parseInt(text);
                     ticket.setMesa(mesa);
                     ticket.setCerrado(false);
-                    ticket.setCantidad(0);
+                    ticket.setCantidad(new BigDecimal(0));
                     ticket.setProductos(new ArrayList<Producto>());
                     ticket.setOfertas(new ArrayList<Oferta>());
                     TicketManager.getInstance().createTicket(CrearTicketActivity.this, ticket);

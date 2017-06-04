@@ -1,5 +1,6 @@
 package com.bakery.dam.androidtpv.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class Ticket {
 
-    private double cantidad;
+    private BigDecimal cantidad;
 
     private Boolean cerrado;
 
@@ -27,11 +28,11 @@ public class Ticket {
 
     private MetodoPago metodoPago;
 
-    public double getCantidad() {
+    public BigDecimal getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(double cantidad) {
+    public void setCantidad(BigDecimal cantidad) {
         this.cantidad = cantidad;
     }
 

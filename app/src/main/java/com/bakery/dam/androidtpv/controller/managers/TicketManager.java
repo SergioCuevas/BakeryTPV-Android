@@ -231,9 +231,8 @@ public class TicketManager {
         });
     }
 
-    public synchronized void updateTicketSeparado(final TicketCallback ticketCallback, Ticket t, ArrayList<Object> lista) {
-        t.setCerrado(true);
-        Call<Ticket> call = ticketService.updateTicketSeparado(UserLoginManager.getInstance().getBearerToken(), t, lista);
+    public synchronized void updateTicket(final TicketCallback ticketCallback, Ticket t) {
+        Call<Ticket> call = ticketService.updateTicket(UserLoginManager.getInstance().getBearerToken(), t);
 
         call.enqueue(new Callback<Ticket>() {
             @Override

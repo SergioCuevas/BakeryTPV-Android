@@ -1,6 +1,6 @@
 package com.bakery.dam.androidtpv.model;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 /**
  * Created by DAM on 24/2/17.
@@ -18,7 +18,7 @@ public class Producto {
 
     private String nombre;
 
-    private double precio;
+    private BigDecimal precio;
 
     private Tipo tipo;
 
@@ -62,11 +62,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 

@@ -2,24 +2,16 @@ package com.bakery.dam.androidtpv.controller.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,19 +19,17 @@ import android.widget.TextView;
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.activities.main.BaseActivity;
 import com.bakery.dam.androidtpv.controller.activities.main.MenuActivity;
-import com.bakery.dam.androidtpv.controller.activities.main.ProductListActivity;
 import com.bakery.dam.androidtpv.controller.managers.OfferCallback;
 import com.bakery.dam.androidtpv.controller.managers.OfferManager;
 import com.bakery.dam.androidtpv.controller.managers.ProductCallback;
 import com.bakery.dam.androidtpv.controller.managers.ProductManager;
 import com.bakery.dam.androidtpv.controller.managers.TicketCallback;
 import com.bakery.dam.androidtpv.controller.managers.TicketManager;
-import com.bakery.dam.androidtpv.model.LineaOferta;
 import com.bakery.dam.androidtpv.model.Oferta;
 import com.bakery.dam.androidtpv.model.Producto;
 import com.bakery.dam.androidtpv.model.Ticket;
-import com.daimajia.swipe.SwipeLayout;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,26 +62,54 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
                     TicketManager.getInstance().updateTicketCerrado(CobrarActivity.this, ts);
                 } else {
                     poSeparado = new ArrayList<>();
-                    Ticket t = ts;
+                    Ticket t = new Ticket();
+                    t.setMesa(ts.getMesa());
+                    t.setFecha(ts.getFecha());
+                    t.setUser(ts.getUser());
                     t.setProductos(new ArrayList<Producto>());
                     t.setOfertas(new ArrayList<Oferta>());
-                    t.setCantidad(0);
+                    t.setCantidad(new BigDecimal(0));
                     for(int i = 0; i<productsAndOffers.size(); i++){
                         if(seleccionado.get(i)==true){
                             poSeparado.add(productsAndOffers.get(i));
                             if(productsAndOffers.get(i) instanceof Producto) {
                                 t.getProductos().add((Producto) productsAndOffers.get(i));
-                                t.setCantidad(t.getCantidad()+((Producto) productsAndOffers.get(i)).getPrecio());
+                                t.setCantidad(t.getCantidad().add(((Producto) productsAndOffers.get(i)).getPrecio()));
                             } else {
                                 t.getOfertas().add((Oferta) productsAndOffers.get(i));
-                                t.setCantidad(t.getCantidad()+((Oferta) productsAndOffers.get(i)).getPrecio());
+                                t.setCantidad(t.getCantidad().add(((Oferta) productsAndOffers.get(i)).getPrecio()));
                             }
                         }
+                    }
+                    for(Object o : poSeparado){
+                        if(o instanceof Producto) {
+                            for (int i = ts.getProductos().size()-1; i >=0;i--){
+                                if(ts.getProductos().get(i).getId()==((Producto) o).getId()){
+                                    ts.setCantidad(ts.getCantidad().subtract(((Producto) o).getPrecio()));
+                                    ts.getProductos().remove(i);
+
+                                    i=-1;
+                                }
+                            }
+                        } else {
+                            for (int i = ts.getOfertas().size()-1; i >=0;i--){
+                                if(ts.getOfertas().get(i).getId()==((Oferta) o).getId()){
+                                    ts.setCantidad(ts.getCantidad().subtract(((Oferta) o).getPrecio()));
+                                    ts.getOfertas().remove(i);
+
+                                    i=-1;
+                                }
+                            }
+                        }
+
+                    }
+                    if(ts.getOfertas().size()==0&&ts.getProductos().size()==0){
+                        ts.setCerrado(true);
                     }
                     t.setCerrado(true);
                     t.setId(null);
                     TicketManager.getInstance().createTicket(CobrarActivity.this, t);
-                    TicketManager.getInstance().updateTicketSeparado(CobrarActivity.this, ts, poSeparado);
+                    TicketManager.getInstance().updateTicket(CobrarActivity.this, ts);
                 }
             }
         });
@@ -100,22 +118,30 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
             @Override
             public void onClick(View view) {
                 if(porSeparado==false) {
-                    porSeparado = true;
-                    contenido.setBackgroundColor(getResources().getColor(R.color.Green));
+                    porSeparado();
                 }
                 else {
-                    porSeparado = false;
-                    contenido.setBackgroundColor(getResources().getColor(R.color.LightSlateGray));
-                    for (int i = 0; i < lista.getChildCount(); i++)
-                    {
-                        View v = lista.getChildAt(i);
-                        v.setBackgroundColor(getResources().getColor(R.color.White));
-                        seleccionado.set(i, false);
-                    }
+                    enTotal();
                 }
             }
         });
 
+    }
+
+    public void enTotal(){
+        porSeparado = false;
+        contenido.setBackgroundColor(getResources().getColor(R.color.LightSlateGray));
+        for (int i = 0; i < lista.getChildCount(); i++)
+        {
+            View v = lista.getChildAt(i);
+            v.setBackgroundColor(getResources().getColor(R.color.White));
+            seleccionado.set(i, false);
+        }
+    }
+
+    public void porSeparado(){
+        porSeparado = true;
+        contenido.setBackgroundColor(getResources().getColor(R.color.Green));
     }
 
     @Override
@@ -156,6 +182,10 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
 
     public void iniciarLista(){
         lista.setAdapter(new CobrarActivity.ProductsAdapter(this, productsAndOffers));
+        seleccionado= new ArrayList<>();
+        for(int i =0; i<productsAndOffers.size(); i++){
+            seleccionado.add(false);
+        }
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -175,6 +205,7 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
                 }
             }
         });
+        enTotal();
     }
 
     @Override
@@ -189,22 +220,25 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
                 precio.setText("" + ts.getCantidad());
             } else {
                 for(Object obj : poSeparado){
-                    if(obj instanceof Producto) {
-                        for (int i = productsAndOffers.size()-1; i >=0;i--){
-                            if(productsAndOffers.get(i) instanceof Producto) {
-                                if (productsAndOffers.get(i) == ((Producto) obj).getId()) {
-                                    productsAndOffers.remove(i);
-                                    i = -1;
-                                }
-                            }
-                        }
-                    } else {
-                        productsAndOffers.remove(obj);
-                    }
+                    productsAndOffers.remove(obj);
 
                 }
-                iniciarLista();
+                if(ts.getCerrado()){
+                    if(ts.getCantidad().equals(new BigDecimal(0))){
+                        TicketManager.getInstance().deleteTicket(CobrarActivity.this, ts.getId());
+                    } else {
+                        Intent i = new Intent(CobrarActivity.this, MenuActivity.class);
+                        startActivity(i);
+                    }
+                } else {
+                    iniciarLista();
+                    precio.setText(ts.getCantidad() + "");
+                }
             }
+        }
+        else {
+            Intent i = new Intent(CobrarActivity.this, MenuActivity.class);
+            startActivity(i);
         }
     }
 
