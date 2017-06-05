@@ -29,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,12 +62,14 @@ public class MenuActivity extends BaseActivity
     private ListView llista;
     private SwipeRefreshLayout swipeRefreshLayout;
     long id;
+    private LinearLayout linearLayout;
     private List<Integer> imgs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        linearLayout = (LinearLayout) findViewById(R.id.cargarmenu);
         imgs.add(R.drawable.takeaway);
         imgs.add(R.drawable.mesa1);
         imgs.add(R.drawable.mesa2);
@@ -107,6 +110,7 @@ public class MenuActivity extends BaseActivity
         super.onResume();
         TicketManager.getInstance().getAllTickets(MenuActivity.this);
         swipeRefreshLayout.setVisibility(View.INVISIBLE);
+        linearLayout.setVisibility(View.VISIBLE);
     }
 
     /*@Override
@@ -143,6 +147,7 @@ public class MenuActivity extends BaseActivity
         }
         swipeRefreshLayout.setRefreshing(false);
         swipeRefreshLayout.setVisibility(View.VISIBLE);
+        linearLayout.setVisibility(View.INVISIBLE);
     }
 
     @Override

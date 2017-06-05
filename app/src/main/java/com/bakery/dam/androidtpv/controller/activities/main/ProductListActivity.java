@@ -241,6 +241,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
     public void onSuccessTicket(Object ticket) {
         Ticket ts = (Ticket) ticket;
         Ticket t=ts;
+        frameLayout.setVisibility(View.VISIBLE);
         //tvMesa.setImageResource(imgs.get(t.getMesa()));
         //tvPrecio.setText(t.getCantidad()+"€");
     }
@@ -263,6 +264,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
                     }
                 }
             }
+            frameLayout.setVisibility(View.VISIBLE);
         }
         else {
             for (int i = productsAndOffers.size() - 1; i >= 0; i--) {
@@ -343,6 +345,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
 
                                 if (productsAndOffers.get(position) instanceof Producto) {
                                     int c = Integer.parseInt(holder.etCantidadmodicable.getText().toString());
+                                    frameLayout.setVisibility(View.INVISIBLE);
                                     TicketManager.getInstance().deleteTicketProducto(ProductListActivity.this, (Producto) productsAndOffers.get(position), id, c);
                                     cantidad = c;
                                     holder.swipeLayout.close();
