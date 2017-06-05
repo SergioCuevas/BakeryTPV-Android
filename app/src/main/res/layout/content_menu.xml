@@ -18,16 +18,34 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
+        <LinearLayout
+            android:id="@+id/login_progress_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:visibility="visible">
+
+            <ProgressBar
+                android:id="@+id/progress_cobrar"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:padding="150dp" />
+        </LinearLayout>
+
         <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/swiperefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
             <ListView
                 android:id="@+id/llista"
-                android:backgroundTint="@color/Wheat"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/Wheat" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

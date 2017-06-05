@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bakery.dam.androidtpv.R;
@@ -45,19 +47,27 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
     private List<Object> productsAndOffers = new ArrayList<>();
     private ArrayList<Object> poSeparado = new ArrayList<>();
     private List<Boolean> seleccionado = new ArrayList<>();
+    private ProgressBar progressBar;
+    private LinearLayout linearLayout;
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cobrar);
+        view = findViewById(R.id.contenido2);
         precio = (TextView) findViewById(R.id.precio);
         lista = (ListView) findViewById(R.id.listcobrar);
+        progressBar= (ProgressBar) findViewById(R.id.progress_cobrar);
+        linearLayout = (LinearLayout) findViewById(R.id.contenido);
         cobrar = (Button) findViewById(R.id.cobrarticket);
         separar = (FloatingActionButton) findViewById(R.id.separado);
         contenido = (LinearLayout) findViewById(R.id.contenido);
         cobrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                linearLayout.setVisibility(View.GONE);
+                separar.setVisibility(View.GONE);
                 if(porSeparado==false) {
                     TicketManager.getInstance().updateTicketCerrado(CobrarActivity.this, ts);
                 } else {
@@ -141,7 +151,7 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
 
     public void porSeparado(){
         porSeparado = true;
-        contenido.setBackgroundColor(getResources().getColor(R.color.Green));
+        contenido.setBackgroundColor(getResources().getColor(R.color.lima));
     }
 
     @Override
@@ -195,11 +205,11 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
                     if (background instanceof ColorDrawable) {
                         color = ((ColorDrawable) background).getColor();
                     }
-                    if(color==getResources().getColor(R.color.Green)){
+                    if(color==getResources().getColor(R.color.lima)){
                         view.setBackgroundColor(getResources().getColor(R.color.White));
                         seleccionado.set(i, false);
                     } else {
-                        view.setBackgroundColor(getResources().getColor(R.color.Green));
+                        view.setBackgroundColor(getResources().getColor(R.color.lima));
                         seleccionado.set(i, true);
                     }
                 }
@@ -219,6 +229,8 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
                 }
                 precio.setText("" + ts.getCantidad());
             } else {
+                Snackbar.make(view, "Ticket cobrado", Snackbar.LENGTH_SHORT)
+                        .show();
                 for(Object obj : poSeparado){
                     productsAndOffers.remove(obj);
 
@@ -240,6 +252,9 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
             Intent i = new Intent(CobrarActivity.this, MenuActivity.class);
             startActivity(i);
         }
+        linearLayout.setVisibility(View.VISIBLE);
+        separar.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -301,7 +316,7 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
                 if(seleccionado.get(position)==false){
                     myView.setBackgroundColor(getResources().getColor(R.color.White));
                 } else{
-                    myView.setBackgroundColor(getResources().getColor(R.color.Green));
+                    myView.setBackgroundColor(getResources().getColor(R.color.lima));
                 }
             } else {
                 Oferta oferta = (Oferta) products.get(position);

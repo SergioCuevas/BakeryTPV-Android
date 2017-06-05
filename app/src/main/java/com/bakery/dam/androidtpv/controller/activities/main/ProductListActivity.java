@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -60,12 +61,14 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
     private TextView tvPrecio;
     private ImageView tvMesa;
     private FloatingActionButton fb;
+    private FloatingActionButton modificar;
     private FloatingActionButton cobrar;
     private Long id;
     public int cantidad;
     private Toolbar tb;
     private SwipeRefreshLayout swipeRefreshLayout;
     private List<Integer> imgs = new ArrayList<>();
+    private FrameLayout frameLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +87,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
         //Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbarproductlist);
         setContentView(R.layout.activity_product_list_menu);
         llista= (ListView) findViewById(R.id.productos);
+        frameLayout = (FrameLayout) findViewById(R.id.toolbar2);
         llista.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
         productsAndOffers = new ArrayList<>();
         fb = (FloatingActionButton) findViewById(R.id.addProduct);
@@ -91,6 +95,15 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(ProductListActivity.this, CreacionTicketActivity.class);
+                i.putExtra("id", id);
+                startActivity(i);
+            }
+        });
+        modificar = (FloatingActionButton) findViewById(R.id.modificar);
+        modificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ProductListActivity.this, CambiarMesaActivity.class);
                 i.putExtra("id", id);
                 startActivity(i);
             }
@@ -151,6 +164,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
         productos = new ArrayList<>();
         offers = new ArrayList<>();
         quantity = new ArrayList<>();
+        frameLayout.setVisibility(View.INVISIBLE);
         TicketManager.getInstance().getTicketById(ProductListActivity.this, id);
 
         OfferManager.getInstance().getOffersByTicket(ProductListActivity.this, id);
@@ -195,6 +209,7 @@ public class ProductListActivity extends BaseActivity implements ProductCallback
             llista.setAdapter(new ProductListActivity.ProductsAdapter(this, productsAndOffers, quantity));
         }
         swipeRefreshLayout.setRefreshing(false);
+        frameLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

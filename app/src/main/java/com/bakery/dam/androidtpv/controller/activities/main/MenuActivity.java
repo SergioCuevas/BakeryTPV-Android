@@ -92,16 +92,6 @@ public class MenuActivity extends BaseActivity
         setSupportActionBar(toolbar);
         llista= (ListView) findViewById(R.id.llista);
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MenuActivity.this, CrearTicketActivity.class);
-                startActivity(i);
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -116,6 +106,7 @@ public class MenuActivity extends BaseActivity
     public void onResume() {
         super.onResume();
         TicketManager.getInstance().getAllTickets(MenuActivity.this);
+        swipeRefreshLayout.setVisibility(View.INVISIBLE);
     }
 
     /*@Override
@@ -140,6 +131,9 @@ public class MenuActivity extends BaseActivity
                         Intent intent = new Intent(MenuActivity.this, ProductListActivity.class);
                         intent.putExtra("id", (long) tickets.get(i).getId());
                         startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(MenuActivity.this, CrearTicketActivity.class);
+                        startActivity(intent);
                     }
                 }
             });
@@ -148,6 +142,7 @@ public class MenuActivity extends BaseActivity
             startActivity(intent);
         }
         swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -158,9 +153,7 @@ public class MenuActivity extends BaseActivity
 
     @Override
     public void onFailure(Throwable t) {
-        Intent i = new Intent(MenuActivity.this, LoginActivity.class);
-        startActivity(i);
-        finish();
+
     }
     public class PartsAdapter extends BaseAdapter {
         private Context context;
@@ -182,7 +175,7 @@ public class MenuActivity extends BaseActivity
 
         @Override
         public long getItemId(int position) {
-            int id= (int) tickets.get(position).getId();
+            int id= (int) 0;
             return id;
         }
 
@@ -200,7 +193,6 @@ public class MenuActivity extends BaseActivity
         public View getView(final int position, View convertView, ViewGroup parent) {
             if (tickets.get(position).getMesa() != null) {
                 View myView = convertView;
-                if (myView == null) {
                     //Inflo la lista con el layout que he creado (llista_item)
                     LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
                     myView = inflater.inflate(R.layout.llista_item, parent, false);
@@ -250,8 +242,6 @@ public class MenuActivity extends BaseActivity
                     });
 
 
-                }
-                MenuActivity.PartsAdapter.ViewHolder holder = (MenuActivity.PartsAdapter.ViewHolder) myView.getTag();
 
                 //Voy asignando los datos
                 Ticket ticket = tickets.get(position);
@@ -283,20 +273,11 @@ public class MenuActivity extends BaseActivity
                 View myView;
 
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-                myView = inflater.inflate(R.layout.llista_item, parent, false);
+                myView = inflater.inflate(R.layout.item_add, parent, false);
                 MenuActivity.PartsAdapter.ViewHolder holder = new MenuActivity.PartsAdapter.ViewHolder();
-                holder.tvMesa = (ImageView) myView.findViewById(R.id.mesa);
-                holder.tvFecha = (TextView) myView.findViewById(R.id.fecha);
-                holder.tvPrecio = (TextView) myView.findViewById(R.id.precio);
-                holder.ivImage = (ImageView) myView.findViewById(R.id.table);
-                holder.ivImage2 = (ImageView) myView.findViewById(R.id.imageView2);
+                holder.tvMesa = (ImageView) myView.findViewById(R.id.add);
                 myView.setTag(holder);
-                if(position%2==0){
-                    myView.setBackgroundColor(Color.rgb(255, 246 ,238));
-                }
-                else {
-                    myView.setBackgroundColor(Color.rgb(255, 255 ,255));
-                }
+                holder.tvMesa.setImageResource(R.drawable.addrojo);
                 return myView;
             }
         }

@@ -25,7 +25,9 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,7 +62,9 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
     private EditText search;
     public long id;
     private ImageButton searchButton;
+    private LinearLayout linearLayout;
     View view;
+    private RelativeLayout back;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,20 +72,24 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
         search = (EditText) view.findViewById(R.id.search);
         searchButton = (ImageButton) view.findViewById(R.id.searchbutton);
         llista= (GridView) view.findViewById(R.id.list_view_productos);
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearbuscador);
+        back = (RelativeLayout) view.findViewById(R.id.backg);
         tipos=new ArrayList<>();
         tipos.add("Todos");
         tipos.add("Ofertas");
         CreacionTicketActivity ca=new CreacionTicketActivity();
         spinner= (Spinner) view.findViewById(R.id.spinnertipos);
         TipoManager.getInstance().getAllTipos(FragmentProductos.this);
-        ProductManager.getInstance().getAllProductos(FragmentProductos.this);
-        OfferManager.getInstance().getAllOffers(FragmentProductos.this);
+        /*ProductManager.getInstance().getAllProductos(FragmentProductos.this);
+        OfferManager.getInstance().getAllOffers(FragmentProductos.this);*/
         search.clearFocus();
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!search.getText().toString().equals("")){
                     productos = new ArrayList<>();
+                    llista.setVisibility(View.GONE);
+                    linearLayout.setVisibility(View.GONE);
                     ProductManager.getInstance().getProductsByNombre(FragmentProductos.this, search.getText().toString());
                     KeyboardUtil k = new KeyboardUtil();
                     k.hideKeyboard((Activity) view.getContext());
@@ -119,6 +127,10 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
             productos.add(p);
         }
         Update();
+        llista.setVisibility(View.VISIBLE);
+        linearLayout.setVisibility(View.VISIBLE);
+        back.setBackgroundColor(getResources().getColor(R.color.LightSlateGray));
+
     }
 
     @Override
@@ -127,6 +139,8 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
         for (Oferta o:offersList){
             productos.add(o);
         }
+        llista.setVisibility(View.VISIBLE);
+        linearLayout.setVisibility(View.VISIBLE);
         ProductoAdapter pa = new ProductoAdapter(this.getContext(), productos);
         Update();
     }
@@ -134,6 +148,9 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
 
     @Override
     public void onSuccessTipo(Object o) {
+        llista.setVisibility(View.VISIBLE);
+        linearLayout.setVisibility(View.VISIBLE);
+        back.setBackgroundColor(getResources().getColor(R.color.LightSlateGray));
         final List<Tipo>tiposList= (List<Tipo>) o;
         for (Tipo t:tiposList){
             tipos.add(t.getNombre());
@@ -142,6 +159,9 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                llista.setVisibility(View.INVISIBLE);
+
+                back.setBackgroundColor(getResources().getColor(R.color.White));
                 if(tipos.get(i).equals("Todos")){
                     productos=new ArrayList<>();
                     ProductManager.getInstance().getAllProductos(FragmentProductos.this);
@@ -171,16 +191,16 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(productos.get(i) instanceof Producto){
                     TicketManager.getInstance().updateTicketProducto(FragmentProductos.this, (Producto) productos.get(i), id);
-                    Snackbar.make(view, "¡"+((Producto) productos.get(i)).getNombre()+" añadido!", Snackbar.LENGTH_SHORT)
-                            .show();
+                    llista.setVisibility(View.INVISIBLE);
+                    back.setBackgroundColor(getResources().getColor(R.color.White));
                     /*Toast toast2 =
                             Toast.makeText(view.getContext(),
                                     "¡"+((Producto) productos.get(i)).getNombre()+" añadido!", Toast.LENGTH_SHORT);
                     toast2.show();*/
                 } else {
                     TicketManager.getInstance().updateTicketOferta(FragmentProductos.this, (Oferta) productos.get(i), id);
-                    Snackbar.make(view, "¡"+((Oferta) productos.get(i)).getNombre()+" añadido!", Snackbar.LENGTH_SHORT)
-                            .show();
+                    llista.setVisibility(View.INVISIBLE);
+                    back.setBackgroundColor(getResources().getColor(R.color.White));
                     /*Toast toast2 =
                             Toast.makeText(view.getContext(),
                                     "¡"+((Oferta) productos.get(i)).getNombre()+" añadido!", Toast.LENGTH_SHORT);
@@ -192,7 +212,11 @@ public class FragmentProductos extends Fragment implements ProductCallback, Offe
 
     @Override
     public void onSuccessTicket(Object o) {
-
+        llista.setVisibility(View.VISIBLE);
+        linearLayout.setVisibility(View.VISIBLE);
+        back.setBackgroundColor(getResources().getColor(R.color.LightSlateGray));
+        Snackbar.make(view, "Producto añadido!", Snackbar.LENGTH_SHORT)
+                .show();
     }
 
     @Override

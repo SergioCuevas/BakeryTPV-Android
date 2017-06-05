@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/contenido2"
     tools:context="com.bakery.dam.androidtpv.controller.activities.main.ProductListActivity">
 
 
@@ -12,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:visibility="gone"
         app:fabSize="mini"
         app:srcCompat="@drawable/separado" />
 
@@ -23,6 +25,7 @@
         android:elevation="1dp"
         android:orientation="vertical"
         android:padding="10dp"
+        android:visibility="gone"
         android:weightSum="1">
 
         <TextView
@@ -54,6 +57,24 @@
             android:layout_height="wrap_content"
             android:text="Cobrar"
             android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/login_progress_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/progress_cobrar"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:padding="150dp" />
     </LinearLayout>
 
 </RelativeLayout>

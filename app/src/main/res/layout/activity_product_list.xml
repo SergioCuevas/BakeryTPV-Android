@@ -7,6 +7,23 @@
     tools:context="com.bakery.dam.androidtpv.controller.activities.main.ProductListActivity">
 
 
+    <LinearLayout
+        android:id="@+id/login_progress_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/progress_cobrar"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:padding="150dp" />
+    </LinearLayout>
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,19 +42,31 @@
         android:id="@+id/toolbar2"
         android:layout_width="385dp"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="false"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/modificar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="150dp"
+            android:layout_marginRight="8dp"
+            android:alpha="1"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/shuffle" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/addProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="8dp"
             android:tint="@color/white"
-            android:layout_margin="@dimen/fab_margin"
             app:srcCompat="@drawable/add" />
 
         <android.support.design.widget.FloatingActionButton
@@ -45,8 +74,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginBottom="150dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginBottom="85dp"
+            android:layout_marginRight="8dp"
+            android:alpha="1"
             android:tint="@color/white"
             app:srcCompat="@drawable/pay" />
 

@@ -3,9 +3,11 @@ package com.bakery.dam.androidtpv.controller.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.bakery.dam.androidtpv.R;
 import com.bakery.dam.androidtpv.controller.activities.main.MenuActivity;
@@ -23,18 +25,24 @@ public class CrearTicketActivity extends AppCompatActivity implements TicketCall
 
     private EditText et;
     private Button btn;
-
+    private Toolbar toolbar;
+    private LinearLayout cargacrear;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_ticket);
         et= (EditText) findViewById(R.id.mesanumber);
         btn = (Button) findViewById(R.id.crearticket);
-
+        toolbar = (Toolbar) findViewById(R.id.barra);
+        cargacrear = (LinearLayout) findViewById(R.id.cargarcreacion);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!et.getText().toString().equals("")) {
+                    toolbar.setVisibility(View.INVISIBLE);
+                    btn.setVisibility(View.INVISIBLE);
+                    et.setVisibility(View.INVISIBLE);
+                    cargacrear.setVisibility(View.VISIBLE);
                     Ticket ticket = new Ticket();
                     String text = et.getText().toString();
                     int mesa = Integer.parseInt(text);
