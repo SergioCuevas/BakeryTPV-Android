@@ -37,7 +37,7 @@ public class CambiarMesaActivity extends AppCompatActivity implements TicketCall
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!et.getText().toString().equals("")) {
+                if(!et.getText().toString().equals("")&&(Integer.parseInt(et.getText().toString())<=10&&Integer.parseInt(et.getText().toString())>=0)) {
                     toolbar.setVisibility(View.INVISIBLE);
                     btn.setVisibility(View.INVISIBLE);
                     et.setVisibility(View.INVISIBLE);

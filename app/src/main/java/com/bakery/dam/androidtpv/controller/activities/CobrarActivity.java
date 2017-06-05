@@ -91,35 +91,43 @@ public class CobrarActivity extends BaseActivity implements TicketCallback, Prod
                             }
                         }
                     }
-                    for(Object o : poSeparado){
-                        if(o instanceof Producto) {
-                            for (int i = ts.getProductos().size()-1; i >=0;i--){
-                                if(ts.getProductos().get(i).getId()==((Producto) o).getId()){
-                                    ts.setCantidad(ts.getCantidad().subtract(((Producto) o).getPrecio()));
-                                    ts.getProductos().remove(i);
+                    if(poSeparado.size()>0) {
+                        for (Object o : poSeparado) {
+                            if (o instanceof Producto) {
+                                for (int i = ts.getProductos().size() - 1; i >= 0; i--) {
+                                    if (ts.getProductos().get(i).getId() == ((Producto) o).getId()) {
+                                        ts.setCantidad(ts.getCantidad().subtract(((Producto) o).getPrecio()));
+                                        ts.getProductos().remove(i);
 
-                                    i=-1;
+                                        i = -1;
+                                    }
+                                }
+                            } else {
+                                for (int i = ts.getOfertas().size() - 1; i >= 0; i--) {
+                                    if (ts.getOfertas().get(i).getId() == ((Oferta) o).getId()) {
+                                        ts.setCantidad(ts.getCantidad().subtract(((Oferta) o).getPrecio()));
+                                        ts.getOfertas().remove(i);
+
+                                        i = -1;
+                                    }
                                 }
                             }
-                        } else {
-                            for (int i = ts.getOfertas().size()-1; i >=0;i--){
-                                if(ts.getOfertas().get(i).getId()==((Oferta) o).getId()){
-                                    ts.setCantidad(ts.getCantidad().subtract(((Oferta) o).getPrecio()));
-                                    ts.getOfertas().remove(i);
 
-                                    i=-1;
-                                }
-                            }
                         }
+                        if (ts.getOfertas().size() == 0 && ts.getProductos().size() == 0) {
+                            ts.setCerrado(true);
+                        }
+                        t.setCerrado(true);
+                        t.setId(null);
+                        TicketManager.getInstance().createTicket(CobrarActivity.this, t);
+                        TicketManager.getInstance().updateTicket(CobrarActivity.this, ts);
+                    } else {
+                        linearLayout.setVisibility(View.VISIBLE);
+                        separar.setVisibility(View.VISIBLE);
+                        Snackbar.make(view, "No has seleccionado ningún producto ni oferta", Snackbar.LENGTH_SHORT)
+                                .show();
 
                     }
-                    if(ts.getOfertas().size()==0&&ts.getProductos().size()==0){
-                        ts.setCerrado(true);
-                    }
-                    t.setCerrado(true);
-                    t.setId(null);
-                    TicketManager.getInstance().createTicket(CobrarActivity.this, t);
-                    TicketManager.getInstance().updateTicket(CobrarActivity.this, ts);
                 }
             }
         });

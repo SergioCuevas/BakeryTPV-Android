@@ -1,6 +1,7 @@
 package com.bakery.dam.androidtpv.controller.activities;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +31,7 @@ public class CrearTicketActivity extends AppCompatActivity implements TicketCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final View myView = findViewById(R.id.alerta);
         setContentView(R.layout.activity_crear_ticket);
         et= (EditText) findViewById(R.id.mesanumber);
         btn = (Button) findViewById(R.id.crearticket);
@@ -38,7 +40,7 @@ public class CrearTicketActivity extends AppCompatActivity implements TicketCall
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!et.getText().toString().equals("")) {
+                if(!et.getText().toString().equals("")&&(Integer.parseInt(et.getText().toString())<=10&&Integer.parseInt(et.getText().toString())>=0)) {
                     toolbar.setVisibility(View.INVISIBLE);
                     btn.setVisibility(View.INVISIBLE);
                     et.setVisibility(View.INVISIBLE);
@@ -52,6 +54,9 @@ public class CrearTicketActivity extends AppCompatActivity implements TicketCall
                     ticket.setProductos(new ArrayList<Producto>());
                     ticket.setOfertas(new ArrayList<Oferta>());
                     TicketManager.getInstance().createTicket(CrearTicketActivity.this, ticket);
+                } else {
+                    Snackbar.make(myView, "El número de la mesa debe estar  entre 0 y 10", Snackbar.LENGTH_SHORT)
+                            .show();
                 }
             }
         });
