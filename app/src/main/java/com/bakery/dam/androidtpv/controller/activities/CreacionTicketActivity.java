@@ -32,7 +32,7 @@ public class CreacionTicketActivity extends AppCompatActivity implements Product
 
         // Setear adaptador al viewpager.
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.ViewPagerPrincipal);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.ViewPagerPrincipal);
         Adapter_ViewPager adapter_viewPager = new Adapter_ViewPager(getSupportFragmentManager(),tabs.getTabCount(), id);
         viewPager.setAdapter(adapter_viewPager);
         tabs.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -49,7 +49,7 @@ public class CreacionTicketActivity extends AppCompatActivity implements Product
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
