@@ -9,5 +9,5 @@ public class CustomProperties {
     public static String clientSecret = "my-secret-token-to-change-in-production";
     public static String grantType = "password";
     public static String scope = "read write";
-    public static String baseUrl = "http://192.168.1.131:8080";//http://bakerytpv.us-east-2.elasticbeanstalk.com/#/
+    public static String baseUrl = "http://bakerytpv.us-east-2.elasticbeanstalk.com/#/";//http://bakerytpv.us-east-2.elasticbeanstalk.com/#/
 }
